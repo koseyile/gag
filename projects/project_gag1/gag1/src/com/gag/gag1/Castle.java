@@ -14,18 +14,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.badlogicgames.superjumper;
+package com.gag.gag1;
 
-import android.os.Bundle;
+public class Castle extends GameObject {
+	public static float CASTLE_WIDTH = 1.7f;
+	public static float CASTLE_HEIGHT = 1.7f;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.gag.gag1.GagGame;
-
-public class SuperJumperAndroid extends AndroidApplication {
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate (Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		initialize(new GagGame(), false);
+	public Castle (float x, float y) {
+		super(x, y, CASTLE_WIDTH, CASTLE_HEIGHT);
 	}
+
 }
