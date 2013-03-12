@@ -16,15 +16,24 @@
 
 package com.badlogicgames.superjumper;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.gag.gag1.Assets;
 import com.gag.gag1.GagGame;
 
 public class SuperJumperAndroid extends AndroidApplication {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate (Bundle savedInstanceState) {
+		if(Assets.enableGagGame)
+		{
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		}else{
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		}
+		
 		super.onCreate(savedInstanceState);
 		initialize(new GagGame(), false);
 	}

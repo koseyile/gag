@@ -55,6 +55,8 @@ public class Assets {
 	public static Sound hitSound;
 	public static Sound coinSound;
 	public static Sound clickSound;
+	
+	public static final boolean enableGagGame = false;
 
 	public static Texture loadTexture (String file) {
 		return new Texture(Gdx.files.internal(file));

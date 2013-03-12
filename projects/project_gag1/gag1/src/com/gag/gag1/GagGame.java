@@ -28,7 +28,12 @@ public class GagGame extends Game {
 	public void create () {
 		Settings.load();
 		Assets.load();
-		setScreen(new MainMenuScreen(this));
+		if(Assets.enableGagGame)
+		{
+			setScreen(new GagGameScreen(this));
+		}else{
+			setScreen(new MainMenuScreen(this));
+		}
 		fps = new FPSLogger();
 	}
 	
