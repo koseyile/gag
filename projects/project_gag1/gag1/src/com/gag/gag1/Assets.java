@@ -27,6 +27,9 @@ public class Assets {
 	public static Texture background;
 	public static TextureRegion backgroundRegion;
 
+	public static Texture testTex;
+	public static TextureRegion testTexRegion;
+	
 	public static Texture items;
 	public static TextureRegion mainMenu;
 	public static TextureRegion pauseMenu;
@@ -65,6 +68,9 @@ public class Assets {
 	public static void load () {
 		background = loadTexture("data/background.png");
 		backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
+		
+		testTex = loadTexture("data/test.png");
+		testTexRegion = new TextureRegion(testTex, 0, 0, 128, 128);
 
 		items = loadTexture("data/items.png");
 		mainMenu = new TextureRegion(items, 0, 224, 300, 110);
