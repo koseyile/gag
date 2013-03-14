@@ -25,11 +25,19 @@ public class GagGameScreen implements Screen {
 		MoveState_Right,
 	};
 	MoveState m_CurMoveState;
-	int m_LeftOrRight;
+	int m_PlayerFaceToRight;
 	float m_PlyerDisWidth;
 	float m_PlyerDisHeight;
 	float m_PlayerPosX;
 	float m_PlayerPosY;
+	
+	float m_WordMinX;
+	float m_WordMinY;
+	float m_WordMaxX;
+	float m_WordMaxY;
+	
+	float m_Word_g;
+	float m_PlayerDownSpeed;
 	
 	public GagGameScreen (Game game) {
 		this.game = game;
@@ -39,11 +47,19 @@ public class GagGameScreen implements Screen {
 		batcher = new SpriteBatch();
 
 		m_CurMoveState = MoveState.MoveState_Stand;
-		m_LeftOrRight = 1;
+		m_PlayerFaceToRight = 1;
 		m_PlyerDisWidth = 32f;
 		m_PlyerDisHeight = 32f;
 		m_PlayerPosX = 16f;
-		m_PlayerPosY = 16f;
+		m_PlayerPosY = 100f;
+
+		m_WordMinX = 0f;
+		m_WordMinY = 0f;
+		m_WordMaxX = Gdx.graphics.getWidth();
+		m_WordMaxY = Gdx.graphics.getHeight();
+		
+		m_Word_g = 1.0f;
+		m_PlayerDownSpeed = 0.0f;
 	}
 	
 	public void update(float delta)
@@ -54,8 +70,33 @@ public class GagGameScreen implements Screen {
 		boolean bMoveLeft = false;
 		
 		ApplicationType appType = Gdx.app.getType();
-		if (appType == ApplicationType.Android || appType == ApplicationType.iOS) {
-
+		if (appType == ApplicationType.Android || appType == ApplicationType.iOS) 
+		{
+			float AX = Gdx.input.getAccelerometerX();
+			float AY = Gdx.input.getAccelerometerY();
+			float AZ = Gdx.input.getAccelerometerZ();
+			
+			if( AY<-2f )
+			{
+				bMoveLeft = true;
+			}
+			
+			if( AY>2f )
+			{
+				bMoveRight = true;
+			}
+			
+			if( AX>5f )
+			{
+				m_Word_g=Math.abs(m_Word_g);
+			}
+			
+			if( AX<-5f )
+			{
+				m_Word_g=-Math.abs(m_Word_g);
+			}
+			
+			
 			//if (Gdx.input.justTouched())
 			if (Gdx.input.isTouched())
 			{
@@ -72,9 +113,15 @@ public class GagGameScreen implements Screen {
 				}else{
 					bMoveLeft = true;
 				}
+				
+				Gdx.app.log("GAG", "AX : " + AX);
+				Gdx.app.log("GAG", "AY : " + AY);
+				Gdx.app.log("GAG", "AZ : " + AZ);
+				
 			}
 			
 		} else {
+			
 			if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT))
 			{
 				bMoveRight = true;
@@ -85,6 +132,17 @@ public class GagGameScreen implements Screen {
 				bMoveLeft = true;
 			}
 			
+			if (Gdx.input.isKeyPressed(Keys.DPAD_DOWN))
+			{
+				m_Word_g=Math.abs(m_Word_g);
+			}		
+			
+			if (Gdx.input.isKeyPressed(Keys.DPAD_UP))
+			{
+				m_Word_g=-Math.abs(m_Word_g);
+			}
+		
+			
 		}
 		
 		m_CurMoveState = MoveState.MoveState_Stand;
@@ -92,16 +150,42 @@ public class GagGameScreen implements Screen {
 		if(bMoveRight)
 		{
 			m_CurMoveState = MoveState.MoveState_Right;
-			m_LeftOrRight = 1;
-			m_PlayerPosX+=1f;	
+			m_PlayerFaceToRight = 1;
+			m_PlayerPosX+=2f;	
 		}
 		
 		if(bMoveLeft)
 		{
 			m_CurMoveState = MoveState.MoveState_Left;
-			m_LeftOrRight = -1;
-			m_PlayerPosX-=1f;
+			m_PlayerFaceToRight = -1;
+			m_PlayerPosX-=2f;
 		}
+		
+		m_PlayerDownSpeed+=m_Word_g;
+		m_PlayerPosY-=m_PlayerDownSpeed;
+		
+		if( m_PlayerPosX<(m_WordMinX+m_PlyerDisWidth/2) )
+		{
+			m_PlayerPosX = (m_WordMinX+m_PlyerDisWidth/2);
+		}
+		
+		if( m_PlayerPosX>(m_WordMaxX-m_PlyerDisWidth/2) )
+		{
+			m_PlayerPosX = (m_WordMaxX-m_PlyerDisWidth/2);
+		}
+		
+		if( m_PlayerPosY<(m_WordMinY+m_PlyerDisHeight/2) )
+		{
+			m_PlayerPosY = (m_WordMinY+m_PlyerDisHeight/2);
+			m_PlayerDownSpeed = 0.0f;
+		}
+		
+		if( m_PlayerPosY>(m_WordMaxY-m_PlyerDisHeight/2) )
+		{
+			m_PlayerPosY = (m_WordMaxY-m_PlyerDisHeight/2);
+			m_PlayerDownSpeed = 0.0f;
+		}
+		
 	}
 	
 	public void draw()
@@ -145,16 +229,23 @@ public class GagGameScreen implements Screen {
 		float x = m_PlayerPosX;
 		float y = m_PlayerPosY;
 		
-		if( m_LeftOrRight<0 )
+		if( m_PlayerFaceToRight<0 )
 		{
 			x+=(m_PlyerDisWidth/2);
-			y-=(m_PlyerDisHeight/2);
 		}else{
 			x-=(m_PlyerDisWidth/2);
+		}
+		
+		int gIsDown = m_Word_g>0f ? 1 : -1;
+		
+		if( gIsDown<0 )
+		{
+			y+=(m_PlyerDisHeight/2);
+		}else{
 			y-=(m_PlyerDisHeight/2);
 		}
 		
-		batcher.draw(keyFrame,  x, y, m_PlyerDisWidth*m_LeftOrRight, m_PlyerDisHeight);
+		batcher.draw(keyFrame,  x, y, m_PlyerDisWidth*m_PlayerFaceToRight, m_PlyerDisHeight*gIsDown);
 		
 		batcher.end();		
 	}
