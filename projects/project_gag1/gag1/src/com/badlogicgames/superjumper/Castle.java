@@ -16,25 +16,12 @@
 
 package com.badlogicgames.superjumper;
 
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
+public class Castle extends GameObject {
+	public static float CASTLE_WIDTH = 1.7f;
+	public static float CASTLE_HEIGHT = 1.7f;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogicgames.superjumper.Assets;
-import com.gag.gag1.GagGame;
-
-public class SuperJumperAndroid extends AndroidApplication {
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate (Bundle savedInstanceState) {
-		if(Assets.enableGagGame)
-		{
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		}else{
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		}
-		
-		super.onCreate(savedInstanceState);
-		initialize(new GagGame(), false);
+	public Castle (float x, float y) {
+		super(x, y, CASTLE_WIDTH, CASTLE_HEIGHT);
 	}
+
 }

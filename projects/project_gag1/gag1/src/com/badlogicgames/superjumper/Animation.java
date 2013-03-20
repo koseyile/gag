@@ -16,25 +16,28 @@
 
 package com.badlogicgames.superjumper;
 
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogicgames.superjumper.Assets;
-import com.gag.gag1.GagGame;
+public class Animation {
+	public static final int ANIMATION_LOOPING = 0;
+	public static final int ANIMATION_NONLOOPING = 1;
 
-public class SuperJumperAndroid extends AndroidApplication {
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate (Bundle savedInstanceState) {
-		if(Assets.enableGagGame)
-		{
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		}else{
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	final TextureRegion[] keyFrames;
+	final float frameDuration;
+
+	public Animation (float frameDuration, TextureRegion... keyFrames) {
+		this.frameDuration = frameDuration;
+		this.keyFrames = keyFrames;
+	}
+
+	public TextureRegion getKeyFrame (float stateTime, int mode) {
+		int frameNumber = (int)(stateTime / frameDuration);
+
+		if (mode == ANIMATION_NONLOOPING) {
+			frameNumber = Math.min(keyFrames.length - 1, frameNumber);
+		} else {
+			frameNumber = frameNumber % keyFrames.length;
 		}
-		
-		super.onCreate(savedInstanceState);
-		initialize(new GagGame(), false);
+		return keyFrames[frameNumber];
 	}
 }

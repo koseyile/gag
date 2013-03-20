@@ -19,6 +19,9 @@ package com.gag.gag1;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogicgames.superjumper.Assets;
+import com.badlogicgames.superjumper.MainMenuScreen;
+import com.badlogicgames.superjumper.Settings;
 
 public class GagGame extends Game {
 	boolean firstTimeCreate = true;

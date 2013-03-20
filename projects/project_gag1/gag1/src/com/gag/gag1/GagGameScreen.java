@@ -10,7 +10,11 @@ import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogicgames.superjumper.Animation;
+import com.badlogicgames.superjumper.Assets;
 import com.gag.gag1.GagGameScreen.MoveState;
+import com.gag.gag1.func.GagGameRender;
+import com.gag.gag1.struct.GagGamePlayer;
 
 public class GagGameScreen implements Screen {
 
@@ -39,6 +43,8 @@ public class GagGameScreen implements Screen {
 	float m_Word_g;
 	float m_PlayerDownSpeed;
 	
+	public static GagWorld m_GagWorld;
+	
 	public GagGameScreen (Game game) {
 		this.game = game;
 		
@@ -60,10 +66,18 @@ public class GagGameScreen implements Screen {
 		
 		m_Word_g = 1.0f;
 		m_PlayerDownSpeed = 0.0f;
+		
+		m_GagWorld = new GagWorld();
+		//m_GagWorld = null;
 	}
 	
 	public void update(float delta)
 	{
+		if( m_GagWorld!=null )
+		{
+			m_GagWorld.update(delta);
+		}
+		
 		stateTime+=delta;
 		
 		boolean bMoveRight = false;
@@ -122,26 +136,25 @@ public class GagGameScreen implements Screen {
 			
 		} else {
 			
-			if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT))
+			if (Gdx.input.isKeyPressed(Keys.RIGHT))
 			{
 				bMoveRight = true;
 			}
 			
-			if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT))
+			if (Gdx.input.isKeyPressed(Keys.LEFT))
 			{
 				bMoveLeft = true;
 			}
 			
-			if (Gdx.input.isKeyPressed(Keys.DPAD_DOWN))
+			if (Gdx.input.isKeyPressed(Keys.DOWN))
 			{
 				m_Word_g=Math.abs(m_Word_g);
 			}		
 			
-			if (Gdx.input.isKeyPressed(Keys.DPAD_UP))
+			if (Gdx.input.isKeyPressed(Keys.UP))
 			{
 				m_Word_g=-Math.abs(m_Word_g);
 			}
-		
 			
 		}
 		
@@ -191,6 +204,16 @@ public class GagGameScreen implements Screen {
 	public void draw()
 	{
 		GLCommon gl = Gdx.gl;
+		
+		if(m_GagWorld!=null)
+		{
+			gl.glClearColor(1, 0, 0, 1);
+			gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+			GagGameRender.Draw();
+			return;			
+		}
+
+
 		gl.glClearColor(1, 0, 0, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		guiCam.update();

@@ -16,25 +16,15 @@
 
 package com.badlogicgames.superjumper;
 
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
+import com.badlogic.gdx.math.Vector2;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogicgames.superjumper.Assets;
-import com.gag.gag1.GagGame;
+public class DynamicGameObject extends GameObject {
+	public final Vector2 velocity;
+	public final Vector2 accel;
 
-public class SuperJumperAndroid extends AndroidApplication {
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate (Bundle savedInstanceState) {
-		if(Assets.enableGagGame)
-		{
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		}else{
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		}
-		
-		super.onCreate(savedInstanceState);
-		initialize(new GagGame(), false);
+	public DynamicGameObject (float x, float y, float width, float height) {
+		super(x, y, width, height);
+		velocity = new Vector2();
+		accel = new Vector2();
 	}
 }

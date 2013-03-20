@@ -16,25 +16,19 @@
 
 package com.badlogicgames.superjumper;
 
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
+public class Coin extends GameObject {
+	public static final float COIN_WIDTH = 0.5f;
+	public static final float COIN_HEIGHT = 0.8f;
+	public static final int COIN_SCORE = 10;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogicgames.superjumper.Assets;
-import com.gag.gag1.GagGame;
+	float stateTime;
 
-public class SuperJumperAndroid extends AndroidApplication {
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate (Bundle savedInstanceState) {
-		if(Assets.enableGagGame)
-		{
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		}else{
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		}
-		
-		super.onCreate(savedInstanceState);
-		initialize(new GagGame(), false);
+	public Coin (float x, float y) {
+		super(x, y, COIN_WIDTH, COIN_HEIGHT);
+		stateTime = 0;
+	}
+
+	public void update (float deltaTime) {
+		stateTime += deltaTime;
 	}
 }
