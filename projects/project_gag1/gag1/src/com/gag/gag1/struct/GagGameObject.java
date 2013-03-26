@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public class GagGameObject {
 	public final Vector2 postion;
 	public final Rectangle bounds;
+	public float downSpeed;
 	
 	static final float DEFAULT_X = 0;
 	static final float DEFAULT_Y = 0;
@@ -15,8 +16,9 @@ public class GagGameObject {
 	public GagGameObject()
 	{
 		postion = new Vector2(DEFAULT_X, DEFAULT_Y);
-		bounds = new Rectangle(DEFAULT_X - DEFAULT_WIDTH / 2, 
-									  DEFAULT_Y - DEFAULT_HEIGHT / 2, 
+		bounds = new Rectangle(0, 0, 
 									  DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		
+		downSpeed = 0f;
 	}
 }

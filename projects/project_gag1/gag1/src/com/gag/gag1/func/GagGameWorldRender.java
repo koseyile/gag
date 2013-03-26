@@ -1,10 +1,12 @@
 package com.gag.gag1.func;
 
 import com.badlogicgames.superjumper.Animation;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogicgames.superjumper.Assets;
 import com.gag.gag1.GagGameScreen;
 import com.gag.gag1.GagWorld;
+import com.gag.gag1.struct.GagGamePlatform;
 import com.gag.gag1.struct.GagGamePlayer;
 
 public class GagGameWorldRender {
@@ -19,6 +21,14 @@ public class GagGameWorldRender {
 		
 		DrawBackGround();
 		DrawPlayer();
+		
+		int len = gagWorld.m_Platforms.size();
+		for (int i = 0; i < len; i++) 
+		{
+			GagGamePlatform platform = gagWorld.m_Platforms.get(i);
+			DrawPlatform(platform);
+		}
+		
 	}
 	
 	public static void DrawBackGround()
@@ -52,7 +62,20 @@ public class GagGameWorldRender {
 		}
 		
 		TextureRegion keyFrame = animation.getKeyFrame(player.PassTime, Animation.ANIMATION_LOOPING);
-		GagGameRender.DrawTexByCenter(keyFrame, player.postion.x, player.postion.y, player.bounds.width, player.bounds.height, player.CurReverseX, false);	
+		boolean ReverseY = gagWorld.m_g < 0f ? false : true;
+		GagGameRender.DrawTexByCenter(keyFrame, player.postion.x, player.postion.y, player.bounds.width, player.bounds.height, player.CurReverseX, ReverseY);
 		
+		//GagGameRender.DrawTexByCenter(Assets.testTexRegion, player.postion.x, player.postion.y, player.bounds.width, player.bounds.height, player.CurReverseX, ReverseY);
+		
+	}
+	
+	public static void DrawPlatform(GagGamePlatform platform)
+	{
+		TextureRegion keyFrame = Assets.platform;
+		GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
+		
+		//Texture keyFrame = Assets.testTex;
+		//GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
+
 	}
 }

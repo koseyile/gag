@@ -2,6 +2,7 @@ package com.gag.gag1.func;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogicgames.superjumper.Animation;
@@ -60,14 +61,26 @@ public class GagGameRender {
 		batcher.draw(tex,  x, y, w*flag_x, h*flag_y);
 	}
 	
-	public static void DrawWorldBackGround()
+	public static void DrawTexByCenter(Texture tex, float x, float y, float w, float h, boolean reverse_x, boolean reverse_y)
 	{
-		batcher.draw(Assets.backgroundRegion, 0, 0, guiCam.viewportWidth, guiCam.viewportHeight);
-	}
-	
-	public static void DrawPlayer()
-	{
+		if( reverse_x )
+		{
+			x+=(w/2);
+		}else{
+			x-=(w/2);
+		}
 		
+		if( reverse_y )
+		{
+			y+=(h/2);
+		}else{
+			y-=(h/2);
+		}
+		
+		int flag_x = reverse_x ? -1 : 1;
+		int flag_y = reverse_y ? -1 : 1;
+		
+		batcher.draw(tex,  x, y, w*flag_x, h*flag_y);
 	}
 	
 }
