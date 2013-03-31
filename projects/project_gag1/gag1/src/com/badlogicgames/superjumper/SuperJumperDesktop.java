@@ -23,7 +23,7 @@ public class SuperJumperDesktop {
 	public static void main (String[] argv) {
 		if(Assets.enableGagGame)
 		{
-			new LwjglApplication(new GagGame(), "Super Jumper", 640, 480, false);
+			new LwjglApplication(new GagGame(), "Super Jumper", 800, 480, false);
 		}else{
 			new LwjglApplication(new GagGame(), "Super Jumper", 320, 480, false);
 		}

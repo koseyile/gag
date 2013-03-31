@@ -149,7 +149,7 @@ public class GagGameObject_Func {
 		float dst_1 = v1.dst(v);
 		float dst_2 = v2.dst(v);
 		
-		if( dst_1>dst_12 || dst_2>dst_12 )
+		if( dst_1>=dst_12 || dst_2>=dst_12 )
 		{
 			return false;
 		}
@@ -221,13 +221,7 @@ public class GagGameObject_Func {
 			}
 		}
 		
-		if( Vector2IsAvailability(L_intersect) )
-		{
-			int i = 0;
-			i++;
-		}
-		
-		if( Vector2IsAvailability(L_intersect) && Vector2IsInCenter(L_intersect, LT, LB) && Vector2IsInCenter(L_intersect, start, temp_end) )
+		if( Vector2IsAvailability(L_intersect) && Vector2IsInCenter(L_intersect, new Vector2(LT.x, LT.y+h/2), new Vector2(LB.x, LB.y-h/2)) && Vector2IsInCenter(L_intersect, start, temp_end) )
 		{
 			L_intersect.x-=(w/2);
 			if( L_intersect.dst2(start)<Nearest_intersect.dst2(start) )
@@ -238,7 +232,7 @@ public class GagGameObject_Func {
 		}
 		
 
-		if( Vector2IsAvailability(R_intersect) && Vector2IsInCenter(R_intersect, RT, RB) && Vector2IsInCenter(R_intersect, start, temp_end) )
+		if( Vector2IsAvailability(R_intersect) && Vector2IsInCenter(R_intersect, new Vector2(RT.x, RT.y+h/2), new Vector2(RB.x, RB.y-h/2)) && Vector2IsInCenter(R_intersect, start, temp_end) )
 		{
 			R_intersect.x+=(w/2);
 			if( R_intersect.dst2(start)<Nearest_intersect.dst2(start) )

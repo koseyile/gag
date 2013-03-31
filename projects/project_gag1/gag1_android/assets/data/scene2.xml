@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+    
+ 	<object id="Player">
+		<x>16</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+	</object>
+	   
+    <object id="Door1">
+		<x>20</x>
+		<y>20</y>
+		<w>50</w>
+		<h>50</h>
+	</object>
+	
+	<object id="Platform">
+		<x>200</x>
+		<y>20</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Platform">
+		<x>32</x>
+		<y>100</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Platform">
+		<x>96</x>
+		<y>100</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Platform">
+		<x>160</x>
+		<y>100</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Platform">
+		<x>224</x>
+		<y>100</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Platform">
+		<x>320</x>
+		<y>200</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Platform">
+		<x>420</x>
+		<y>250</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Platform">
+		<x>520</x>
+		<y>300</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Platform">
+		<x>620</x>
+		<y>350</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Platform">
+		<x>720</x>
+		<y>400</y>
+		<w>64</w>
+		<h>16</h>
+	</object>
+	
+	<object id="Door2">
+		<x>720</x>
+		<y>420</y>
+		<w>50</w>
+		<h>50</h>
+	</object>
+	
+</scene>

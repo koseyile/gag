@@ -4,8 +4,11 @@ import com.badlogicgames.superjumper.Animation;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogicgames.superjumper.Assets;
+import com.gag.gag1.GagGameConfig;
 import com.gag.gag1.GagGameScreen;
 import com.gag.gag1.GagWorld;
+import com.gag.gag1.struct.GagGameDoor;
+import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGamePlatform;
 import com.gag.gag1.struct.GagGamePlayer;
 
@@ -20,15 +23,52 @@ public class GagGameWorldRender {
 		}
 		
 		DrawBackGround();
-		DrawPlayer();
 		
-		int len = gagWorld.m_Platforms.size();
-		for (int i = 0; i < len; i++) 
+		int len = gagWorld.m_Objects.size();
+		for (int i = 0; i < len; i++)
 		{
-			GagGamePlatform platform = gagWorld.m_Platforms.get(i);
-			DrawPlatform(platform);
+			GagGameObject object = gagWorld.m_Objects.get(i);
+			
+			switch( object.objectType )
+			{
+				case ObjectType_Ojbect:
+					{
+						
+					}
+					break;
+				case ObjectType_Plaform:
+					{
+						DrawPlatform((GagGamePlatform)object);
+					}
+					break;
+				case ObjectType_Door:
+					{
+						DrawDoor((GagGameDoor)object);
+					}
+					break;
+			}
+
 		}
 		
+		DrawPlayer();
+	
+		switch( gagWorld.m_WorldState )
+		{
+			case WorldState_FadeIn:
+				{
+					GagGameRender.batcher.setColor(0, 0, 0, 1f-(gagWorld.m_FadeInTime/GagGameConfig.FadeInTime));
+					GagGameRender.batcher.draw(Assets.testTex, 0, 0, GagGameRender.guiCam.viewportWidth, GagGameRender.guiCam.viewportHeight);
+					GagGameRender.batcher.setColor(1, 1, 1, 1);
+				}
+				break;
+			case WorldState_FadeOut:
+				{
+					GagGameRender.batcher.setColor(0, 0, 0, (gagWorld.m_FadeOutTime/GagGameConfig.FadeInTime));
+					GagGameRender.batcher.draw(Assets.testTex, 0, 0, GagGameRender.guiCam.viewportWidth, GagGameRender.guiCam.viewportHeight);
+					GagGameRender.batcher.setColor(1, 1, 1, 1);					
+				}
+				break;
+		}
 	}
 	
 	public static void DrawBackGround()
@@ -76,6 +116,14 @@ public class GagGameWorldRender {
 		
 		//Texture keyFrame = Assets.testTex;
 		//GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
+	}
+	
+	public static void DrawDoor(GagGameDoor door)
+	{
+		TextureRegion keyFrame = Assets.castle;
+		GagGameRender.DrawTexByCenter(keyFrame, door.postion.x, door.postion.y, door.bounds.width, door.bounds.height, false, false);
 
+//		Texture keyFrame = Assets.testTex;
+//		GagGameRender.DrawTexByCenter(keyFrame, door.postion.x, door.postion.y, door.bounds.width, door.bounds.height, false, false);
 	}
 }
