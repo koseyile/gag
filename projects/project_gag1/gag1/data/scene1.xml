@@ -63,5 +63,13 @@
 		<w>50</w>
 		<h>50</h>
 	</object>
+
+	<object id="Treasure">
+		<x>300</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>athwartWorld</TreasureType>
+	</object>
 	
 </scene>

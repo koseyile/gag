@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gag.gag1.GagGameConfig;
+import com.gag.gag1.GagWorld;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGamePlayer;
 
@@ -43,9 +44,9 @@ public class GagGameObject_Func {
 		}
 	}
 	
-	public static void UpdatePlayerPosByTouch(boolean bTouched, float TouchX, float ScreenW, GagGamePlayer player)
+	public static void UpdatePlayerPosByTouch(boolean bTouched, float TouchX, float TouchY, float ScreenW, GagGamePlayer player)
 	{
-		if( bTouched )
+		if( bTouched && !IsTouchOutSide(TouchX, TouchY) )
 		{
 			if( TouchX>(ScreenW/2) )
 			{
@@ -56,6 +57,15 @@ public class GagGameObject_Func {
 		}else{
 			UpdatePlayerPosByInputState(InputState.InputState_None, player);
 		}
+	}
+	
+	public static boolean IsTouchOutSide(float TouchX, float TouchY)
+	{
+		if( TouchY<GagGameConfig.TreasureHeight )
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	public static void UpdatePlayerPosByAccelerometerY(float AY, GagGamePlayer player)
@@ -244,6 +254,24 @@ public class GagGameObject_Func {
 		
 		out.set(Nearest_intersect);
 		return bResult;
+	}
+	
+	public static boolean pointInObject(float pointX, float pointY, GagGameObject object)
+	{
+		float minX = object.postion.x-object.bounds.width/2;
+		float maxX = object.postion.x+object.bounds.width/2;
+		
+		float minY = object.postion.y-object.bounds.height/2;
+		float maxY = object.postion.y+object.bounds.height/2;
+		
+		if( pointX>minX && pointX<maxX &&
+			 pointY>minY && pointY<maxY 	
+		  )
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 }

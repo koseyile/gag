@@ -9,8 +9,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gag.gag1.GagGameConfig;
+import com.gag.gag1.GagWorld;
 import com.gag.gag1.func.GagGameObject_Func;
 import com.gag.gag1.func.GagGameObject_Func.InputState;
+import com.gag.gag1.func.GagGameWorld_Func;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGamePlayer;
 
@@ -73,28 +75,28 @@ public class GagGameObject_FuncTest {
 		GagGamePlayer player = new GagGamePlayer();
 		player.postion.x = 0f;
 		
-		GagGameObject_Func.UpdatePlayerPosByTouch(false, 0f, 640f, player);
+		GagGameObject_Func.UpdatePlayerPosByTouch(false, 0f, 100f, 640f, player);
 		if( player.postion.x!=0f )
 		{
 			fail("test failed by test_UpdatePlayerPosByInput");
 		}
 		
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByTouch(true, 0f, 640f, player);
+		GagGameObject_Func.UpdatePlayerPosByTouch(true, 0f, 100f, 640f, player);
 		if( player.postion.x!=-GagGameConfig.PlayerMoveLeftDistance )
 		{
 			fail("test failed by test_UpdatePlayerPosByInput");
 		}
 		
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByTouch(true, 640f, 640f, player);
+		GagGameObject_Func.UpdatePlayerPosByTouch(true, 640f, 100f, 640f, player);
 		if( player.postion.x!=GagGameConfig.PlayerMoveRightDistance )
 		{
 			fail("test failed by test_UpdatePlayerPosByInput");
 		}
 		
 		player.postion.x = 10f;
-		GagGameObject_Func.UpdatePlayerPosByTouch(true, 640f, 640f, player);
+		GagGameObject_Func.UpdatePlayerPosByTouch(true, 640f, 100f, 640f, player);
 		if( player.postion.x!=(10f+GagGameConfig.PlayerMoveRightDistance) )
 		{
 			fail("test failed by test_UpdatePlayerPosByInput");
@@ -372,6 +374,46 @@ public class GagGameObject_FuncTest {
 		if( out.y!=1f )
 		{
 			fail("test failed by test_GetIntersectionByObject");
+		}
+		
+	}
+	
+	@Test
+	public void test_UpdateWorldGByTouch()
+	{
+		GagWorld world = new GagWorld();
+		GagGameWorld_Func.UpdateWorldGByTouch(true, 0, 800, world);
+		if( world.m_g<0f )
+		{
+			fail("test failed by test_UpdateWorldGByTouch");
+		}
+		
+		GagGameWorld_Func.UpdateWorldGByTouch(true, 500, 800, world);
+		if( world.m_g>0f )
+		{
+			fail("test failed by test_UpdateWorldGByTouch");
+		}
+	}
+	
+	@Test
+	public void test_PointInObject()
+	{
+		GagGameObject object = new GagGameObject();
+		object.postion.x = 10f;
+		object.postion.y = 20f;
+		object.bounds.x = 0f;
+		object.bounds.y = 0f;
+		object.bounds.width = 100f;
+		object.bounds.height = 50f;
+		
+		if( GagGameObject_Func.pointInObject(-10, 20, object)==false )
+		{
+			fail("test failed by test_pointInObject");
+		}
+		
+		if( GagGameObject_Func.pointInObject(80, 20, object)==true )
+		{
+			fail("test failed by test_pointInObject");
 		}
 		
 	}

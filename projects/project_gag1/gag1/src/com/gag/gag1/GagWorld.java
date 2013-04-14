@@ -8,16 +8,21 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogicgames.superjumper.Assets;
+import com.badlogicgames.superjumper.HelpScreen2;
+import com.badlogicgames.superjumper.OverlapTester;
 import com.badlogicgames.superjumper.Platform;
 import com.gag.gag1.func.GagGameDataLoad_Func;
 import com.gag.gag1.func.GagGameObject_Func;
 import com.gag.gag1.func.GagGameRender;
+import com.gag.gag1.func.GagGameWorld_Func;
 import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameDoor.DoorType;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGameObject.ObjectType;
 import com.gag.gag1.struct.GagGamePlatform;
 import com.gag.gag1.struct.GagGamePlayer;
+import com.gag.gag1.struct.GagGameTreasure;
 
 public class GagWorld {
 	
@@ -25,6 +30,7 @@ public class GagWorld {
 	{
 		SceneID_1,
 		SceneID_2,
+		SceneID_3,
 		
 		SceneID_end,
 	};
@@ -38,11 +44,13 @@ public class GagWorld {
 	
 	public GagGamePlayer m_Player;
 	public List<GagGameObject> m_Objects;
+	public List<GagGameTreasure> m_Treasures;
 	public float m_g;
 	public SceneID m_SceneId;
 	public WorldState m_WorldState;
 	public float m_FadeInTime;
 	public float m_FadeOutTime;
+	public Rectangle worldBound;
 	
 	public GagWorld()
 	{
@@ -51,94 +59,22 @@ public class GagWorld {
 		m_Player.postion.y = GagGameConfig.PlayerStartY;
 		
 		m_Objects = new ArrayList<GagGameObject>();
+		m_Treasures = new ArrayList<GagGameTreasure>();
 		
 		m_g = GagGameConfig.World_g;
 		m_FadeInTime = 0f;
 		m_FadeOutTime = 0f;
-		
-		loadScene(SceneID.SceneID_1);
-	}
-	
-	void loadScene(SceneID sceneId)
-	{
-		m_SceneId = sceneId;
-		
-		m_Objects.clear();
-		try {
-			GagGameDataLoad_Func.LoadSceneByXml(GagGameConfig.SceneFileName[m_SceneId.ordinal()], this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		m_WorldState = WorldState.WorldState_FadeIn;
-	}
-	
-	boolean isCompleteScene()
-	{
-		int len = m_Objects.size();
-		for (int i = 0; i < len; i++)
-		{
-			GagGameObject object = m_Objects.get(i);
 
-			if( object.objectType==ObjectType.ObjectType_Door )
-			{
-				if( ((GagGameDoor)object).doorType==DoorType.DoorType_Exit )
-				{
-					if( m_Player.postion.dst(object.postion)<GagGameConfig.DisByDoorToPlayer )
-					{
-						return true;
-					}
-				}
-			}
-	
-		}
-		return false;
+		m_WorldState = WorldState.WorldState_Play;
+		worldBound = new Rectangle(0, 0, 800, 600);
 	}
 	
-	void updatePlayerPosByObject( Vector2 start, Vector2 end )
+	void setWorldBound(float x, float y, float w, float h)
 	{
-		//计算玩家的位移是否与世界里其它道具相碰撞
-		Vector2 outV = new Vector2();
-		Vector2 nearV = new Vector2();
-		nearV.set(end);
-		
-		int len = m_Objects.size();
-		for (int i = 0; i < len; i++)
-		{
-			GagGameObject object = m_Objects.get(i);
-			boolean bResult = false;
-			boolean bNeedCalc = false;
-			switch( object.objectType )
-			{
-				case ObjectType_Plaform:
-					{
-						bNeedCalc = true;
-					}
-					break;
-			}
-			
-			if( bNeedCalc==false )
-			{
-				continue;
-			}
-
-			bResult = GagGameObject_Func.GetIntersectionByObject(outV, start, end, 
-																				  m_Player.bounds.width, 
-																				  m_Player.bounds.height, 
-																				  object);
-			
-			if(bResult)
-			{
-				m_Player.downSpeed = 0f;
-			}
-			
-			if( outV.dst(start)<end.dst(start) )
-			{
-				nearV.set(outV);
-			}
-		}
-		
-		m_Player.postion.set(nearV);		
+		worldBound.x = x;
+		worldBound.y = y;
+		worldBound.width = w;
+		worldBound.height = h;
 	}
 	
 	void updatePlayer(float delta)
@@ -149,19 +85,21 @@ public class GagWorld {
 		ApplicationType appType = Gdx.app.getType();
 		if (appType == ApplicationType.Android || appType == ApplicationType.iOS)
 		{
-			GagGameObject_Func.UpdatePlayerPosByTouch(Gdx.input.isTouched(), Gdx.input.getX(), Gdx.graphics.getWidth(), m_Player);
-			GagGameObject_Func.UpdatePlayerPosByAccelerometerY(Gdx.input.getAccelerometerY(), m_Player);
+			GagGameObject_Func.UpdatePlayerPosByTouch(Gdx.input.isTouched(), Gdx.input.getX(), Gdx.input.getY(), Gdx.graphics.getWidth(), m_Player);
 			
-			float AX = Gdx.input.getAccelerometerX();
-			if( AX>GagGameConfig.AccelerometerMaxX )
-			{
-				m_g=-Math.abs(m_g);
-			}
+			//GagGameWorld_Func.UpdateWorldGByTouch(Gdx.input.isTouched(), Gdx.input.getY(), Gdx.graphics.getHeight(), this);
+			//GagGameObject_Func.UpdatePlayerPosByAccelerometerY(Gdx.input.getAccelerometerY(), m_Player);
 			
-			if( AX<-GagGameConfig.AccelerometerMaxX )
-			{
-				m_g=Math.abs(m_g);
-			}
+//			float AX = Gdx.input.getAccelerometerX();
+//			if( AX>GagGameConfig.AccelerometerMaxX )
+//			{
+//				m_g=-Math.abs(m_g);
+//			}
+//			
+//			if( AX<-GagGameConfig.AccelerometerMaxX )
+//			{
+//				m_g=Math.abs(m_g);
+//			}
 			
 		}else{
 			int key = Keys.ANY_KEY;
@@ -177,36 +115,53 @@ public class GagWorld {
 			
 			GagGameObject_Func.UpdatePlayerPosByKeyboard(key, m_Player);
 			
-			if (Gdx.input.isKeyPressed(GagGameConfig.PlayerGoDownKey))
-			{
-				m_g=-Math.abs(m_g);
-			}
-			
-			if (Gdx.input.isKeyPressed(GagGameConfig.PlayerGoUpKey))
-			{
-				m_g=Math.abs(m_g);
-			}
+//			if (Gdx.input.isKeyPressed(GagGameConfig.PlayerGoDownKey))
+//			{
+//				m_g=-Math.abs(m_g);
+//			}
+//			
+//			if (Gdx.input.isKeyPressed(GagGameConfig.PlayerGoUpKey))
+//			{
+//				m_g=Math.abs(m_g);
+//			}
 		}
 		
 		//碰撞检测
 		endPos.set(m_Player.postion);
-		updatePlayerPosByObject(startPos, endPos);
+		GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos);
 		
 		startPos.set(m_Player.postion);
 		GagGameObject_Func.UpdateObjectByWorldG(m_Player, m_g);
 		endPos.set(m_Player.postion);
-		updatePlayerPosByObject(startPos, endPos);
 		
+		if( GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos) )
+		{
+			m_Player.downSpeed = 0f;
+		}
+
 		GagGameObject_Func.UpdatePlayerAnimation(m_Player, delta);
 		
-		Rectangle bound = new Rectangle(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		GagGameObject_Func.UpdateObjectDownSpeedByScreenBound(m_Player, bound);
-		GagGameObject_Func.UpdateObjectPosByScreenBound(m_Player, bound);
+		GagGameObject_Func.UpdateObjectDownSpeedByScreenBound(m_Player, worldBound);
+		GagGameObject_Func.UpdateObjectPosByScreenBound(m_Player, worldBound);
 		
 		//检测是否走到终点
-		if( isCompleteScene() )
+		if( GagGameWorld_Func.updateByWorld(this) )
 		{
 			m_WorldState = WorldState.WorldState_FadeOut;
+		}
+
+	}
+	
+	//检测是否捡到宝物
+	void updateTreasure(float delta)
+	{
+		if (Gdx.input.justTouched()) 
+		{
+			float touchX = Gdx.input.getX();
+			float touchY = Gdx.input.getY();
+			touchY = Gdx.graphics.getHeight() - touchY;
+			
+			GagGameWorld_Func.updateTreasureByTouch(touchX, touchY, this);
 		}
 	}
 	
@@ -217,6 +172,7 @@ public class GagWorld {
 			case WorldState_Play:
 				{
 					updatePlayer(delta);
+					updateTreasure(delta);
 				}
 				break;
 			case WorldState_FadeIn:
@@ -240,7 +196,7 @@ public class GagWorld {
 						int nextScene = m_SceneId.ordinal()+1;
 						if( nextScene!=SceneID.SceneID_end.ordinal() )
 						{
-							loadScene( SceneID.values()[nextScene] );
+							GagGameWorld_Func.loadScene( SceneID.values()[nextScene], this );
 						}
 					}
 				}

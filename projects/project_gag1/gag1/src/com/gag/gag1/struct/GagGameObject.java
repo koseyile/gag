@@ -10,6 +10,7 @@ public class GagGameObject {
 		ObjectType_Ojbect,
 		ObjectType_Plaform,
 		ObjectType_Door,
+		ObjectType_Treasure,
 	};
 	
 	public final Vector2 postion;

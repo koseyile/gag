@@ -4,6 +4,7 @@ import com.badlogicgames.superjumper.Animation;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogicgames.superjumper.Assets;
+import com.gag.gag1.GagGameAssets;
 import com.gag.gag1.GagGameConfig;
 import com.gag.gag1.GagGameScreen;
 import com.gag.gag1.GagWorld;
@@ -11,6 +12,7 @@ import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGamePlatform;
 import com.gag.gag1.struct.GagGamePlayer;
+import com.gag.gag1.struct.GagGameTreasure;
 
 public class GagGameWorldRender {
 	
@@ -22,7 +24,7 @@ public class GagGameWorldRender {
 			return;
 		}
 		
-		DrawBackGround();
+		DrawBackGround(gagWorld);
 		
 		int len = gagWorld.m_Objects.size();
 		for (int i = 0; i < len; i++)
@@ -44,6 +46,11 @@ public class GagGameWorldRender {
 				case ObjectType_Door:
 					{
 						DrawDoor((GagGameDoor)object);
+					}
+					break;
+				case ObjectType_Treasure:
+					{
+						DrawTreasure((GagGameTreasure)object);
 					}
 					break;
 			}
@@ -71,9 +78,10 @@ public class GagGameWorldRender {
 		}
 	}
 	
-	public static void DrawBackGround()
+	public static void DrawBackGround(GagWorld world)
 	{
-		GagGameRender.batcher.draw(Assets.backgroundRegion, 0, 0, GagGameRender.guiCam.viewportWidth, GagGameRender.guiCam.viewportHeight);
+		//GagGameRender.batcher.draw(Assets.backgroundRegion, 0, 0, GagGameRender.guiCam.viewportWidth, GagGameRender.guiCam.viewportHeight);
+		GagGameRender.batcher.draw(Assets.backgroundRegion, world.worldBound.x, world.worldBound.y, world.worldBound.width, world.worldBound.height); 
 	}
 	
 	public static void DrawPlayer()
@@ -125,5 +133,32 @@ public class GagGameWorldRender {
 
 //		Texture keyFrame = Assets.testTex;
 //		GagGameRender.DrawTexByCenter(keyFrame, door.postion.x, door.postion.y, door.bounds.width, door.bounds.height, false, false);
+	}
+	
+	public static void DrawTreasure(GagGameTreasure treasure)
+	{
+		//Texture keyFrame = GagGameAssets.athwartTex;
+		//GagGameRender.DrawTexByCenter(keyFrame, treasure.postion.x, treasure.postion.y, treasure.bounds.width, treasure.bounds.height, false, false);
+
+		Texture keyFrame = GagGameAssets.treasureTex;
+		
+		if( treasure.isPickUp )
+		{
+			switch( treasure.treasureType )
+			{
+				case TreasureType_None:
+					{
+						
+					}
+					break;
+				case TreasureType_AthwartWorld:
+					{
+						keyFrame = GagGameAssets.athwartWorldTex;
+					}
+					break;
+			}
+		}
+		
+		GagGameRender.DrawTexByCenter(keyFrame, treasure.postion.x, treasure.postion.y, treasure.bounds.width, treasure.bounds.height, false, false);
 	}
 }

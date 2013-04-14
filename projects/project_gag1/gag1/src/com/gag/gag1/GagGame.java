@@ -31,6 +31,7 @@ public class GagGame extends Game {
 	public void create () {
 		Settings.load();
 		Assets.load();
+		GagGameAssets.load();
 		if(Assets.enableGagGame)
 		{
 			setScreen(new GagGameScreen(this));

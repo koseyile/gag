@@ -16,14 +16,19 @@ public class GagGameConfig {
 	public static float PlayerMoveRightDistance = 2f;
 	public static float PlatformWidth = 64f;
 	public static float PlatformHeight = 16f;
+	public static float TreasureWidth = 32f;
+	public static float TreasureHeight = 32f;
 	public static float DoorWidth = 64f;
 	public static float DoorHeight = 64f;
 	public static String SceneFileName[] = 
 	{
 		"data/scene1.xml",
 		"data/scene2.xml",
+		"data/scene3.xml",
 	};
 	public static float DisByDoorToPlayer = 5f;
+	public static float DisByTreasureToPlayer = 5f;
 	public static float FadeInTime = 1f;
 	public static float FadeOutTime = 1f;
+	public static int GameUIHeight = 32; 
 }

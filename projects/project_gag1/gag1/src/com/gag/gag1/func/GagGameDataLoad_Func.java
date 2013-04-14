@@ -13,13 +13,15 @@ import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGamePlatform;
 import com.gag.gag1.struct.GagGameDoor.DoorType;
+import com.gag.gag1.struct.GagGameTreasure;
+import com.gag.gag1.struct.GagGameTreasure.TreasureType;
 
 public class GagGameDataLoad_Func {
 	public static void LoadSceneByXml(String file, GagWorld world) throws Exception
 	{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document doc = builder.parse(file);
+		Document doc = builder.parse(Gdx.files.internal(file).read());
 		Element element = doc.getDocumentElement();
 		
 		NodeList objectNodes = element.getElementsByTagName("object");
@@ -45,6 +47,10 @@ public class GagGameDataLoad_Func {
 				gameObject = new GagGameDoor();
 				((GagGameDoor)gameObject).doorType = DoorType.DoorType_Exit;
 				world.m_Objects.add(gameObject);
+			}else if( element_object.getAttribute("id").equals("Treasure") )
+			{
+				gameObject = new GagGameTreasure();
+				world.m_Objects.add(gameObject);
 			}else{
 				Gdx.app.error("LoadXmlError:", element_object.getAttribute("id")+" is not a object");
 				continue;
@@ -66,6 +72,13 @@ public class GagGameDataLoad_Func {
 				}else if( node.getNodeName().equals("h") )
 				{
 					gameObject.bounds.height = Float.parseFloat(node.getTextContent());
+				}else if( node.getNodeName().equals("TreasureType") )
+				{
+					if( node.getTextContent().equals("athwartWorld") )
+					{
+						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_AthwartWorld;
+					}
+					
 				}
 			}
 		}

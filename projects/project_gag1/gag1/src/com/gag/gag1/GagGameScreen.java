@@ -12,7 +12,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogicgames.superjumper.Animation;
 import com.badlogicgames.superjumper.Assets;
+import com.gag.gag1.GagWorld.SceneID;
 import com.gag.gag1.func.GagGameRender;
+import com.gag.gag1.func.GagGameWorld_Func;
 import com.gag.gag1.struct.GagGamePlayer;
 
 public class GagGameScreen implements Screen {
@@ -22,6 +24,8 @@ public class GagGameScreen implements Screen {
 	public GagGameScreen (Game game) {
 		this.game = game;		
 		m_GagWorld = new GagWorld();
+		m_GagWorld.setWorldBound(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-GagGameConfig.GameUIHeight);
+		GagGameWorld_Func.loadScene(SceneID.SceneID_1, m_GagWorld);
 	}
 	
 	public void update(float delta)
@@ -32,7 +36,7 @@ public class GagGameScreen implements Screen {
 	public void draw()
 	{
 		GLCommon gl = Gdx.gl;
-		gl.glClearColor(1, 0, 0, 1);
+		gl.glClearColor(0.5f, 0.5f, 0.5f, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		GagGameRender.Draw();
 	}
