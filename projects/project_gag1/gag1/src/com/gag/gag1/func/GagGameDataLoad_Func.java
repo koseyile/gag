@@ -77,6 +77,9 @@ public class GagGameDataLoad_Func {
 					if( node.getTextContent().equals("athwartWorld") )
 					{
 						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_AthwartWorld;
+					}else if( node.getTextContent().equals("umbrella") )
+					{
+						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_Umbrella;
 					}
 					
 				}

@@ -110,6 +110,12 @@ public class GagGameWorldRender {
 		}
 		
 		TextureRegion keyFrame = animation.getKeyFrame(player.PassTime, Animation.ANIMATION_LOOPING);
+		
+		if( gagWorld.isGameOver )
+		{
+			keyFrame = Assets.bobHit;
+		}
+		
 		boolean ReverseY = gagWorld.m_g < 0f ? false : true;
 		GagGameRender.DrawTexByCenter(keyFrame, player.postion.x, player.postion.y, player.bounds.width, player.bounds.height, player.CurReverseX, ReverseY);
 		
@@ -154,6 +160,11 @@ public class GagGameWorldRender {
 				case TreasureType_AthwartWorld:
 					{
 						keyFrame = GagGameAssets.athwartWorldTex;
+					}
+					break;
+				case TreasureType_Umbrella:
+					{
+						keyFrame = GagGameAssets.umbrellaTex;
 					}
 					break;
 			}

@@ -23,7 +23,7 @@ public class GagGameObject_FuncTest {
 	{
 		GagGamePlayer player = new GagGamePlayer();
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByInputState(InputState.InputState_None, player);
+		GagGameObject_Func.updatePlayerPosByInputState(InputState.InputState_None, player);
 		if( player.postion.x!=0f )
 		{
 			fail("test failed by UpdatePlayerPosByInput_test");
@@ -35,7 +35,7 @@ public class GagGameObject_FuncTest {
 		}
 		
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByInputState(InputState.InputState_Left, player);
+		GagGameObject_Func.updatePlayerPosByInputState(InputState.InputState_Left, player);
 		if( player.postion.x!=-GagGameConfig.PlayerMoveLeftDistance )
 		{
 			fail("test failed by UpdatePlayerPosByInput_test");
@@ -52,7 +52,7 @@ public class GagGameObject_FuncTest {
 		}
 		
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByInputState(InputState.InputState_Right, player);
+		GagGameObject_Func.updatePlayerPosByInputState(InputState.InputState_Right, player);
 		if( player.postion.x!=GagGameConfig.PlayerMoveRightDistance )
 		{
 			fail("test failed by UpdatePlayerPosByInput_test");
@@ -75,28 +75,28 @@ public class GagGameObject_FuncTest {
 		GagGamePlayer player = new GagGamePlayer();
 		player.postion.x = 0f;
 		
-		GagGameObject_Func.UpdatePlayerPosByTouch(false, 0f, 100f, 640f, player);
+		GagGameObject_Func.updatePlayerPosByTouch(false, 0f, 100f, 640f, player);
 		if( player.postion.x!=0f )
 		{
 			fail("test failed by test_UpdatePlayerPosByInput");
 		}
 		
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByTouch(true, 0f, 100f, 640f, player);
+		GagGameObject_Func.updatePlayerPosByTouch(true, 0f, 100f, 640f, player);
 		if( player.postion.x!=-GagGameConfig.PlayerMoveLeftDistance )
 		{
 			fail("test failed by test_UpdatePlayerPosByInput");
 		}
 		
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByTouch(true, 640f, 100f, 640f, player);
+		GagGameObject_Func.updatePlayerPosByTouch(true, 640f, 100f, 640f, player);
 		if( player.postion.x!=GagGameConfig.PlayerMoveRightDistance )
 		{
 			fail("test failed by test_UpdatePlayerPosByInput");
 		}
 		
 		player.postion.x = 10f;
-		GagGameObject_Func.UpdatePlayerPosByTouch(true, 640f, 100f, 640f, player);
+		GagGameObject_Func.updatePlayerPosByTouch(true, 640f, 100f, 640f, player);
 		if( player.postion.x!=(10f+GagGameConfig.PlayerMoveRightDistance) )
 		{
 			fail("test failed by test_UpdatePlayerPosByInput");
@@ -109,7 +109,7 @@ public class GagGameObject_FuncTest {
 		GagGamePlayer player = new GagGamePlayer();
 		player.postion.x = 0f;
 		
-		GagGameObject_Func.UpdatePlayerPosByKeyboard(Keys.SPACE, player);
+		GagGameObject_Func.updatePlayerPosByKeyboard(Keys.SPACE, player);
 		if( player.postion.x!=0f )
 		{
 			fail("test failed by test_UpdatePlayerPosByKeyboard");
@@ -121,7 +121,7 @@ public class GagGameObject_FuncTest {
 		}
 		
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByKeyboard(Keys.LEFT, player);
+		GagGameObject_Func.updatePlayerPosByKeyboard(Keys.LEFT, player);
 		if( player.postion.x!=-GagGameConfig.PlayerMoveLeftDistance )
 		{
 			fail("test failed by test_UpdatePlayerPosByKeyboard");
@@ -133,7 +133,7 @@ public class GagGameObject_FuncTest {
 		}
 		
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByKeyboard(Keys.RIGHT, player);
+		GagGameObject_Func.updatePlayerPosByKeyboard(Keys.RIGHT, player);
 		if( player.postion.x!=GagGameConfig.PlayerMoveRightDistance )
 		{
 			fail("test failed by test_UpdatePlayerPosByKeyboard");
@@ -145,7 +145,7 @@ public class GagGameObject_FuncTest {
 		}
 		
 		player.postion.x = 10f;
-		GagGameObject_Func.UpdatePlayerPosByKeyboard(Keys.RIGHT, player);
+		GagGameObject_Func.updatePlayerPosByKeyboard(Keys.RIGHT, player);
 		if( player.postion.x!=(10f+GagGameConfig.PlayerMoveRightDistance) )
 		{
 			fail("test failed by test_UpdatePlayerPosByKeyboard");
@@ -157,7 +157,7 @@ public class GagGameObject_FuncTest {
 		}
 		
 		player.postion.x = 0f;
-		GagGameObject_Func.UpdatePlayerPosByKeyboard(Keys.SPACE, player);
+		GagGameObject_Func.updatePlayerPosByKeyboard(Keys.SPACE, player);
 		if( player.postion.x!=0f )
 		{
 			fail("test failed by test_UpdatePlayerPosByKeyboard");
@@ -175,14 +175,14 @@ public class GagGameObject_FuncTest {
 	{
 		GagGamePlayer player = new GagGamePlayer();
 		player.PassTime = 0f;
-		GagGameObject_Func.UpdatePlayerAnimation(player, 10f);
+		GagGameObject_Func.updatePlayerAnimation(player, 10f);
 		
 		if( player.PassTime!=10f )
 		{
 			fail("test failed by test_UpdatePlayerAnimation");
 		}
 		
-		GagGameObject_Func.UpdatePlayerAnimation(player, 5f);
+		GagGameObject_Func.updatePlayerAnimation(player, 5f);
 		if( player.PassTime!=15f )
 		{
 			fail("test failed by test_UpdatePlayerAnimation");
@@ -195,14 +195,14 @@ public class GagGameObject_FuncTest {
 		GagGamePlayer player = new GagGamePlayer();
 		
 		player.postion.x = 10f;
-		GagGameObject_Func.UpdatePlayerPosByAccelerometerY(GagGameConfig.AccelerometerMaxY, player);
+		GagGameObject_Func.updatePlayerPosByAccelerometerY(GagGameConfig.AccelerometerMaxY, player);
 		if( player.postion.x!=(10f+GagGameConfig.PlayerMoveRightDistance) )
 		{
 			fail("test failed by test_UpdatePlayerPosByAccelerometerY");
 		}
 		
 		player.postion.x = 10f;
-		GagGameObject_Func.UpdatePlayerPosByAccelerometerY(-GagGameConfig.AccelerometerMaxY, player);
+		GagGameObject_Func.updatePlayerPosByAccelerometerY(-GagGameConfig.AccelerometerMaxY, player);
 		if( player.postion.x!=(10f-GagGameConfig.PlayerMoveLeftDistance) )
 		{
 			fail("test failed by test_UpdatePlayerPosByAccelerometerY");
@@ -217,7 +217,7 @@ public class GagGameObject_FuncTest {
 
 		object.postion.y = 12f;
 		object.downSpeed = 10f;
-		GagGameObject_Func.UpdateObjectByWorldG(object, 1f);
+		GagGameObject_Func.updateObjectByWorldG(object, 1f);
 		if( object.downSpeed!=11f )
 		{
 			fail("test failed by test_UpdateObjectByWorldG");
@@ -240,7 +240,7 @@ public class GagGameObject_FuncTest {
 		object.postion.y = 1000f;
 		object.downSpeed = 10f;
 		
-		GagGameObject_Func.UpdateObjectDownSpeedByScreenBound(object, bound);
+		GagGameObject_Func.updateObjectDownSpeedByScreenBound(object, bound);
 		if( object.downSpeed!=0f )
 		{
 			fail("test failed by test_UpdateObjectDownSpeedByScreenBound");
@@ -257,7 +257,7 @@ public class GagGameObject_FuncTest {
 		object.postion.x = 1000f;
 		object.postion.y = 1000f;
 		
-		GagGameObject_Func.UpdateObjectPosByScreenBound(object, bound);
+		GagGameObject_Func.updateObjectPosByScreenBound(object, bound);
 		
 		if( object.postion.x!=(110f-object.bounds.width/2) )
 		{
@@ -272,7 +272,7 @@ public class GagGameObject_FuncTest {
 		object.postion.x = 50f;
 		object.postion.y = 30f;
 		
-		GagGameObject_Func.UpdateObjectPosByScreenBound(object, bound);
+		GagGameObject_Func.updateObjectPosByScreenBound(object, bound);
 		
 		if( object.postion.x!=50f )
 		{
@@ -304,7 +304,7 @@ public class GagGameObject_FuncTest {
 		float h = 2;
 		
 		Vector2 out = new Vector2(0f, 0f);
-		GagGameObject_Func.GetIntersectionByObject(out, start, end, w, h, object);
+		GagGameObject_Func.getIntersectionByObject(out, start, end, w, h, object);
 		
 		if( out.x!=10 )
 		{
@@ -320,7 +320,7 @@ public class GagGameObject_FuncTest {
 		start.y = 6f;
 		end.x = 20f;
 		end.y = 6f;
-		GagGameObject_Func.GetIntersectionByObject(out, start, end, w, h, object);
+		GagGameObject_Func.getIntersectionByObject(out, start, end, w, h, object);
 		if( out.x!=6f )
 		{
 			fail("test failed by test_GetIntersectionByObject");
@@ -335,7 +335,7 @@ public class GagGameObject_FuncTest {
 		end.y = 6f;
 		start.x = 20f;
 		start.y = 6f;
-		GagGameObject_Func.GetIntersectionByObject(out, start, end, w, h, object);
+		GagGameObject_Func.getIntersectionByObject(out, start, end, w, h, object);
 		if( out.x!=14f )
 		{
 			fail("test failed by test_GetIntersectionByObject");
@@ -350,7 +350,7 @@ public class GagGameObject_FuncTest {
 		start.y = 20;
 		end.x = 100f;
 		end.y = 1f;
-		GagGameObject_Func.GetIntersectionByObject(out, start, end, w, h, object);
+		GagGameObject_Func.getIntersectionByObject(out, start, end, w, h, object);
 		if( out.x!=100f )
 		{
 			fail("test failed by test_GetIntersectionByObject");
@@ -365,7 +365,7 @@ public class GagGameObject_FuncTest {
 		start.y = 20;
 		end.x = -100f;
 		end.y = 1f;
-		GagGameObject_Func.GetIntersectionByObject(out, start, end, w, h, object);
+		GagGameObject_Func.getIntersectionByObject(out, start, end, w, h, object);
 		if( out.x!=-100f )
 		{
 			fail("test failed by test_GetIntersectionByObject");
@@ -382,13 +382,13 @@ public class GagGameObject_FuncTest {
 	public void test_UpdateWorldGByTouch()
 	{
 		GagWorld world = new GagWorld();
-		GagGameWorld_Func.UpdateWorldGByTouch(true, 0, 800, world);
+		GagGameWorld_Func.updateWorldGByTouch(true, 0, 800, world);
 		if( world.m_g<0f )
 		{
 			fail("test failed by test_UpdateWorldGByTouch");
 		}
 		
-		GagGameWorld_Func.UpdateWorldGByTouch(true, 500, 800, world);
+		GagGameWorld_Func.updateWorldGByTouch(true, 500, 800, world);
 		if( world.m_g>0f )
 		{
 			fail("test failed by test_UpdateWorldGByTouch");

@@ -11,32 +11,35 @@ import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGameDoor.DoorType;
 import com.gag.gag1.struct.GagGameObject.ObjectType;
+import com.gag.gag1.struct.GagGameTreasure.TreasureState;
 import com.gag.gag1.struct.GagGameTreasure;
 
 public class GagGameWorld_Func {
+	
+	public static void initWorld(GagWorld world)
+	{
+		world.m_Objects.clear();
+		world.m_Treasures.clear();
+		world.m_g = GagGameConfig.World_g;
+		world.m_FadeInTime = 0f;
+		world.m_FadeOutTime = 0f;
+		world.m_WorldState = WorldState.WorldState_Play;
+		world.isGameOver = false;
+	}
 	
 	public static void loadScene(SceneID sceneId, GagWorld world)
 	{
 		world.m_SceneId = sceneId;
 		
-		world.m_Objects.clear();
-		world.m_Treasures.clear();
+		initWorld(world);
+		
 		try {
-			GagGameDataLoad_Func.LoadSceneByXml(GagGameConfig.SceneFileName[world.m_SceneId.ordinal()], world);
+			GagGameDataLoad_Func.LoadSceneByXml(GagGameConfig.SceneFileName[world.m_SceneId.ordinal()-1], world);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		world.m_WorldState = WorldState.WorldState_FadeIn;		
-	}
-	
-	public static void pickUpTreasure(GagGameTreasure treasure, GagWorld world)
-	{
-		int len = world.m_Treasures.size();
-		treasure.postion.x = treasure.bounds.width/2+treasure.bounds.width*len;
-		treasure.postion.y = world.worldBound.height+treasure.bounds.height/2;
-		world.m_Treasures.add(treasure);
-		treasure.isPickUp = true;
 	}
 
 	public static boolean updateByWorld(GagWorld world)
@@ -63,7 +66,7 @@ public class GagGameWorld_Func {
 					{
 						if( world.m_Player.postion.dst(object.postion)<GagGameConfig.DisByTreasureToPlayer )
 						{
-							pickUpTreasure((GagGameTreasure)object, world);
+							GagGameTreasure_Func.pickUpTreasure((GagGameTreasure)object, world);
 						}
 					}
 					break;
@@ -75,7 +78,7 @@ public class GagGameWorld_Func {
 		return false;		
 	}
 	
-	public static void UpdateWorldGByTouch(boolean bTouched, float TouchY, float ScreenH, GagWorld world)
+	public static void updateWorldGByTouch(boolean bTouched, float TouchY, float ScreenH, GagWorld world)
 	{
 		if( bTouched )
 		{
@@ -117,7 +120,7 @@ public class GagGameWorld_Func {
 				continue;
 			}
 
-			bResult = GagGameObject_Func.GetIntersectionByObject(outV, start, end, 
+			bResult = GagGameObject_Func.getIntersectionByObject(outV, start, end, 
 																				  object_out.bounds.width, 
 																				  object_out.bounds.height, 
 																				  object);
@@ -137,34 +140,12 @@ public class GagGameWorld_Func {
 		return bReturn;
 	}
 	
-	public static void updateTreasureByTouch(float touchX, float touchY, GagWorld world)
+	public static void gameOver(GagWorld world)
 	{
-		int len = world.m_Treasures.size();
-		for( int i=0; i<len; ++i )
-		{
-			GagGameTreasure treasure = world.m_Treasures.get(i);
-			if (GagGameObject_Func.pointInObject(touchX, touchY, treasure))
-			{
-				useTreasure(treasure, world);
-			}	
-		}
-
+		world.m_WorldState = WorldState.WorldState_FadeOut;
+		int preScene = world.m_SceneId.ordinal()-1;
+		world.m_SceneId = SceneID.values()[preScene];
+		world.isGameOver = true;
 	}
 	
-	public static void useTreasure(GagGameTreasure treasure, GagWorld world)
-	{
-		switch(treasure.treasureType)
-		{
-			case TreasureType_AthwartWorld:
-				{
-					if( world.m_g>0f )
-					{
-						world.m_g=-Math.abs(world.m_g);
-					}else{
-						world.m_g=Math.abs(world.m_g);
-					}
-				}
-				break;
-		}
-	}
 }

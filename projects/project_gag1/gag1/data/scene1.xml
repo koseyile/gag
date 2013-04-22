@@ -3,14 +3,14 @@
     
 	<object id="Player">
 		<x>16</x>
-		<y>200</y>
+		<y>100</y>
 		<w>32</w>
 		<h>32</h>
 	</object>
 	
     <object id="Door1">
 		<x>20</x>
-		<y>200</y>
+		<y>100</y>
 		<w>50</w>
 		<h>50</h>
 	</object>

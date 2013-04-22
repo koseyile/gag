@@ -8,9 +8,22 @@ public class GagGameTreasure extends GagGameObject {
 	{
 		TreasureType_None,
 		TreasureType_AthwartWorld,
+		TreasureType_Umbrella,
 	};
+	
+	public enum TreasureState
+	{
+		TreasureState_None,
+		TreasureState_Start,
+		TreasureState_Using,
+		TreasureState_End,
+	};
+	
 	public TreasureType treasureType;
 	public boolean isPickUp;
+	public TreasureState treasureState;
+	public float useTime;
+	public boolean needRelease;
 	
 	public GagGameTreasure()
 	{
@@ -20,5 +33,8 @@ public class GagGameTreasure extends GagGameObject {
 		objectType = ObjectType.ObjectType_Treasure;
 		treasureType = TreasureType.TreasureType_None;
 		isPickUp = false;
+		treasureState = TreasureState.TreasureState_None;
+		useTime = 0f;
+		needRelease = false;
 	}
 }

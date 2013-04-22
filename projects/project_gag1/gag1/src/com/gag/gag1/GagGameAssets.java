@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class GagGameAssets {
 	public static Texture treasureTex;
 	public static Texture athwartWorldTex;
+	public static Texture umbrellaTex;
 	
 	public static Texture loadTexture (String file) {
 		return new Texture(Gdx.files.internal(file));
@@ -15,5 +16,6 @@ public class GagGameAssets {
 	{
 		treasureTex =  loadTexture("data/treasure.png");
 		athwartWorldTex = loadTexture("data/athwart_w.png");
+		umbrellaTex = loadTexture("data/umbrella.png");
 	}
 }

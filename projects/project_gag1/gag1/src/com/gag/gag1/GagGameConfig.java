@@ -31,4 +31,7 @@ public class GagGameConfig {
 	public static float FadeInTime = 1f;
 	public static float FadeOutTime = 1f;
 	public static int GameUIHeight = 32; 
+	public static float DownSpeedDead = 18f;
+	public static float umbrellaScale_g = 0.5f;
+	public static float umbrellaUseTime = 5f;
 }

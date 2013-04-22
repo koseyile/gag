@@ -18,7 +18,7 @@ public class GagGameObject_Func {
 		InputState_Right,
 	}
 
-	public static void UpdatePlayerPosByInputState(InputState inputState, GagGamePlayer player)
+	public static void updatePlayerPosByInputState(InputState inputState, GagGamePlayer player)
 	{
 		switch(inputState)
 		{
@@ -44,22 +44,22 @@ public class GagGameObject_Func {
 		}
 	}
 	
-	public static void UpdatePlayerPosByTouch(boolean bTouched, float TouchX, float TouchY, float ScreenW, GagGamePlayer player)
+	public static void updatePlayerPosByTouch(boolean bTouched, float TouchX, float TouchY, float ScreenW, GagGamePlayer player)
 	{
-		if( bTouched && !IsTouchOutSide(TouchX, TouchY) )
+		if( bTouched && !isTouchOutSide(TouchX, TouchY) )
 		{
 			if( TouchX>(ScreenW/2) )
 			{
-				UpdatePlayerPosByInputState(InputState.InputState_Right, player);
+				updatePlayerPosByInputState(InputState.InputState_Right, player);
 			}else{
-				UpdatePlayerPosByInputState(InputState.InputState_Left, player);
+				updatePlayerPosByInputState(InputState.InputState_Left, player);
 			}
 		}else{
-			UpdatePlayerPosByInputState(InputState.InputState_None, player);
+			updatePlayerPosByInputState(InputState.InputState_None, player);
 		}
 	}
 	
-	public static boolean IsTouchOutSide(float TouchX, float TouchY)
+	public static boolean isTouchOutSide(float TouchX, float TouchY)
 	{
 		if( TouchY<GagGameConfig.TreasureHeight )
 		{
@@ -68,53 +68,53 @@ public class GagGameObject_Func {
 		return false;
 	}
 	
-	public static void UpdatePlayerPosByAccelerometerY(float AY, GagGamePlayer player)
+	public static void updatePlayerPosByAccelerometerY(float AY, GagGamePlayer player)
 	{
 		if( AY<=-GagGameConfig.AccelerometerMaxY )
 		{
-			UpdatePlayerPosByInputState(InputState.InputState_Left, player);
+			updatePlayerPosByInputState(InputState.InputState_Left, player);
 		}
 		
 		if( AY>=GagGameConfig.AccelerometerMaxY )
 		{
-			UpdatePlayerPosByInputState(InputState.InputState_Right, player);
+			updatePlayerPosByInputState(InputState.InputState_Right, player);
 		}
 	}
 	
-	public static void UpdatePlayerPosByKeyboard(int key, GagGamePlayer player)
+	public static void updatePlayerPosByKeyboard(int key, GagGamePlayer player)
 	{
 		switch( key )
 		{
 			case GagGameConfig.PlayerGoRightKey:
 				{
-					UpdatePlayerPosByInputState(InputState.InputState_Right, player);
+					updatePlayerPosByInputState(InputState.InputState_Right, player);
 				}
 				break;
 			case GagGameConfig.PlayerGoLeftKey:
 				{
-					UpdatePlayerPosByInputState(InputState.InputState_Left, player);
+					updatePlayerPosByInputState(InputState.InputState_Left, player);
 				}
 				break;
 			default:
 				{
-					UpdatePlayerPosByInputState(InputState.InputState_None, player);
+					updatePlayerPosByInputState(InputState.InputState_None, player);
 				}
 				break;
 		}
 	}
 	
-	public static void UpdatePlayerAnimation(GagGamePlayer player, float delta)
+	public static void updatePlayerAnimation(GagGamePlayer player, float delta)
 	{
 		player.PassTime += delta;
 	}
 	
-	public static void UpdateObjectByWorldG(GagGameObject object, float g)
+	public static void updateObjectByWorldG(GagGameObject object, float g)
 	{
 		object.downSpeed+=g;
 		object.postion.y+=object.downSpeed;
 	}
 	
-	public static void UpdateObjectDownSpeedByScreenBound(GagGameObject object, Rectangle bound)
+	public static void updateObjectDownSpeedByScreenBound(GagGameObject object, Rectangle bound)
 	{
 		float minY = bound.y+object.bounds.height/2;
 		float maxY = bound.y+bound.height-object.bounds.height/2;
@@ -123,7 +123,18 @@ public class GagGameObject_Func {
 		object.downSpeed = object.postion.y>maxY ? 0f : object.downSpeed;
 	}
 	
-	public static void UpdateObjectPosByScreenBound(GagGameObject object, Rectangle bound)
+	public static boolean isInScreenBoundByY(GagGameObject object, Rectangle bound)
+	{
+		float minY = bound.y+object.bounds.height/2;
+		float maxY = bound.y+bound.height-object.bounds.height/2;
+		if( object.postion.y<minY || object.postion.y>maxY )
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	public static void updateObjectPosByScreenBound(GagGameObject object, Rectangle bound)
 	{
 		float minX = bound.x+object.bounds.width/2;
 		float minY = bound.y+object.bounds.height/2;
@@ -138,7 +149,7 @@ public class GagGameObject_Func {
 		object.postion.y = object.postion.y>maxY ? maxY : object.postion.y;
 	}
 	
-	public static boolean Vector2IsAvailability( Vector2 v )
+	public static boolean vector2IsAvailability( Vector2 v )
 	{
 		if( Float.isNaN(v.x) || Float.isNaN(v.y) )
 		{
@@ -153,7 +164,7 @@ public class GagGameObject_Func {
 		return true;
 	}
 	
-	public static boolean Vector2IsInCenter( Vector2 v, Vector2 v1, Vector2 v2 )
+	public static boolean vector2IsInCenter( Vector2 v, Vector2 v1, Vector2 v2 )
 	{
 		float dst_12 = v1.dst(v2);
 		float dst_1 = v1.dst(v);
@@ -166,7 +177,7 @@ public class GagGameObject_Func {
 		return true;
 	}
 	
-	public static boolean GetIntersectionByObject(Vector2 out, Vector2 start, Vector2 end, float w, float h, GagGameObject object)
+	public static boolean getIntersectionByObject(Vector2 out, Vector2 start, Vector2 end, float w, float h, GagGameObject object)
 	{
 		//计算最终end
 		Vector2 temp_end = new Vector2(end);
@@ -211,7 +222,7 @@ public class GagGameObject_Func {
 		
 		boolean bResult = false;
 		//得到最近交点
-		if( Vector2IsAvailability(T_intersect) && Vector2IsInCenter(T_intersect, new Vector2(LT.x-w/2, LT.y), new Vector2(RT.x+w/2, RT.y)) && Vector2IsInCenter(T_intersect, start, temp_end) )
+		if( vector2IsAvailability(T_intersect) && vector2IsInCenter(T_intersect, new Vector2(LT.x-w/2, LT.y), new Vector2(RT.x+w/2, RT.y)) && vector2IsInCenter(T_intersect, start, temp_end) )
 		{
 			T_intersect.y+=(h/2);
 			if( T_intersect.dst2(start)<Nearest_intersect.dst2(start) )
@@ -221,7 +232,7 @@ public class GagGameObject_Func {
 			}
 		}
 		
-		if( Vector2IsAvailability(B_intersect) && Vector2IsInCenter(B_intersect, new Vector2(LB.x-w/2, LB.y), new Vector2(RB.x+w/2, RB.y)) && Vector2IsInCenter(B_intersect, start, temp_end) )	
+		if( vector2IsAvailability(B_intersect) && vector2IsInCenter(B_intersect, new Vector2(LB.x-w/2, LB.y), new Vector2(RB.x+w/2, RB.y)) && vector2IsInCenter(B_intersect, start, temp_end) )	
 		{
 			B_intersect.y-=(h/2);
 			if( B_intersect.dst2(start)<Nearest_intersect.dst2(start) )
@@ -231,7 +242,7 @@ public class GagGameObject_Func {
 			}
 		}
 		
-		if( Vector2IsAvailability(L_intersect) && Vector2IsInCenter(L_intersect, new Vector2(LT.x, LT.y+h/2), new Vector2(LB.x, LB.y-h/2)) && Vector2IsInCenter(L_intersect, start, temp_end) )
+		if( vector2IsAvailability(L_intersect) && vector2IsInCenter(L_intersect, new Vector2(LT.x, LT.y+h/2), new Vector2(LB.x, LB.y-h/2)) && vector2IsInCenter(L_intersect, start, temp_end) )
 		{
 			L_intersect.x-=(w/2);
 			if( L_intersect.dst2(start)<Nearest_intersect.dst2(start) )
@@ -242,7 +253,7 @@ public class GagGameObject_Func {
 		}
 		
 
-		if( Vector2IsAvailability(R_intersect) && Vector2IsInCenter(R_intersect, new Vector2(RT.x, RT.y+h/2), new Vector2(RB.x, RB.y-h/2)) && Vector2IsInCenter(R_intersect, start, temp_end) )
+		if( vector2IsAvailability(R_intersect) && vector2IsInCenter(R_intersect, new Vector2(RT.x, RT.y+h/2), new Vector2(RB.x, RB.y-h/2)) && vector2IsInCenter(R_intersect, start, temp_end) )
 		{
 			R_intersect.x+=(w/2);
 			if( R_intersect.dst2(start)<Nearest_intersect.dst2(start) )

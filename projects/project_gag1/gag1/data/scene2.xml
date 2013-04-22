@@ -16,7 +16,7 @@
 	</object>
 	
 	<object id="Platform">
-		<x>200</x>
+		<x>500</x>
 		<y>20</y>
 		<w>64</w>
 		<h>16</h>
@@ -87,9 +87,25 @@
 	
 	<object id="Door2">
 		<x>720</x>
-		<y>420</y>
+		<y>20</y>
 		<w>50</w>
 		<h>50</h>
+	</object>
+	
+	<object id="Treasure">
+		<x>200</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>athwartWorld</TreasureType>
+	</object>
+	
+	<object id="Treasure">
+		<x>720</x>
+		<y>424</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>umbrella</TreasureType>
 	</object>
 	
 </scene>

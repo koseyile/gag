@@ -15,6 +15,7 @@ import com.badlogicgames.superjumper.Platform;
 import com.gag.gag1.func.GagGameDataLoad_Func;
 import com.gag.gag1.func.GagGameObject_Func;
 import com.gag.gag1.func.GagGameRender;
+import com.gag.gag1.func.GagGameTreasure_Func;
 import com.gag.gag1.func.GagGameWorld_Func;
 import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameDoor.DoorType;
@@ -28,6 +29,7 @@ public class GagWorld {
 	
 	public enum SceneID
 	{
+		SceneID_start,
 		SceneID_1,
 		SceneID_2,
 		SceneID_3,
@@ -51,6 +53,7 @@ public class GagWorld {
 	public float m_FadeInTime;
 	public float m_FadeOutTime;
 	public Rectangle worldBound;
+	public boolean isGameOver;
 	
 	public GagWorld()
 	{
@@ -60,12 +63,9 @@ public class GagWorld {
 		
 		m_Objects = new ArrayList<GagGameObject>();
 		m_Treasures = new ArrayList<GagGameTreasure>();
-		
-		m_g = GagGameConfig.World_g;
-		m_FadeInTime = 0f;
-		m_FadeOutTime = 0f;
 
-		m_WorldState = WorldState.WorldState_Play;
+		GagGameWorld_Func.initWorld(this);
+		
 		worldBound = new Rectangle(0, 0, 800, 600);
 	}
 	
@@ -85,7 +85,7 @@ public class GagWorld {
 		ApplicationType appType = Gdx.app.getType();
 		if (appType == ApplicationType.Android || appType == ApplicationType.iOS)
 		{
-			GagGameObject_Func.UpdatePlayerPosByTouch(Gdx.input.isTouched(), Gdx.input.getX(), Gdx.input.getY(), Gdx.graphics.getWidth(), m_Player);
+			GagGameObject_Func.updatePlayerPosByTouch(Gdx.input.isTouched(), Gdx.input.getX(), Gdx.input.getY(), Gdx.graphics.getWidth(), m_Player);
 			
 			//GagGameWorld_Func.UpdateWorldGByTouch(Gdx.input.isTouched(), Gdx.input.getY(), Gdx.graphics.getHeight(), this);
 			//GagGameObject_Func.UpdatePlayerPosByAccelerometerY(Gdx.input.getAccelerometerY(), m_Player);
@@ -113,7 +113,7 @@ public class GagWorld {
 				key = GagGameConfig.PlayerGoLeftKey;
 			}
 			
-			GagGameObject_Func.UpdatePlayerPosByKeyboard(key, m_Player);
+			GagGameObject_Func.updatePlayerPosByKeyboard(key, m_Player);
 			
 //			if (Gdx.input.isKeyPressed(GagGameConfig.PlayerGoDownKey))
 //			{
@@ -131,19 +131,26 @@ public class GagWorld {
 		GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos);
 		
 		startPos.set(m_Player.postion);
-		GagGameObject_Func.UpdateObjectByWorldG(m_Player, m_g);
+		GagGameObject_Func.updateObjectByWorldG(m_Player, m_g);
 		endPos.set(m_Player.postion);
 		
-		if( GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos) )
+		if( GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos) ||
+			 !GagGameObject_Func.isInScreenBoundByY(m_Player, worldBound)
+			)
 		{
+			//往下掉的速度过快，会gameover
+			//Gdx.app.log("GagWorld", "downSpeed: " + m_Player.downSpeed);
+			if( Math.abs(m_Player.downSpeed)>=GagGameConfig.DownSpeedDead )
+			{
+				GagGameWorld_Func.gameOver(this);
+			}
 			m_Player.downSpeed = 0f;
 		}
 
-		GagGameObject_Func.UpdatePlayerAnimation(m_Player, delta);
+		GagGameObject_Func.updateObjectDownSpeedByScreenBound(m_Player, worldBound);
+		GagGameObject_Func.updateObjectPosByScreenBound(m_Player, worldBound);
 		
-		GagGameObject_Func.UpdateObjectDownSpeedByScreenBound(m_Player, worldBound);
-		GagGameObject_Func.UpdateObjectPosByScreenBound(m_Player, worldBound);
-		
+		GagGameObject_Func.updatePlayerAnimation(m_Player, delta);
 		//检测是否走到终点
 		if( GagGameWorld_Func.updateByWorld(this) )
 		{
@@ -152,17 +159,20 @@ public class GagWorld {
 
 	}
 	
-	//检测是否捡到宝物
+	//宝物更新
 	void updateTreasure(float delta)
 	{
-		if (Gdx.input.justTouched()) 
+		if (Gdx.input.justTouched())
 		{
 			float touchX = Gdx.input.getX();
 			float touchY = Gdx.input.getY();
 			touchY = Gdx.graphics.getHeight() - touchY;
 			
-			GagGameWorld_Func.updateTreasureByTouch(touchX, touchY, this);
+			GagGameTreasure_Func.updateTreasureByTouch(touchX, touchY, this);
 		}
+		
+		GagGameTreasure_Func.updateTreasureByTime(delta, this);
+		GagGameTreasure_Func.releaseTreasure(this);
 	}
 	
 	void update(float delta)
