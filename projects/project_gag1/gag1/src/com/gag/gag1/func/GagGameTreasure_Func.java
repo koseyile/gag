@@ -33,11 +33,17 @@ public class GagGameTreasure_Func {
 				}
 				break;
 			case TreasureType_Umbrella:
+			case TreasureType_Speed:
 				{
 					if( treasure.treasureState==TreasureState.TreasureState_None )
 					{
 						treasure.treasureState = TreasureState.TreasureState_Start;
 					}
+				}
+				break;
+			case TreasureType_KillMe:
+				{
+					GagGameWorld_Func.gameOver(world);
 				}
 				break;
 		}
@@ -82,6 +88,28 @@ public class GagGameTreasure_Func {
 						}else if( treasure.treasureState==TreasureState.TreasureState_End )
 						{
 							world.m_g/=GagGameConfig.umbrellaScale_g;
+							treasure.needRelease = true;
+						}
+					}
+					break;
+				case TreasureType_Speed:
+					{
+						if( treasure.treasureState==TreasureState.TreasureState_Start )
+						{
+							world.m_Player.SpeedScale*=GagGameConfig.speedAddScale;
+							treasure.treasureState = TreasureState.TreasureState_Using;
+						}else if( treasure.treasureState==TreasureState.TreasureState_Using )
+						{
+							treasure.postion.x = world.m_Player.postion.x;
+							treasure.postion.y = world.m_Player.postion.y;
+							treasure.useTime+=delta;
+							if( treasure.useTime>GagGameConfig.speedAddUseTime )
+							{
+								treasure.treasureState = TreasureState.TreasureState_End;
+							}
+						}else if( treasure.treasureState==TreasureState.TreasureState_End )
+						{
+							world.m_Player.SpeedScale/=GagGameConfig.speedAddScale;
 							treasure.needRelease = true;
 						}
 					}

@@ -25,6 +25,8 @@ public class GagGameWorld_Func {
 		world.m_FadeOutTime = 0f;
 		world.m_WorldState = WorldState.WorldState_Play;
 		world.isGameOver = false;
+		world.m_Player.SpeedScale = 1.0f;
+		world.m_Objects.add(world.m_Player);
 	}
 	
 	public static void loadScene(SceneID sceneId, GagWorld world)
@@ -91,24 +93,60 @@ public class GagGameWorld_Func {
 		}
 	}
 	
-	public static boolean updateObjectPosByWorldObjects( GagGameObject object_out, GagWorld world, Vector2 start, Vector2 end )
+	public static void pushObjectByPlayer(GagGameObject obj, Vector2 dir, GagWorld world)
+	{
+		boolean bCanPush = false;
+		switch( obj.objectType )
+		{
+			case ObjectType_Box:
+				{
+					bCanPush = true;
+				}
+				break;
+		}
+		
+		if(bCanPush==false)
+		{
+			return;
+		}
+		
+		Vector2 startPos = new Vector2(obj.postion);
+		Vector2 endPos = new Vector2(obj.postion);
+		obj.postion.add(dir.mul(1.0f));
+		endPos.set(obj.postion);
+		GagGameObject retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(obj, world, startPos, endPos);
+		if( retObj!=null )
+		{
+			int i = 0;
+			++i;
+		}
+	}
+	
+	public static GagGameObject updateObjectPosByWorldObjects( GagGameObject object_out, GagWorld world, Vector2 start, Vector2 end )
 	{
 		//计算玩家的位移是否与世界里其它道具相碰撞
 		Vector2 outV = new Vector2();
 		Vector2 nearV = new Vector2();
 		nearV.set(end);
 		
-		boolean bReturn = false;
+		GagGameObject ReturnObj = null;
 		
 		int len = world.m_Objects.size();
 		for (int i = 0; i < len; i++)
 		{
 			GagGameObject object = world.m_Objects.get(i);
+			if( object.equals(object_out) )
+			{
+				continue;
+			}
+			
 			boolean bNeedCalc = false;
 			boolean bResult = false;
 			switch( object.objectType )
 			{
 				case ObjectType_Plaform:
+				case ObjectType_Box:
+				case ObjectType_Player:
 					{
 						bNeedCalc = true;
 					}
@@ -125,19 +163,22 @@ public class GagGameWorld_Func {
 																				  object_out.bounds.height, 
 																				  object);
 			
-			if( bResult )
-			{
-				bReturn = true;
-			}
-			
 			if( outV.dst(start)<end.dst(start) )
 			{
 				nearV.set(outV);
+				//object_out.downSpeed = object.downSpeed;
+				
+				if( object.canBeDown )
+				{
+					object.beDown = true;
+				}
+				
+				ReturnObj = object;
 			}
 		}
 		
 		object_out.postion.set(nearV);
-		return bReturn;
+		return ReturnObj;
 	}
 	
 	public static void gameOver(GagWorld world)

@@ -9,6 +9,7 @@ import org.w3c.dom.NodeList;
 
 import com.badlogic.gdx.Gdx;
 import com.gag.gag1.GagWorld;
+import com.gag.gag1.struct.GagGameBox;
 import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGamePlatform;
@@ -51,6 +52,10 @@ public class GagGameDataLoad_Func {
 			{
 				gameObject = new GagGameTreasure();
 				world.m_Objects.add(gameObject);
+			}else if( element_object.getAttribute("id").equals("Box") )
+			{
+				gameObject = new GagGameBox();
+				world.m_Objects.add(gameObject);
 			}else{
 				Gdx.app.error("LoadXmlError:", element_object.getAttribute("id")+" is not a object");
 				continue;
@@ -80,8 +85,18 @@ public class GagGameDataLoad_Func {
 					}else if( node.getTextContent().equals("umbrella") )
 					{
 						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_Umbrella;
+					}else if( node.getTextContent().equals("killme") )
+					{
+						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_KillMe;
+					}else if( node.getTextContent().equals("speed") )
+					{
+						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_Speed;
 					}
 					
+				}else if( node.getNodeName().equals("downScaleG") )
+				{
+					gameObject.canBeDown = true;
+					gameObject.downScaleByWorldG = Float.parseFloat(node.getTextContent());
 				}
 			}
 		}

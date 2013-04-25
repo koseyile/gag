@@ -8,6 +8,7 @@ import com.gag.gag1.GagGameAssets;
 import com.gag.gag1.GagGameConfig;
 import com.gag.gag1.GagGameScreen;
 import com.gag.gag1.GagWorld;
+import com.gag.gag1.struct.GagGameBox;
 import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGamePlatform;
@@ -51,6 +52,11 @@ public class GagGameWorldRender {
 				case ObjectType_Treasure:
 					{
 						DrawTreasure((GagGameTreasure)object);
+					}
+					break;
+				case ObjectType_Box:
+					{
+						DrawBox((GagGameBox)object);
 					}
 					break;
 			}
@@ -128,8 +134,8 @@ public class GagGameWorldRender {
 		TextureRegion keyFrame = Assets.platform;
 		GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
 		
-		//Texture keyFrame = Assets.testTex;
-		//GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
+//		Texture keyFrame = Assets.testTex;
+//		GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
 	}
 	
 	public static void DrawDoor(GagGameDoor door)
@@ -139,6 +145,12 @@ public class GagGameWorldRender {
 
 //		Texture keyFrame = Assets.testTex;
 //		GagGameRender.DrawTexByCenter(keyFrame, door.postion.x, door.postion.y, door.bounds.width, door.bounds.height, false, false);
+	}
+	
+	public static void DrawBox(GagGameBox box)
+	{
+		Texture keyFrame = GagGameAssets.boxTex;
+		GagGameRender.DrawTexByCenter(keyFrame, box.postion.x, box.postion.y, box.bounds.width, box.bounds.height, false, false);
 	}
 	
 	public static void DrawTreasure(GagGameTreasure treasure)
@@ -165,6 +177,16 @@ public class GagGameWorldRender {
 				case TreasureType_Umbrella:
 					{
 						keyFrame = GagGameAssets.umbrellaTex;
+					}
+					break;
+				case TreasureType_KillMe:
+					{
+						keyFrame = GagGameAssets.killMeTex;
+					}
+					break;
+				case TreasureType_Speed:
+					{
+						keyFrame = GagGameAssets.speedTex;
 					}
 					break;
 			}

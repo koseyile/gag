@@ -16,15 +16,25 @@ public class GagGameConfig {
 	public static float PlayerMoveRightDistance = 2f;
 	public static float PlatformWidth = 64f;
 	public static float PlatformHeight = 16f;
+	public static float BoxWidth = 64f;
+	public static float BoxHeight = 16f;
 	public static float TreasureWidth = 32f;
 	public static float TreasureHeight = 32f;
 	public static float DoorWidth = 64f;
 	public static float DoorHeight = 64f;
 	public static String SceneFileName[] = 
 	{
-		"data/scene1.xml",
-		"data/scene2.xml",
 		"data/scene3.xml",
+		"data/scene1.xml",
+		"data/scene3.xml",
+		"data/scene4.xml",
+		"data/scene5.xml",
+		
+//		"data/scene1.xml",
+//		"data/scene2.xml",
+//		"data/scene3.xml",
+//		"data/scene4.xml",
+//		"data/scene5.xml",
 	};
 	public static float DisByDoorToPlayer = 5f;
 	public static float DisByTreasureToPlayer = 5f;
@@ -32,6 +42,9 @@ public class GagGameConfig {
 	public static float FadeOutTime = 1f;
 	public static int GameUIHeight = 32; 
 	public static float DownSpeedDead = 18f;
+	public static float DownSpeedDeadByHitPlayer = 9f;
 	public static float umbrellaScale_g = 0.5f;
 	public static float umbrellaUseTime = 5f;
+	public static float speedAddScale = 4.0f;
+	public static float speedAddUseTime = 5f;
 }

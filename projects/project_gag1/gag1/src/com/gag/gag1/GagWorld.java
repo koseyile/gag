@@ -33,6 +33,8 @@ public class GagWorld {
 		SceneID_1,
 		SceneID_2,
 		SceneID_3,
+		SceneID_4,
+		SceneID_5,
 		
 		SceneID_end,
 	};
@@ -128,27 +130,44 @@ public class GagWorld {
 		
 		//碰撞检测
 		endPos.set(m_Player.postion);
-		GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos);
-		
-		startPos.set(m_Player.postion);
-		GagGameObject_Func.updateObjectByWorldG(m_Player, m_g);
-		endPos.set(m_Player.postion);
-		
-		if( GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos) ||
-			 !GagGameObject_Func.isInScreenBoundByY(m_Player, worldBound)
-			)
+		GagGameObject retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos);  
+		if( retObj!=null )
 		{
-			//往下掉的速度过快，会gameover
-			//Gdx.app.log("GagWorld", "downSpeed: " + m_Player.downSpeed);
-			if( Math.abs(m_Player.downSpeed)>=GagGameConfig.DownSpeedDead )
-			{
-				GagGameWorld_Func.gameOver(this);
-			}
-			m_Player.downSpeed = 0f;
+			Vector2 dir = new Vector2(endPos);
+			dir.sub(startPos);
+			dir.nor();
+			GagGameWorld_Func.pushObjectByPlayer(retObj, dir, this);
 		}
-
-		GagGameObject_Func.updateObjectDownSpeedByScreenBound(m_Player, worldBound);
-		GagGameObject_Func.updateObjectPosByScreenBound(m_Player, worldBound);
+		
+//		startPos.set(m_Player.postion);
+//		GagGameObject_Func.updateObjectByWorldG(m_Player, m_g);
+//		endPos.set(m_Player.postion);
+//		
+//		float playerSpeed = m_Player.downSpeed;
+//		retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos);
+//		if( retObj!=null )
+//		{
+//			//往下掉的速度过快，会gameover
+//			//Gdx.app.log("GagWorld", "downSpeed: " + m_Player.downSpeed);
+//			m_Player.downSpeed = retObj.downSpeed;
+//			float playerSpeed2 = m_Player.downSpeed;
+//			float f = Math.abs( playerSpeed-playerSpeed2 );
+//			if( f>=GagGameConfig.DownSpeedDead )
+//			{
+//				GagGameWorld_Func.gameOver(this);
+//			}
+//		}
+//		
+//		if( !GagGameObject_Func.isInScreenBoundByY(m_Player, worldBound) )
+//		{
+//			if( Math.abs(m_Player.downSpeed)>=GagGameConfig.DownSpeedDead )
+//			{
+//				GagGameWorld_Func.gameOver(this);
+//			}
+//			m_Player.downSpeed = 0f;
+//		}
+//
+//		GagGameObject_Func.updateObjectPosByScreenBound(m_Player, worldBound);
 		
 		GagGameObject_Func.updatePlayerAnimation(m_Player, delta);
 		//检测是否走到终点
@@ -175,14 +194,72 @@ public class GagWorld {
 		GagGameTreasure_Func.releaseTreasure(this);
 	}
 	
+	//道具更新
+	void updateObject(float delta)
+	{
+		Vector2 startPos = new Vector2();
+		Vector2 endPos = new Vector2();
+		
+		int len = m_Objects.size();
+		for (int i = 0; i < len; i++)
+		{
+			GagGameObject object = m_Objects.get(i);
+			if( object.beDown )
+			{
+				startPos.set(object.postion);
+				GagGameObject_Func.updateObjectByWorldG(object, m_g*object.downScaleByWorldG);
+				endPos.set(object.postion);
+				
+				float speed1 = object.downSpeed;
+				GagGameObject retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(object, this, startPos, endPos);
+				float speed2 = speed1;
+				if( retObj!=null )
+				{
+					object.downSpeed = retObj.downSpeed;
+					speed2 = object.downSpeed;
+					if(retObj.objectType==ObjectType.ObjectType_Player)
+					{
+						if( Math.abs(speed2-speed1)>=GagGameConfig.DownSpeedDeadByHitPlayer )
+						{
+							GagGameWorld_Func.gameOver(this);
+						}
+					}else if( object.objectType==ObjectType.ObjectType_Player )
+					{
+						if( Math.abs(speed2-speed1)>=GagGameConfig.DownSpeedDead )
+						{
+							GagGameWorld_Func.gameOver(this);
+						}
+					}
+				}
+
+				if( !GagGameObject_Func.isInScreenBoundByY(object, worldBound) )
+				{
+					object.downSpeed = 0f;
+					speed2 = object.downSpeed;
+					if( object.objectType==ObjectType.ObjectType_Player )
+					{
+						if( Math.abs(speed2-speed1)>=GagGameConfig.DownSpeedDead )
+						{
+							GagGameWorld_Func.gameOver(this);
+						}		
+					}
+				}
+				
+
+				GagGameObject_Func.updateObjectPosByScreenBound(object, worldBound);
+			}
+		}
+	}
+	
 	void update(float delta)
 	{
 		switch(m_WorldState)
 		{
 			case WorldState_Play:
 				{
-					updatePlayer(delta);
 					updateTreasure(delta);
+					updateObject(delta);
+					updatePlayer(delta);
 				}
 				break;
 			case WorldState_FadeIn:

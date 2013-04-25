@@ -1,5 +1,7 @@
 package com.gag.gag1.struct;
 
+import com.gag.gag1.struct.GagGameObject.ObjectType;
+
 public class GagGamePlayer extends GagGameObject {
 
 	public enum MoveState
@@ -13,6 +15,7 @@ public class GagGamePlayer extends GagGameObject {
 	public boolean CurReverseX;
 	public boolean CurReverseY;
 	public float PassTime;
+	public float SpeedScale;
 	
 	public GagGamePlayer()
 	{
@@ -20,6 +23,10 @@ public class GagGamePlayer extends GagGameObject {
 		CurReverseX = false;
 		CurReverseY = false;
 		PassTime = 0f;
+		SpeedScale = 1.0f;
+		
+		objectType = ObjectType.ObjectType_Player;
+		beDown = true;
 	}
 	
 }

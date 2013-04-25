@@ -11,11 +11,16 @@ public class GagGameObject {
 		ObjectType_Plaform,
 		ObjectType_Door,
 		ObjectType_Treasure,
+		ObjectType_Box,
+		ObjectType_Player,
 	};
 	
 	public final Vector2 postion;
 	public final Rectangle bounds;
 	public float downSpeed;
+	public boolean canBeDown;
+	public boolean beDown;
+	public float downScaleByWorldG;
 	public ObjectType objectType;
 	
 	static final float DEFAULT_X = 0;
@@ -30,5 +35,8 @@ public class GagGameObject {
 									  DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		downSpeed = 0f;
 		objectType = ObjectType.ObjectType_Ojbect;
+		canBeDown = false;
+		beDown = false;
+		downScaleByWorldG = 1f;
 	}
 }

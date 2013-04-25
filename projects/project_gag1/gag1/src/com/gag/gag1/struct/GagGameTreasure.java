@@ -9,6 +9,8 @@ public class GagGameTreasure extends GagGameObject {
 		TreasureType_None,
 		TreasureType_AthwartWorld,
 		TreasureType_Umbrella,
+		TreasureType_KillMe,
+		TreasureType_Speed,
 	};
 	
 	public enum TreasureState

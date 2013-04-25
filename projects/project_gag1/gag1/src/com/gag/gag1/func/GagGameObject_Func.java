@@ -29,14 +29,14 @@ public class GagGameObject_Func {
 				break;
 			case InputState_Left:
 				{
-					player.postion.x-=GagGameConfig.PlayerMoveLeftDistance;
+					player.postion.x-=(GagGameConfig.PlayerMoveLeftDistance*player.SpeedScale);
 					player.CurMoveState = GagGamePlayer.MoveState.MoveState_Left;
 					player.CurReverseX = true;
 				}
 				break;
 			case InputState_Right:
 				{
-					player.postion.x+=GagGameConfig.PlayerMoveRightDistance;
+					player.postion.x+=(GagGameConfig.PlayerMoveRightDistance*player.SpeedScale);
 					player.CurMoveState = GagGamePlayer.MoveState.MoveState_Right;
 					player.CurReverseX = false;
 				}
