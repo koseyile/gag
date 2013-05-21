@@ -24,8 +24,8 @@ public class GagGameConfig {
 	public static float DoorHeight = 64f;
 	public static String SceneFileName[] = 
 	{
-		"data/scene3.xml",
 		"data/scene1.xml",
+		"data/scene2.xml",
 		"data/scene3.xml",
 		"data/scene4.xml",
 		"data/scene5.xml",

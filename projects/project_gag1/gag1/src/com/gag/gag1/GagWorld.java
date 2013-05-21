@@ -139,36 +139,6 @@ public class GagWorld {
 			GagGameWorld_Func.pushObjectByPlayer(retObj, dir, this);
 		}
 		
-//		startPos.set(m_Player.postion);
-//		GagGameObject_Func.updateObjectByWorldG(m_Player, m_g);
-//		endPos.set(m_Player.postion);
-//		
-//		float playerSpeed = m_Player.downSpeed;
-//		retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos);
-//		if( retObj!=null )
-//		{
-//			//往下掉的速度过快，会gameover
-//			//Gdx.app.log("GagWorld", "downSpeed: " + m_Player.downSpeed);
-//			m_Player.downSpeed = retObj.downSpeed;
-//			float playerSpeed2 = m_Player.downSpeed;
-//			float f = Math.abs( playerSpeed-playerSpeed2 );
-//			if( f>=GagGameConfig.DownSpeedDead )
-//			{
-//				GagGameWorld_Func.gameOver(this);
-//			}
-//		}
-//		
-//		if( !GagGameObject_Func.isInScreenBoundByY(m_Player, worldBound) )
-//		{
-//			if( Math.abs(m_Player.downSpeed)>=GagGameConfig.DownSpeedDead )
-//			{
-//				GagGameWorld_Func.gameOver(this);
-//			}
-//			m_Player.downSpeed = 0f;
-//		}
-//
-//		GagGameObject_Func.updateObjectPosByScreenBound(m_Player, worldBound);
-		
 		GagGameObject_Func.updatePlayerAnimation(m_Player, delta);
 		//检测是否走到终点
 		if( GagGameWorld_Func.updateByWorld(this) )

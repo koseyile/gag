@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: com.badlogicgames.superjumper.SuperJumperDesktop
+Class-Path: lib\gdx-backend-lwjgl-natives.jar lib\gdx-natives.jar lib\javaparser-1.0.8.jar lib\jlayer-1.0.1-libgdx.jar lib\jorbis.jar lib\lwjgl.jar lib\lwjgl_util.jar lib\lwjgl-debug.jar
+
+
