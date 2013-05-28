@@ -31,6 +31,14 @@ public class GagGameWorld_Func {
 		world.m_Objects.add(world.m_Player);
 	}
 	
+	public static void setWorldBound(GagWorld world, float x, float y, float w, float h)
+	{
+		world.worldBound.x = x;
+		world.worldBound.y = y;
+		world.worldBound.width = w;
+		world.worldBound.height = h;
+	}
+	
 	public static void loadScene(SceneID sceneId, GagWorld world)
 	{
 		world.m_SceneId = sceneId;

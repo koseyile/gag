@@ -107,6 +107,9 @@ public class GagGameDataLoad_Func {
 					}else if( node.getTextContent().equals("saveScene") )
 					{
 						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_SaveScene;
+					}else if( node.getTextContent().equals("saveSceneAs") )
+					{
+						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_SaveSceneAs;
 					}else if( node.getTextContent().equals("openScene") )
 					{
 						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_OpenScene;
@@ -116,6 +119,9 @@ public class GagGameDataLoad_Func {
 					}else if( node.getTextContent().equals("stopScene") )
 					{
 						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_StopScene;
+					}else if( node.getTextContent().equals("moreTool") )
+					{
+						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_MoreTool;
 					}
 					
 				}else if( node.getNodeName().equals("downScaleG") )

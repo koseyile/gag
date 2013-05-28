@@ -199,6 +199,11 @@ public class GagGameWorldRender {
 						keyFrame = GagGameAssets.saveSceneTex;
 					}
 					break;
+				case TreasureType_SaveSceneAs:
+					{
+						keyFrame = GagGameAssets.saveSceneAsTex;
+					}
+					break;
 				case TreasureType_OpenScene:
 					{
 						keyFrame = GagGameAssets.openSceneTex;
@@ -212,6 +217,11 @@ public class GagGameWorldRender {
 				case TreasureType_StopScene:
 					{
 						keyFrame = GagGameAssets.stopSceneTex;
+					}
+					break;
+				case TreasureType_MoreTool:
+					{
+						keyFrame = GagGameAssets.moreToolTex;
 					}
 					break;
 			}

@@ -1,5 +1,6 @@
 package com.gag.gag1.struct;
 
+import com.gag.gag1.GagGameConfig;
 import com.gag.gag1.struct.GagGameObject.ObjectType;
 
 public class GagGamePlayer extends GagGameObject {
@@ -27,6 +28,9 @@ public class GagGamePlayer extends GagGameObject {
 		
 		objectType = ObjectType.ObjectType_Player;
 		beDown = true;
+		
+		postion.x = GagGameConfig.PlayerStartX;
+		postion.y = GagGameConfig.PlayerStartY;
 	}
 	
 }

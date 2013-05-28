@@ -63,10 +63,6 @@ public class GagWorld {
 	
 	public GagWorld()
 	{
-		m_Player = new GagGamePlayer();
-		m_Player.postion.x = GagGameConfig.PlayerStartX;
-		m_Player.postion.y = GagGameConfig.PlayerStartY;
-		
 		m_Objects = new ArrayList<GagGameObject>();
 		m_Treasures = new ArrayList<GagGameTreasure>();
 
@@ -76,7 +72,7 @@ public class GagWorld {
 		m_Editor = new GagGameEditor();
 	}
 	
-	void setWorldBound(float x, float y, float w, float h)
+	public void setWorldBound(float x, float y, float w, float h)
 	{
 		worldBound.x = x;
 		worldBound.y = y;

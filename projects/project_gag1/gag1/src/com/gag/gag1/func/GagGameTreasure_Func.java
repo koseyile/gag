@@ -77,6 +77,11 @@ public class GagGameTreasure_Func {
 					GagGameSceneEditor_Func.saveScene(world);
 				}
 				break;
+			case TreasureType_SaveSceneAs:
+				{
+					GagGameSceneEditor_Func.saveSceneAs(world);
+				}
+				break;
 			case TreasureType_OpenScene:
 				{
 					GagGameSceneEditor_Func.openScene(world);
@@ -90,6 +95,11 @@ public class GagGameTreasure_Func {
 			case TreasureType_StopScene:
 				{
 					GagGameSceneEditor_Func.stopScene(world, world.m_Editor);
+				}
+				break;
+			case TreasureType_MoreTool:
+				{
+					GagGameSceneEditor_Func.moreTool(world);
 				}
 				break;
 		}

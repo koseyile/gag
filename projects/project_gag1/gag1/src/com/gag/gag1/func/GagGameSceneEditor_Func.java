@@ -69,6 +69,42 @@ public class GagGameSceneEditor_Func {
 		Gdx.app.log("MSG:", "save success: "+world.m_Editor.curFileName);
 	}
 	
+	public static void saveSceneAs(GagWorld world)
+	{
+		String filePath = getFilePathBySaveDialog();
+		
+		if( filePath==null )
+		{
+			return;
+		}
+		
+		if( filePath.endsWith(".xml")==false )
+		{
+			filePath+=".xml";
+		}
+		
+		//判断此文件是否存在
+		FileHandle fileCheckHandle = Gdx.files.internal(filePath);
+		boolean bExists = fileCheckHandle.exists();
+		if( bExists )
+		{
+			if( JOptionPane.showConfirmDialog(null, "文件已存在，你确实要替换吗？", "提示", JOptionPane.YES_NO_OPTION)==JOptionPane.NO_OPTION )
+			{
+				return;
+			}
+		}
+		
+		try {
+			GagGameDataLoad_Func.SaveSceneToXml(filePath, world);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		world.m_Editor.curFileName = filePath;
+		Gdx.app.log("MSG:", "save success: "+world.m_Editor.curFileName);
+	}
+	
 	public static void openScene(GagWorld world)
 	{
 		if( world.m_Editor.curFileName==null )
@@ -179,8 +215,10 @@ public class GagGameSceneEditor_Func {
 				e.printStackTrace();
 			}
 		}
-
-		
-
+	}
+	
+	public static void moreTool(GagWorld world)
+	{
+		GagGameWorld_Func.setWorldBound(world, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-(GagGameConfig.GameUIHeight)*3);
 	}
 }
