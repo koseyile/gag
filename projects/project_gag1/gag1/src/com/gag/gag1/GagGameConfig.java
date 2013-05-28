@@ -24,11 +24,7 @@ public class GagGameConfig {
 	public static float DoorHeight = 64f;
 	public static String SceneFileName[] = 
 	{
-		"data/scene1.xml",
-		"data/scene2.xml",
-		"data/scene3.xml",
-		"data/scene4.xml",
-		"data/scene5.xml",
+		"data/scene_editor.xml",
 		
 //		"data/scene1.xml",
 //		"data/scene2.xml",
@@ -47,4 +43,11 @@ public class GagGameConfig {
 	public static float umbrellaUseTime = 5f;
 	public static float speedAddScale = 4.0f;
 	public static float speedAddUseTime = 5f;
+	
+	public static String Id_Player = "Player";
+	public static String Id_Platform = "Platform";
+	public static String Id_Door1 = "Door1";
+	public static String Id_Door2 = "Door2";
+	public static String Id_Treasure = "Treasure";
+	public static String Id_Box = "Box";
 }

@@ -11,6 +11,13 @@ public class GagGameTreasure extends GagGameObject {
 		TreasureType_Umbrella,
 		TreasureType_KillMe,
 		TreasureType_Speed,
+		
+		//scene_editor
+		TreasureType_NewScene,
+		TreasureType_SaveScene,
+		TreasureType_OpenScene,
+		TreasureType_RunScene,
+		TreasureType_StopScene,
 	};
 	
 	public enum TreasureState
@@ -26,6 +33,7 @@ public class GagGameTreasure extends GagGameObject {
 	public TreasureState treasureState;
 	public float useTime;
 	public boolean needRelease;
+	public boolean enable;
 	
 	public GagGameTreasure()
 	{
@@ -38,5 +46,6 @@ public class GagGameTreasure extends GagGameObject {
 		treasureState = TreasureState.TreasureState_None;
 		useTime = 0f;
 		needRelease = false;
+		enable = true;
 	}
 }

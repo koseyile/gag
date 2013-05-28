@@ -189,9 +189,39 @@ public class GagGameWorldRender {
 						keyFrame = GagGameAssets.speedTex;
 					}
 					break;
+				case TreasureType_NewScene:
+					{
+						keyFrame = GagGameAssets.newSceneTex;
+					}
+					break;
+				case TreasureType_SaveScene:
+					{
+						keyFrame = GagGameAssets.saveSceneTex;
+					}
+					break;
+				case TreasureType_OpenScene:
+					{
+						keyFrame = GagGameAssets.openSceneTex;
+					}
+					break;
+				case TreasureType_RunScene:
+					{
+						keyFrame = GagGameAssets.runSceneTex;
+					}
+					break;
+				case TreasureType_StopScene:
+					{
+						keyFrame = GagGameAssets.stopSceneTex;
+					}
+					break;
 			}
 		}
 		
 		GagGameRender.DrawTexByCenter(keyFrame, treasure.postion.x, treasure.postion.y, treasure.bounds.width, treasure.bounds.height, false, false);
+		
+		if( treasure.enable==false )
+		{
+			GagGameRender.DrawTexByCenter(GagGameAssets.disableTex, treasure.postion.x, treasure.postion.y, treasure.bounds.width, treasure.bounds.height/8, false, false);
+		}
 	}
 }

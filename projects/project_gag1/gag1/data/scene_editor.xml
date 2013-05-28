@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<scene>
+    
+ 	<object id="Player">
+		<x>16</x>
+		<y>20</y>
+		<w>32</w>
+		<h>32</h>
+	</object>
+
+ 	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>newScene</TreasureType>
+	</object>
+	
+ 	 <object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>saveScene</TreasureType>
+	</object>
+	
+ 	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>openScene</TreasureType>
+	</object>
+	
+ 	 <object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>runScene</TreasureType>
+	</object>
+	
+ 	 <object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>stopScene</TreasureType>
+	</object>
+	
+ 	 
+</scene>

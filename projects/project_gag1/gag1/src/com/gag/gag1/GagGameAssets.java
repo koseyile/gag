@@ -11,6 +11,14 @@ public class GagGameAssets {
 	public static Texture speedTex;
 	public static Texture boxTex;
 	
+	//scene editor
+	public static Texture newSceneTex;
+	public static Texture saveSceneTex;
+	public static Texture openSceneTex;
+	public static Texture runSceneTex;
+	public static Texture stopSceneTex;
+	public static Texture disableTex;
+	
 	public static Texture loadTexture (String file) {
 		return new Texture(Gdx.files.internal(file));
 	}
@@ -23,5 +31,13 @@ public class GagGameAssets {
 		killMeTex = loadTexture("data/killme.png");
 		speedTex = loadTexture("data/speed.png");
 		boxTex = loadTexture("data/box.png");
+		
+		//scene editor
+		newSceneTex = loadTexture("data/newScene.png");
+		saveSceneTex = loadTexture("data/saveScene.png");
+		openSceneTex = loadTexture("data/openScene.png");
+		runSceneTex = loadTexture("data/runScene.png");
+		stopSceneTex = loadTexture("data/stopScene.png");
+		disableTex = loadTexture("data/disable.png");
 	}
 }

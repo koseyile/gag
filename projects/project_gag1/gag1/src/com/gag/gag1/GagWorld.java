@@ -15,10 +15,12 @@ import com.badlogicgames.superjumper.Platform;
 import com.gag.gag1.func.GagGameDataLoad_Func;
 import com.gag.gag1.func.GagGameObject_Func;
 import com.gag.gag1.func.GagGameRender;
+import com.gag.gag1.func.GagGameSceneEditor_Func;
 import com.gag.gag1.func.GagGameTreasure_Func;
 import com.gag.gag1.func.GagGameWorld_Func;
 import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameDoor.DoorType;
+import com.gag.gag1.struct.GagGameEditor;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGameObject.ObjectType;
 import com.gag.gag1.struct.GagGamePlatform;
@@ -57,6 +59,8 @@ public class GagWorld {
 	public Rectangle worldBound;
 	public boolean isGameOver;
 	
+	public GagGameEditor m_Editor;
+	
 	public GagWorld()
 	{
 		m_Player = new GagGamePlayer();
@@ -69,6 +73,7 @@ public class GagWorld {
 		GagGameWorld_Func.initWorld(this);
 		
 		worldBound = new Rectangle(0, 0, 800, 600);
+		m_Editor = new GagGameEditor();
 	}
 	
 	void setWorldBound(float x, float y, float w, float h)
@@ -227,9 +232,19 @@ public class GagWorld {
 		{
 			case WorldState_Play:
 				{
-					updateTreasure(delta);
-					updateObject(delta);
-					updatePlayer(delta);
+					if( m_Editor.isEnable==false )
+					{
+						updateTreasure(delta);
+						updateObject(delta);
+						updatePlayer(delta);
+					}else{
+						updateTreasure(delta);
+						if( m_Editor.isRun )
+						{
+							updateObject(delta);
+							updatePlayer(delta);
+						}					
+					}
 				}
 				break;
 			case WorldState_FadeIn:
@@ -253,7 +268,12 @@ public class GagWorld {
 						int nextScene = m_SceneId.ordinal()+1;
 						if( nextScene!=SceneID.SceneID_end.ordinal() )
 						{
-							GagGameWorld_Func.loadScene( SceneID.values()[nextScene], this );
+							if( m_Editor.isEnable==false )
+							{
+								GagGameWorld_Func.loadScene( SceneID.values()[nextScene], this );
+							}else{
+								GagGameSceneEditor_Func.loadScene(this);
+							}
 						}
 					}
 				}

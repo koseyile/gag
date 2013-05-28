@@ -9,8 +9,10 @@ import com.gag.gag1.GagWorld.WorldState;
 import com.gag.gag1.func.GagGameObject_Func.InputState;
 import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameObject;
+import com.gag.gag1.struct.GagGamePlayer;
 import com.gag.gag1.struct.GagGameDoor.DoorType;
 import com.gag.gag1.struct.GagGameObject.ObjectType;
+import com.gag.gag1.struct.GagGamePlayer.MoveState;
 import com.gag.gag1.struct.GagGameTreasure.TreasureState;
 import com.gag.gag1.struct.GagGameTreasure;
 
@@ -25,7 +27,7 @@ public class GagGameWorld_Func {
 		world.m_FadeOutTime = 0f;
 		world.m_WorldState = WorldState.WorldState_Play;
 		world.isGameOver = false;
-		world.m_Player.SpeedScale = 1.0f;
+		world.m_Player = new GagGamePlayer();
 		world.m_Objects.add(world.m_Player);
 	}
 	
@@ -36,9 +38,18 @@ public class GagGameWorld_Func {
 		initWorld(world);
 		
 		try {
-			GagGameDataLoad_Func.LoadSceneByXml(GagGameConfig.SceneFileName[world.m_SceneId.ordinal()-1], world);
+			GagGameDataLoad_Func.LoadSceneFromXml(GagGameConfig.SceneFileName[world.m_SceneId.ordinal()-1], world);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		if( GagGameConfig.SceneFileName[world.m_SceneId.ordinal()-1].equals("data/scene_editor.xml") )
+		{
+			GagGameTreasure_Func.pickUpAllTreasure(world);
+			world.m_Editor.isEnable = true;
+			world.m_Editor.isRun = false;
+		}else{
+			world.m_Editor.isRun = true;
 		}
 		
 		world.m_WorldState = WorldState.WorldState_FadeIn;		
