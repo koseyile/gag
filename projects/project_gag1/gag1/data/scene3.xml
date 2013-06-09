@@ -1,87 +1,75 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<scene>
-    
- 	<object id="Player">
-		<x>16</x>
-		<y>400</y>
-		<w>32</w>
-		<h>32</h>
-	</object>
-	   
-    <object id="Door1">
-		<x>20</x>
-		<y>400</y>
-		<w>50</w>
-		<h>50</h>
-	</object>
-	
-    <object id="Platform">
-		<x>50</x>
-		<y>350</y>
-		<w>100</w>
-		<h>16</h>
-	</object>
-	
-    <object id="Treasure">
-		<x>64</x>
-		<y>374</y>
-		<w>32</w>
-		<h>32</h>
-		<TreasureType>speed</TreasureType>
-	</object>
-	
-    <object id="Platform">
-		<x>100</x>
-		<y>300</y>
-		<w>200</w>
-		<h>16</h>
-		<downScaleG>0.2</downScaleG>
-	</object>
-	
-    <object id="Platform">
-		<x>250</x>
-		<y>250</y>
-		<w>200</w>
-		<h>16</h>
-		<downScaleG>0.2</downScaleG>
-	</object>
-	
-     <object id="Platform">
-		<x>400</x>
-		<y>200</y>
-		<w>200</w>
-		<h>16</h>
-		<downScaleG>0.2</downScaleG>
-	</object>
-
-     <object id="Platform">
-		<x>550</x>
-		<y>150</y>
-		<w>200</w>
-		<h>16</h>
-		<downScaleG>0.2</downScaleG>
-	</object>
-	
-    <object id="Platform">
-		<x>710</x>
-		<y>100</y>
-		<w>64</w>
-		<h>16</h>
-	</object>
-	
-    <object id="Treasure">
-		<x>710</x>
-		<y>16</y>
-		<w>32</w>
-		<h>32</h>
-		<TreasureType>killme</TreasureType>
-	</object>
-	
-    <object id="Door2">
-		<x>710</x>
-		<y>125</y>
-		<w>50</w>
-		<h>50</h>
-	</object>
-	
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scene h="448.0" w="800.0">
+<object id="Player">
+<x>16.0</x>
+<y>400.0</y>
+<w>32.0</w>
+<h>32.0</h>
+</object>
+<object id="Door1">
+<x>20.0</x>
+<y>400.0</y>
+<w>50.0</w>
+<h>50.0</h>
+</object>
+<object id="Platform">
+<x>50.0</x>
+<y>350.0</y>
+<w>100.0</w>
+<h>16.0</h>
+</object>
+<object id="Treasure">
+<x>64.0</x>
+<y>374.0</y>
+<w>32.0</w>
+<h>32.0</h>
+<TreasureType>speed</TreasureType>
+</object>
+<object id="Platform">
+<x>100.0</x>
+<y>300.0</y>
+<w>200.0</w>
+<h>16.0</h>
+<downScaleG>0.2</downScaleG>
+</object>
+<object id="Platform">
+<x>250.0</x>
+<y>250.0</y>
+<w>200.0</w>
+<h>16.0</h>
+<downScaleG>0.2</downScaleG>
+</object>
+<object id="Platform">
+<x>400.0</x>
+<y>200.0</y>
+<w>200.0</w>
+<h>16.0</h>
+<downScaleG>0.2</downScaleG>
+</object>
+<object id="Platform">
+<x>550.0</x>
+<y>150.0</y>
+<w>200.0</w>
+<h>16.0</h>
+<downScaleG>0.2</downScaleG>
+</object>
+<object id="Platform">
+<x>710.0</x>
+<y>100.0</y>
+<w>64.0</w>
+<h>16.0</h>
+</object>
+<object id="Treasure">
+<x>710.0</x>
+<y>16.0</y>
+<w>32.0</w>
+<h>32.0</h>
+<TreasureType>killme</TreasureType>
+</object>
+<object id="Door2">
+<x>710.0</x>
+<y>125.0</y>
+<w>50.0</w>
+<h>50.0</h>
+</object>
 </scene>

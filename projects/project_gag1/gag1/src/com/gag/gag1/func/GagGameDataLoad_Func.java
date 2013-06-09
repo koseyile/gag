@@ -22,6 +22,7 @@ import com.gag.gag1.GagWorld;
 import com.gag.gag1.struct.GagGameBox;
 import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameObject;
+import com.gag.gag1.struct.GagGameObject.ObjectType;
 import com.gag.gag1.struct.GagGamePlatform;
 import com.gag.gag1.struct.GagGameDoor.DoorType;
 import com.gag.gag1.struct.GagGameTreasure;
@@ -35,6 +36,18 @@ public class GagGameDataLoad_Func {
 		Document doc = builder.parse(Gdx.files.internal(file).read());
 		Element element = doc.getDocumentElement();
 	
+		float scene_w = world.worldBound.width;
+		float scene_h = world.worldBound.height;
+		
+		if( !element.getAttribute("w").isEmpty() && !element.getAttribute("w").isEmpty() )
+		{
+			scene_w = Float.parseFloat(element.getAttribute("w"));
+			scene_h = Float.parseFloat(element.getAttribute("h"));
+		}
+		
+		float scene_x_scale = scene_w/world.worldBound.width;
+		float scene_y_scale = scene_h/world.worldBound.height;
+		
 		NodeList objectNodes = element.getElementsByTagName("object");
 		
 		for( int i=0; i<objectNodes.getLength(); i++ )
@@ -77,10 +90,10 @@ public class GagGameDataLoad_Func {
 				Node node = element_object_nodes.item(j);
 				if( node.getNodeName().equals("x") )
 				{
-					gameObject.postion.x = Float.parseFloat(node.getTextContent());
+					gameObject.postion.x = Float.parseFloat(node.getTextContent())*scene_x_scale;
 				}else if( node.getNodeName().equals("y") )
 				{
-					gameObject.postion.y = Float.parseFloat(node.getTextContent());
+					gameObject.postion.y = Float.parseFloat(node.getTextContent())*scene_y_scale;
 				}else if( node.getNodeName().equals("w") )
 				{
 					gameObject.bounds.width = Float.parseFloat(node.getTextContent());
@@ -89,39 +102,13 @@ public class GagGameDataLoad_Func {
 					gameObject.bounds.height = Float.parseFloat(node.getTextContent());
 				}else if( node.getNodeName().equals("TreasureType") )
 				{
-					if( node.getTextContent().equals("athwartWorld") )
+					
+					for(int k=0; k<GagGameConfig.TreasureName.length; ++k)
 					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_AthwartWorld;
-					}else if( node.getTextContent().equals("umbrella") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_Umbrella;
-					}else if( node.getTextContent().equals("killme") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_KillMe;
-					}else if( node.getTextContent().equals("speed") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_Speed;
-					}else if( node.getTextContent().equals("newScene") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_NewScene;
-					}else if( node.getTextContent().equals("saveScene") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_SaveScene;
-					}else if( node.getTextContent().equals("saveSceneAs") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_SaveSceneAs;
-					}else if( node.getTextContent().equals("openScene") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_OpenScene;
-					}else if( node.getTextContent().equals("runScene") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_RunScene;
-					}else if( node.getTextContent().equals("stopScene") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_StopScene;
-					}else if( node.getTextContent().equals("moreTool") )
-					{
-						((GagGameTreasure)gameObject).treasureType = TreasureType.TreasureType_MoreTool;
+						if( node.getTextContent().equals(GagGameConfig.TreasureName[k]) )
+						{
+							((GagGameTreasure)gameObject).treasureType = TreasureType.values()[k];
+						}
 					}
 					
 				}else if( node.getNodeName().equals("downScaleG") )
@@ -141,6 +128,8 @@ public class GagGameDataLoad_Func {
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.newDocument();
 		Element root = doc.createElement("scene");
+		root.setAttribute("w", ""+world.worldBound.width);
+		root.setAttribute("h", ""+world.worldBound.height);
 		doc.appendChild(root);
 		
 		int len = world.m_Objects.size();
@@ -155,11 +144,45 @@ public class GagGameDataLoad_Func {
 						id_object = GagGameConfig.Id_Player;
 					}
 					break;
+				case ObjectType_Plaform:
+					{
+						id_object = GagGameConfig.Id_Platform;
+					}
+					break;
+				case ObjectType_Door:
+					{
+						GagGameDoor door = (GagGameDoor)object;
+						if(door.doorType==DoorType.DoorType_Enter)
+						{
+							id_object = GagGameConfig.Id_Door1;
+						}else if(door.doorType==DoorType.DoorType_Exit){
+							id_object = GagGameConfig.Id_Door2;
+						}
+					}
+					break;
+				case ObjectType_Box:
+					{
+						id_object = GagGameConfig.Id_Box;
+					}
+					break;
+				case ObjectType_Treasure:
+					{
+						GagGameTreasure treasure = (GagGameTreasure)object;
+						if( treasure.treasureType.ordinal()<TreasureType.TreasureType_EditorStart.ordinal() )
+						{
+							id_object = GagGameConfig.Id_Treasure;
+						}
+					}
+					break;
 			}
 			
 			if( id_object==null )
 			{
-				Gdx.app.error("SaveXmlError:", object.objectType.toString()+" can not save");
+				Gdx.app.error("SaveXmlError:", object.objectType.toString()+" not saved");
+				if( object.objectType==ObjectType.ObjectType_Treasure )
+				{
+					Gdx.app.error("SaveXmlError:", ((GagGameTreasure)object).treasureType.toString()+" not saved");
+				}
 				continue;
 			}
 
@@ -179,8 +202,22 @@ public class GagGameDataLoad_Func {
 			element.appendChild(w);
 			
 			Element h = doc.createElement("h");
-			h.setTextContent(""+object.bounds.width);
+			h.setTextContent(""+object.bounds.height);
 			element.appendChild(h);
+			
+			if( object.canBeDown )
+			{
+				Element downScaleG = doc.createElement("downScaleG");
+				downScaleG.setTextContent(""+object.downScaleByWorldG);
+				element.appendChild(downScaleG);
+			}
+			
+			if( object.objectType==ObjectType.ObjectType_Treasure )
+			{
+				Element TreasureType = doc.createElement("TreasureType");
+				TreasureType.setTextContent(""+GagGameConfig.TreasureName[ ((GagGameTreasure)object).treasureType.ordinal() ]);
+				element.appendChild(TreasureType);
+			}
 			
 			root.appendChild(element);
 		}

@@ -1,75 +1,64 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<scene>
-    
- 	<object id="Player">
-		<x>16</x>
-		<y>20</y>
-		<w>32</w>
-		<h>32</h>
-	</object>
-	   
-    <object id="Door1">
-		<x>20</x>
-		<y>20</y>
-		<w>50</w>
-		<h>50</h>
-	</object>
-	
-    <object id="Treasure">
-		<x>100</x>
-		<y>16</y>
-		<w>32</w>
-		<h>32</h>
-		<TreasureType>athwartWorld</TreasureType>
-	</object>
-    
-    <object id="Platform">
-		<x>100</x>
-		<y>100</y>
-		<w>100</w>
-		<h>16</h>
-	</object>
-	
-    <object id="Platform">
-		<x>300</x>
-		<y>200</y>
-		<w>300</w>
-		<h>16</h>
-	</object>
-	
-    <object id="Platform">
-		<x>550</x>
-		<y>200</y>
-		<w>100</w>
-		<h>16</h>
-	</object>
-
-    <object id="Platform">
-		<x>550</x>
-		<y>40</y>
-		<w>64</w>
-		<h>16</h>
-	</object>
-	
-    <object id="Platform">
-		<x>600</x>
-		<y>20</y>
-		<w>64</w>
-		<h>16</h>
-	</object>
-	
-    <object id="Box">
-		<x>200</x>
-		<y>16</y>
-		<w>64</w>
-		<h>32</h>
-	</object>
-	
-    <object id="Door2">
-		<x>720</x>
-		<y>20</y>
-		<w>50</w>
-		<h>50</h>
-	</object>
-	
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scene h="448.0" w="800.0">
+<object id="Player">
+<x>16.0</x>
+<y>20.0</y>
+<w>32.0</w>
+<h>32.0</h>
+</object>
+<object id="Door1">
+<x>20.0</x>
+<y>20.0</y>
+<w>50.0</w>
+<h>50.0</h>
+</object>
+<object id="Treasure">
+<x>100.0</x>
+<y>16.0</y>
+<w>32.0</w>
+<h>32.0</h>
+<TreasureType>athwartWorld</TreasureType>
+</object>
+<object id="Platform">
+<x>100.0</x>
+<y>100.0</y>
+<w>100.0</w>
+<h>16.0</h>
+</object>
+<object id="Platform">
+<x>300.0</x>
+<y>200.0</y>
+<w>300.0</w>
+<h>16.0</h>
+</object>
+<object id="Platform">
+<x>550.0</x>
+<y>200.0</y>
+<w>100.0</w>
+<h>16.0</h>
+</object>
+<object id="Platform">
+<x>550.0</x>
+<y>40.0</y>
+<w>64.0</w>
+<h>16.0</h>
+</object>
+<object id="Platform">
+<x>600.0</x>
+<y>20.0</y>
+<w>64.0</w>
+<h>16.0</h>
+</object>
+<object id="Box">
+<x>200.0</x>
+<y>16.0</y>
+<w>64.0</w>
+<h>32.0</h>
+</object>
+<object id="Door2">
+<x>720.0</x>
+<y>20.0</y>
+<w>50.0</w>
+<h>50.0</h>
+</object>
 </scene>

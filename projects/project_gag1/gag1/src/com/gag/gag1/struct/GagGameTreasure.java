@@ -13,6 +13,7 @@ public class GagGameTreasure extends GagGameObject {
 		TreasureType_Speed,
 		
 		//scene_editor
+		TreasureType_EditorStart,
 		TreasureType_NewScene,
 		TreasureType_SaveScene,
 		TreasureType_SaveSceneAs,

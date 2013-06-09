@@ -50,4 +50,28 @@ public class GagGameConfig {
 	public static String Id_Door2 = "Door2";
 	public static String Id_Treasure = "Treasure";
 	public static String Id_Box = "Box";
+	
+	public static String TreasureName[] = 
+	{
+		"none",
+		"athwartWorld",
+		"umbrella",
+		"killme",
+		"speed",
+		
+		//scene_editor
+		"editorStart",
+		"newScene",
+		"saveScene",
+		"saveSceneAs",
+		"openScene",
+		"runScene",
+		"stopScene",
+		"moreTool",
+	};
+	
+	public static String Id_Treasure_athwartWorld = "athwartWorld";
+	public static String Id_Treasure_umbrella = "umbrella";
+	public static String Id_Treasure_killme = "killme";
+	public static String Id_Treasure_speed = "speed";
 }

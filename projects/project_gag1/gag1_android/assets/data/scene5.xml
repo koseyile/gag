@@ -1,18 +1,15 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<scene>
-    
- 	<object id="Player">
-		<x>16</x>
-		<y>20</y>
-		<w>32</w>
-		<h>32</h>
-	</object>
-	   
-    <object id="Door1">
-		<x>20</x>
-		<y>20</y>
-		<w>50</w>
-		<h>50</h>
-	</object>
-	
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<scene h="448.0" w="800.0">
+<object id="Player">
+<x>16.0</x>
+<y>20.0</y>
+<w>32.0</w>
+<h>32.0</h>
+</object>
+<object id="Door1">
+<x>20.0</x>
+<y>20.0</y>
+<w>50.0</w>
+<h>50.0</h>
+</object>
 </scene>
