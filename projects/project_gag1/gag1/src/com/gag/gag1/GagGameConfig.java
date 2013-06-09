@@ -39,10 +39,10 @@ public class GagGameConfig {
 	public static int GameUIHeight = 32; 
 	public static float DownSpeedDead = 18f;
 	public static float DownSpeedDeadByHitPlayer = 9f;
-	public static float umbrellaScale_g = 0.5f;
-	public static float umbrellaUseTime = 5f;
-	public static float speedAddScale = 4.0f;
-	public static float speedAddUseTime = 5f;
+	public static float UmbrellaScale_g = 0.5f;
+	public static float UmbrellaUseTime = 5f;
+	public static float SpeedAddScale = 4.0f;
+	public static float SpeedAddUseTime = 5f;
 	
 	public static String Id_Player = "Player";
 	public static String Id_Platform = "Platform";
@@ -70,8 +70,25 @@ public class GagGameConfig {
 		"moreTool",
 	};
 	
-	public static String Id_Treasure_athwartWorld = "athwartWorld";
-	public static String Id_Treasure_umbrella = "umbrella";
-	public static String Id_Treasure_killme = "killme";
-	public static String Id_Treasure_speed = "speed";
+	public static String TreasureTopString[] = 
+	{
+		"none",
+		"athwartWorld",
+		"umbrella",
+		"killme",
+		"speed",
+		
+		//scene_editor
+		"editorStart",
+		"create a new scene",
+		"save scene",
+		"save scene as another file",
+		"open a scene from file",
+		"run scene like game",
+		"stop scene",
+		"more tool",
+	};
+	
+	public static boolean ShowFps = true;
+	
 }

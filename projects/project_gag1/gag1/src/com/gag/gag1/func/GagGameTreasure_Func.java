@@ -119,6 +119,23 @@ public class GagGameTreasure_Func {
 		}
 	}
 	
+	public static void updateTopStringByTreasure(float touchX, float touchY, GagWorld world)
+	{
+		world.m_Editor.topString = null;
+		int len = world.m_Treasures.size();
+		for( int i=0; i<len; ++i )
+		{
+			GagGameTreasure treasure = world.m_Treasures.get(i);
+			if (GagGameObject_Func.pointInObject(touchX, touchY, treasure) && treasure.enable)
+			{
+				world.m_Editor.topString = GagGameConfig.TreasureTopString[ treasure.treasureType.ordinal() ];
+				world.m_Editor.topString_x = treasure.postion.x-treasure.bounds.width/2;
+				world.m_Editor.topString_y = treasure.postion.y-treasure.bounds.height/2;
+				break;
+			}
+		}
+	}
+	
 	public static void updateTreasureByTime(float delta, GagWorld world)
 	{
 		int len = world.m_Treasures.size();
@@ -131,20 +148,20 @@ public class GagGameTreasure_Func {
 					{
 						if( treasure.treasureState==TreasureState.TreasureState_Start )
 						{
-							world.m_g*=GagGameConfig.umbrellaScale_g;
+							world.m_g*=GagGameConfig.UmbrellaScale_g;
 							treasure.treasureState = TreasureState.TreasureState_Using;
 						}else if( treasure.treasureState==TreasureState.TreasureState_Using )
 						{
 							treasure.postion.x = world.m_Player.postion.x;
 							treasure.postion.y = world.m_Player.postion.y;
 							treasure.useTime+=delta;
-							if( treasure.useTime>GagGameConfig.umbrellaUseTime )
+							if( treasure.useTime>GagGameConfig.UmbrellaUseTime )
 							{
 								treasure.treasureState = TreasureState.TreasureState_End;
 							}
 						}else if( treasure.treasureState==TreasureState.TreasureState_End )
 						{
-							world.m_g/=GagGameConfig.umbrellaScale_g;
+							world.m_g/=GagGameConfig.UmbrellaScale_g;
 							treasure.needRelease = true;
 						}
 					}
@@ -153,20 +170,20 @@ public class GagGameTreasure_Func {
 					{
 						if( treasure.treasureState==TreasureState.TreasureState_Start )
 						{
-							world.m_Player.SpeedScale*=GagGameConfig.speedAddScale;
+							world.m_Player.SpeedScale*=GagGameConfig.SpeedAddScale;
 							treasure.treasureState = TreasureState.TreasureState_Using;
 						}else if( treasure.treasureState==TreasureState.TreasureState_Using )
 						{
 							treasure.postion.x = world.m_Player.postion.x;
 							treasure.postion.y = world.m_Player.postion.y;
 							treasure.useTime+=delta;
-							if( treasure.useTime>GagGameConfig.speedAddUseTime )
+							if( treasure.useTime>GagGameConfig.SpeedAddUseTime )
 							{
 								treasure.treasureState = TreasureState.TreasureState_End;
 							}
 						}else if( treasure.treasureState==TreasureState.TreasureState_End )
 						{
-							world.m_Player.SpeedScale/=GagGameConfig.speedAddScale;
+							world.m_Player.SpeedScale/=GagGameConfig.SpeedAddScale;
 							treasure.needRelease = true;
 						}
 					}

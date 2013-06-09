@@ -1,13 +1,17 @@
 package com.gag.gag1.func;
 
 import com.badlogicgames.superjumper.Animation;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogicgames.superjumper.Assets;
+import com.gag.gag1.GagGame;
 import com.gag.gag1.GagGameAssets;
 import com.gag.gag1.GagGameConfig;
 import com.gag.gag1.GagGameScreen;
 import com.gag.gag1.GagWorld;
+import com.gag.gag1.func.GagGameRender.FontLayout_X;
+import com.gag.gag1.func.GagGameRender.FontLayout_Y;
 import com.gag.gag1.struct.GagGameBox;
 import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameObject;
@@ -78,15 +82,26 @@ public class GagGameWorldRender {
 				{
 					GagGameRender.batcher.setColor(0, 0, 0, (gagWorld.m_FadeOutTime/GagGameConfig.FadeInTime));
 					GagGameRender.batcher.draw(Assets.testTex, 0, 0, GagGameRender.guiCam.viewportWidth, GagGameRender.guiCam.viewportHeight);
-					GagGameRender.batcher.setColor(1, 1, 1, 1);					
+					GagGameRender.batcher.setColor(1, 1, 1, 1);
 				}
 				break;
 		}
+		
+
+		if( GagGameConfig.ShowFps && gagWorld.m_Editor.isEnable )
+		{
+			GagGameRender.DrawString("FPS:"+Gdx.graphics.getFramesPerSecond(), 0.5f, 0.5f, FontLayout_X.FontLayout_X_Right, FontLayout_Y.FontLayout_Y_Up);
+		}
+		
+		if( gagWorld.m_Editor.topString!=null )
+		{
+			GagGameRender.DrawString(gagWorld.m_Editor.topString_x, gagWorld.m_Editor.topString_y, gagWorld.m_Editor.topString, 1.0f, 1.0f);
+		}
+		
 	}
 	
 	public static void DrawBackGround(GagWorld world)
 	{
-		//GagGameRender.batcher.draw(Assets.backgroundRegion, 0, 0, GagGameRender.guiCam.viewportWidth, GagGameRender.guiCam.viewportHeight);
 		GagGameRender.batcher.draw(Assets.backgroundRegion, world.worldBound.x, world.worldBound.y, world.worldBound.width, world.worldBound.height); 
 	}
 	

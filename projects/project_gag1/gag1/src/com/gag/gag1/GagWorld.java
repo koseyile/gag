@@ -161,6 +161,14 @@ public class GagWorld {
 			GagGameTreasure_Func.updateTreasureByTouch(touchX, touchY, this);
 		}
 		
+		if( m_Editor.isEnable )
+		{
+			float touchX = Gdx.input.getX();
+			float touchY = Gdx.input.getY();
+			touchY = Gdx.graphics.getHeight() - touchY;
+			GagGameTreasure_Func.updateTopStringByTreasure(touchX, touchY, this);
+		}
+		
 		GagGameTreasure_Func.updateTreasureByTime(delta, this);
 		GagGameTreasure_Func.releaseTreasure(this);
 	}
