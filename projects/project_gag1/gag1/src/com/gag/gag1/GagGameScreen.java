@@ -24,7 +24,9 @@ public class GagGameScreen implements Screen {
 	public GagGameScreen (Game game) {
 		this.game = game;
 		m_GagWorld = new GagWorld();
+		GagGameWorld_Func.initWorldConfigByGraphic();
 		GagGameWorld_Func.setWorldBound(m_GagWorld, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-GagGameConfig.GameUIHeight);
+		GagGameWorld_Func.initWorldConfig(m_GagWorld);
 		GagGameWorld_Func.loadScene(SceneID.SceneID_1, m_GagWorld);
 	}
 	

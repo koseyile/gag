@@ -173,7 +173,7 @@ public class GagWorld {
 		GagGameTreasure_Func.releaseTreasure(this);
 	}
 	
-	//道具更新
+	//Objects更新
 	void updateObject(float delta)
 	{
 		Vector2 startPos = new Vector2();
@@ -247,7 +247,7 @@ public class GagWorld {
 						{
 							updateObject(delta);
 							updatePlayer(delta);
-						}					
+						}
 					}
 				}
 				break;

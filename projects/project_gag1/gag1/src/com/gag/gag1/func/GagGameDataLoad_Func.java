@@ -36,17 +36,32 @@ public class GagGameDataLoad_Func {
 		Document doc = builder.parse(Gdx.files.internal(file).read());
 		Element element = doc.getDocumentElement();
 	
-		float scene_w = world.worldBound.width;
-		float scene_h = world.worldBound.height;
+		float scene_w = GagGameConfig.World_Defult_W;
+		float scene_h = GagGameConfig.World_Defult_H;
 		
-		if( !element.getAttribute("w").isEmpty() && !element.getAttribute("w").isEmpty() )
+		//¶ÁÈ¡sceneInfo
 		{
-			scene_w = Float.parseFloat(element.getAttribute("w"));
-			scene_h = Float.parseFloat(element.getAttribute("h"));
+			NodeList sceneInfoNodes =  element.getElementsByTagName("sceneInfo");
+			if( sceneInfoNodes.getLength()==1 )
+			{
+				Element element_sceneInfo = (Element) sceneInfoNodes.item(0);
+				NodeList element_scene_nodes = element_sceneInfo.getChildNodes();
+				for(int j=0; j<element_scene_nodes.getLength(); ++j)
+				{
+					Node node = element_scene_nodes.item(j);
+					if( node.getNodeName().equals("w") )
+					{
+						scene_w = Float.parseFloat(node.getTextContent());
+					}else if( node.getNodeName().equals("h") )
+					{
+						scene_h = Float.parseFloat(node.getTextContent());
+					}
+				}
+			}
 		}
 		
-		float scene_x_scale = scene_w/world.worldBound.width;
-		float scene_y_scale = scene_h/world.worldBound.height;
+		float scene_x_scale = world.worldBound.width/scene_w;
+		float scene_y_scale = world.worldBound.height/scene_h;
 		
 		NodeList objectNodes = element.getElementsByTagName("object");
 		
@@ -96,10 +111,10 @@ public class GagGameDataLoad_Func {
 					gameObject.postion.y = Float.parseFloat(node.getTextContent())*scene_y_scale;
 				}else if( node.getNodeName().equals("w") )
 				{
-					gameObject.bounds.width = Float.parseFloat(node.getTextContent());
+					gameObject.bounds.width = Float.parseFloat(node.getTextContent())*scene_x_scale;
 				}else if( node.getNodeName().equals("h") )
 				{
-					gameObject.bounds.height = Float.parseFloat(node.getTextContent());
+					gameObject.bounds.height = Float.parseFloat(node.getTextContent())*scene_y_scale;
 				}else if( node.getNodeName().equals("TreasureType") )
 				{
 					
@@ -128,9 +143,20 @@ public class GagGameDataLoad_Func {
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.newDocument();
 		Element root = doc.createElement("scene");
-		root.setAttribute("w", ""+world.worldBound.width);
-		root.setAttribute("h", ""+world.worldBound.height);
 		doc.appendChild(root);
+		
+		{
+			Element element = doc.createElement("sceneInfo");
+			
+			Element w = doc.createElement("w");
+			w.setTextContent(""+world.worldBound.width);
+			element.appendChild(w);
+			
+			Element h = doc.createElement("h");
+			h.setTextContent(""+world.worldBound.height);
+			element.appendChild(h);
+			root.appendChild(element);
+		}
 		
 		int len = world.m_Objects.size();
 		for (int i = 0; i < len; i++)
@@ -222,20 +248,6 @@ public class GagGameDataLoad_Func {
 			root.appendChild(element);
 		}
 		
-//	 	<object id="Player">
-//			<x>16</x>
-//			<y>20</y>
-//			<w>32</w>
-//			<h>32</h>
-//		</object>
-		
-//		Element element = doc.createElement("object");
-//		element.setAttribute("id", "Player");
-//		Element x = doc.createElement("x");
-//		x.setTextContent("16");
-//		element.appendChild(x);
-//		
-//		root.appendChild(element);
 		
 		//Éú³ÉXML
 		TransformerFactory tf = TransformerFactory.newInstance();

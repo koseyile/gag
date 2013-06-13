@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<scene h="448.0" w="800.0">
+<scene>
+<sceneInfo>
+<w>800.0</w>
+<h>448.0</h>
+</sceneInfo>
 <object id="Player">
 <x>16.0</x>
 <y>16.0</y>

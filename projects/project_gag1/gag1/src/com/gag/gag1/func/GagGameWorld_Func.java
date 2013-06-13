@@ -1,5 +1,6 @@
 package com.gag.gag1.func;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogicgames.superjumper.OverlapTester;
 import com.gag.gag1.GagGameConfig;
@@ -31,12 +32,36 @@ public class GagGameWorld_Func {
 		world.m_Objects.add(world.m_Player);
 	}
 	
+	public static void initWorldConfigByGraphic()
+	{
+		float f_w = Gdx.graphics.getWidth()/GagGameConfig.World_Graphic_Defult_W;
+		float f_h = Gdx.graphics.getHeight()/GagGameConfig.World_Graphic_Defult_H;
+
+		GagGameConfig.GameUIHeight*=f_h;
+	}
+	
+	public static void initWorldConfig(GagWorld world)
+	{
+		float f_w = GagGameConfig.World_W/GagGameConfig.World_Defult_W;
+		float f_h = GagGameConfig.World_H/GagGameConfig.World_Defult_H;
+		
+		world.m_g *= f_h;
+		GagGameConfig.PlayerMoveLeftDistance *= f_w;
+		GagGameConfig.PlayerMoveRightDistance *= f_w;
+		GagGameConfig.DownSpeedDead *= f_h;
+		GagGameConfig.DisByDoorToPlayer *= (f_w*f_h);
+		GagGameConfig.DisByTreasureToPlayer *= (f_w*f_h);
+	}
+	
 	public static void setWorldBound(GagWorld world, float x, float y, float w, float h)
 	{
 		world.worldBound.x = x;
 		world.worldBound.y = y;
 		world.worldBound.width = w;
 		world.worldBound.height = h;
+		
+		GagGameConfig.World_W = w;
+		GagGameConfig.World_H = h;
 	}
 	
 	public static void loadScene(SceneID sceneId, GagWorld world)

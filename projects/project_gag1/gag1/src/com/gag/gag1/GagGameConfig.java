@@ -4,6 +4,12 @@ import com.badlogic.gdx.Input.Keys;
 
 public class GagGameConfig {
 	public static float World_g = -1f;
+	public static float World_W = 800.0f;
+	public static float World_H = 448.0f;
+	public static float World_Graphic_Defult_W = 800.0f;
+	public static float World_Graphic_Defult_H = 480.0f;
+	public static float World_Defult_W = 800.0f;
+	public static float World_Defult_H = 448.0f;
 	public static float PlayerStartX = 16f;
 	public static float PlayerStartY = 16f;
 	public static float AccelerometerMaxX = 5f;
