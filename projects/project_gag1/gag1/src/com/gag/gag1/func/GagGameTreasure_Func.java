@@ -14,10 +14,10 @@ public class GagGameTreasure_Func {
 		if( treasure.isPickUp==false )
 		{
 			int len = world.m_Treasures.size();
-			treasure.postion.x = treasure.bounds.width/2+treasure.bounds.width*len;
-			treasure.postion.y = world.worldBound.height+treasure.bounds.height/2;
 			world.m_Treasures.add(treasure);
 			treasure.isPickUp = true;
+			
+			GagGameUI_Func.updateAllTreasureByUI(world);
 		}
 	}
 	
@@ -67,6 +67,16 @@ public class GagGameTreasure_Func {
 					GagGameWorld_Func.gameOver(world);
 				}
 				break;
+			case TreasureType_GoRight:
+				{
+					
+				}
+				break;				
+			case TreasureType_GoLeft:
+				{
+					
+				}
+				break;					
 			case TreasureType_NewScene:
 				{
 					GagGameSceneEditor_Func.newScene(world);
@@ -102,6 +112,7 @@ public class GagGameTreasure_Func {
 					GagGameSceneEditor_Func.moreTool(world);
 				}
 				break;
+
 		}
 	}
 	
@@ -111,7 +122,7 @@ public class GagGameTreasure_Func {
 		for( int i=0; i<len; ++i )
 		{
 			GagGameTreasure treasure = world.m_Treasures.get(i);
-			if (GagGameObject_Func.pointInObject(touchX, touchY, treasure) && treasure.enable)
+			if (GagGameObject_Func.pointInObject(touchX, touchY, treasure) && treasure.enable && treasure.isShow)
 			{
 				useTreasure(treasure, world);
 				break;
@@ -126,11 +137,11 @@ public class GagGameTreasure_Func {
 		for( int i=0; i<len; ++i )
 		{
 			GagGameTreasure treasure = world.m_Treasures.get(i);
-			if (GagGameObject_Func.pointInObject(touchX, touchY, treasure) && treasure.enable)
+			if (GagGameObject_Func.pointInObject(touchX, touchY, treasure) && treasure.enable && treasure.isShow)
 			{
 				world.m_Editor.topString = GagGameConfig.TreasureTopString[ treasure.treasureType.ordinal() ];
 				world.m_Editor.topString_x = treasure.postion.x-treasure.bounds.width/2;
-				world.m_Editor.topString_y = treasure.postion.y-treasure.bounds.height/2;
+				world.m_Editor.topString_y = treasure.postion.y+treasure.bounds.height/2+GagGameConfig.topStringH;
 				break;
 			}
 		}
@@ -206,6 +217,7 @@ public class GagGameTreasure_Func {
 				{
 					world.m_Treasures.remove(i);
 					world.m_Objects.remove(treasure);
+					GagGameUI_Func.updateAllTreasureByUI(world);
 					break;
 				}
 			}

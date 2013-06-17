@@ -10,6 +10,8 @@ public class GagGameAssets {
 	public static Texture killMeTex;
 	public static Texture speedTex;
 	public static Texture boxTex;
+	public static Texture goRightTex;
+	public static Texture goLeftTex;
 	
 	//scene editor
 	public static Texture newSceneTex;
@@ -33,6 +35,8 @@ public class GagGameAssets {
 		killMeTex = loadTexture("data/killme.png");
 		speedTex = loadTexture("data/speed.png");
 		boxTex = loadTexture("data/box.png");
+		goRightTex = loadTexture("data/goRight.png");
+		goLeftTex = loadTexture("data/goLeft.png");
 		
 		//scene editor
 		newSceneTex = loadTexture("data/newScene.png");

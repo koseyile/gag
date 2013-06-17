@@ -15,6 +15,7 @@ import com.gag.gag1.struct.GagGameDoor.DoorType;
 import com.gag.gag1.struct.GagGameObject.ObjectType;
 import com.gag.gag1.struct.GagGamePlayer.MoveState;
 import com.gag.gag1.struct.GagGameTreasure.TreasureState;
+import com.gag.gag1.struct.GagGameTreasure.TreasureType;
 import com.gag.gag1.struct.GagGameTreasure;
 
 public class GagGameWorld_Func {
@@ -32,12 +33,35 @@ public class GagGameWorld_Func {
 		world.m_Objects.add(world.m_Player);
 	}
 	
+	public static void checkWorld()
+	{
+		if( GagGameConfig.TreasureName.length!=TreasureType.values().length )
+		{
+			Gdx.app.error("Error:", "GagGameConfig.TreasureName.length!=TreasureType.values().length");
+			Gdx.app.exit();
+		}
+		
+		if( GagGameConfig.TreasureTopString.length!=TreasureType.values().length )
+		{
+			Gdx.app.error("Error:", "GagGameConfig.TreasureTopString.length!=TreasureType.values().length");
+			Gdx.app.exit();
+		}
+	}
+	
 	public static void initWorldConfigByGraphic()
 	{
 		float f_w = Gdx.graphics.getWidth()/GagGameConfig.World_Graphic_Defult_W;
 		float f_h = Gdx.graphics.getHeight()/GagGameConfig.World_Graphic_Defult_H;
 
-		GagGameConfig.GameUIHeight*=f_h;
+		GagGameConfig.GameBottomUIHeight*=f_h;
+		GagGameConfig.GameTopUIHeight*=f_h;
+		GagGameConfig.UI_treasures_x*=f_w;
+		GagGameConfig.UI_treasures_y*=f_h;
+		GagGameConfig.UI_treasures_h*=f_h;
+		GagGameConfig.UI_treasure_w*=f_w;
+		GagGameConfig.UI_treasures_spacing*=f_w;
+		GagGameConfig.UI_goLeft_x*=f_w;
+		GagGameConfig.UI_goLeft_y*=f_h;
 	}
 	
 	public static void initWorldConfig(GagWorld world)
@@ -85,7 +109,26 @@ public class GagGameWorld_Func {
 			world.m_Editor.isRun = true;
 		}
 		
-		world.m_WorldState = WorldState.WorldState_FadeIn;		
+		world.m_WorldState = WorldState.WorldState_FadeIn;
+		
+		//加载固定道具
+		world.m_GoLeft = new GagGameTreasure();
+		world.m_GoLeft.treasureType = TreasureType.TreasureType_GoLeft;
+		world.m_GoLeft.postion.x = GagGameConfig.UI_goLeft_x;
+		world.m_GoLeft.postion.y = GagGameConfig.UI_goLeft_y;
+		world.m_GoLeft.bounds.width = GagGameConfig.UI_treasure_w;
+		world.m_GoLeft.bounds.height = GagGameConfig.UI_treasures_h;
+		world.m_GoLeft.isPickUp = true;
+		world.m_Objects.add(world.m_GoLeft);
+		
+		world.m_GoRight = new GagGameTreasure();
+		world.m_GoRight.treasureType = TreasureType.TreasureType_GoRight;
+		world.m_GoRight.postion.x = Gdx.graphics.getWidth() - GagGameConfig.UI_goLeft_x;
+		world.m_GoRight.postion.y = GagGameConfig.UI_goLeft_y;
+		world.m_GoRight.bounds.width = GagGameConfig.UI_treasure_w;
+		world.m_GoRight.bounds.height = GagGameConfig.UI_treasures_h;
+		world.m_GoRight.isPickUp = true;
+		world.m_Objects.add(world.m_GoRight);
 	}
 
 	public static boolean updateByWorld(GagWorld world)

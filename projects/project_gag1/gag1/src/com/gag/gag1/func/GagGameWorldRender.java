@@ -170,9 +170,11 @@ public class GagGameWorldRender {
 	
 	public static void DrawTreasure(GagGameTreasure treasure)
 	{
-		//Texture keyFrame = GagGameAssets.athwartTex;
-		//GagGameRender.DrawTexByCenter(keyFrame, treasure.postion.x, treasure.postion.y, treasure.bounds.width, treasure.bounds.height, false, false);
-
+		if( !treasure.isShow )
+		{
+			return;
+		}
+		
 		Texture keyFrame = GagGameAssets.treasureTex;
 		
 		if( treasure.isPickUp )
@@ -204,6 +206,16 @@ public class GagGameWorldRender {
 						keyFrame = GagGameAssets.speedTex;
 					}
 					break;
+				case TreasureType_GoLeft:
+					{
+						keyFrame = GagGameAssets.goLeftTex;
+					}
+					break;					
+				case TreasureType_GoRight:
+					{
+						keyFrame = GagGameAssets.goRightTex;
+					}
+					break;				
 				case TreasureType_NewScene:
 					{
 						keyFrame = GagGameAssets.newSceneTex;

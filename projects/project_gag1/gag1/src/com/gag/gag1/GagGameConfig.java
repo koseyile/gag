@@ -30,19 +30,20 @@ public class GagGameConfig {
 	public static float DoorHeight = 64f;
 	public static String SceneFileName[] = 
 	{
-		"data/scene_editor.xml",
+//		"data/scene_editor.xml",
 		
-//		"data/scene1.xml",
-//		"data/scene2.xml",
-//		"data/scene3.xml",
-//		"data/scene4.xml",
-//		"data/scene5.xml",
+		"data/scene2.xml",
+		"data/scene2.xml",
+		"data/scene3.xml",
+		"data/scene4.xml",
+		"data/scene5.xml",
 	};
 	public static float DisByDoorToPlayer = 5f;
 	public static float DisByTreasureToPlayer = 5f;
 	public static float FadeInTime = 1f;
 	public static float FadeOutTime = 1f;
-	public static int GameUIHeight = 32; 
+	public static int GameTopUIHeight = 16; 
+	public static int GameBottomUIHeight = 32; 
 	public static float DownSpeedDead = 18f;
 	public static float DownSpeedDeadByHitPlayer = 9f;
 	public static float UmbrellaScale_g = 0.5f;
@@ -64,6 +65,8 @@ public class GagGameConfig {
 		"umbrella",
 		"killme",
 		"speed",
+		"goRight",
+		"goLeft",
 		
 		//scene_editor
 		"editorStart",
@@ -83,6 +86,8 @@ public class GagGameConfig {
 		"umbrella",
 		"killme",
 		"speed",
+		"goRight",
+		"goLeft",
 		
 		//scene_editor
 		"editorStart",
@@ -94,7 +99,15 @@ public class GagGameConfig {
 		"stop scene",
 		"more tool",
 	};
-	
+	public static float topStringH = 24f;
 	public static boolean ShowFps = true;
 	
+	public static float UI_treasures_x = 32f;
+	public static float UI_treasures_y = 16f;
+	public static float UI_treasures_h = 32f;
+	public static float UI_treasure_w = 32f;
+	public static float UI_treasures_spacing = 6f;
+	
+	public static float UI_goLeft_x = 16f;
+	public static float UI_goLeft_y = 16f;
 }

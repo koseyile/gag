@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <scene>
 <sceneInfo>
-<w>800.0</w>
-<h>448.0</h>
+<w>1024.0</w>
+<h>717.0</h>
 </sceneInfo>
 <object id="Player">
-<x>16.0</x>
-<y>400.0</y>
-<w>32.0</w>
-<h>32.0</h>
+<x>20.48</x>
+<y>640.1786</y>
+<w>40.96</w>
+<h>51.214287</h>
 </object>
 <object id="Door1">
-<x>20.0</x>
-<y>400.0</y>
-<w>50.0</w>
-<h>50.0</h>
+<x>25.599998</x>
+<y>640.1786</y>
+<w>64.0</w>
+<h>80.02232</h>
 </object>
 <object id="Platform">
-<x>50.0</x>
-<y>350.0</y>
-<w>100.0</w>
-<h>16.0</h>
+<x>64.0</x>
+<y>560.15625</y>
+<w>128.0</w>
+<h>25.607143</h>
 </object>
 <object id="Treasure">
-<x>64.0</x>
-<y>374.0</y>
-<w>32.0</w>
-<h>32.0</h>
+<x>81.92</x>
+<y>598.56696</y>
+<w>40.96</w>
+<h>51.214287</h>
 <TreasureType>speed</TreasureType>
 </object>
 <object id="Platform">
-<x>100.0</x>
-<y>300.0</y>
-<w>200.0</w>
-<h>16.0</h>
+<x>128.0</x>
+<y>480.13394</y>
+<w>256.0</w>
+<h>25.607143</h>
 <downScaleG>0.2</downScaleG>
 </object>
 <object id="Platform">
-<x>250.0</x>
-<y>250.0</y>
-<w>200.0</w>
-<h>16.0</h>
+<x>320.0</x>
+<y>400.1116</y>
+<w>256.0</w>
+<h>25.607143</h>
 <downScaleG>0.2</downScaleG>
 </object>
 <object id="Platform">
-<x>400.0</x>
-<y>200.0</y>
-<w>200.0</w>
-<h>16.0</h>
+<x>512.0</x>
+<y>320.0893</y>
+<w>256.0</w>
+<h>25.607143</h>
 <downScaleG>0.2</downScaleG>
 </object>
 <object id="Platform">
-<x>550.0</x>
-<y>150.0</y>
-<w>200.0</w>
-<h>16.0</h>
+<x>704.0</x>
+<y>240.06697</y>
+<w>256.0</w>
+<h>25.607143</h>
 <downScaleG>0.2</downScaleG>
 </object>
 <object id="Platform">
-<x>710.0</x>
-<y>100.0</y>
-<w>64.0</w>
-<h>16.0</h>
+<x>908.8</x>
+<y>160.04465</y>
+<w>81.92</w>
+<h>25.607143</h>
 </object>
 <object id="Treasure">
-<x>710.0</x>
-<y>16.0</y>
-<w>32.0</w>
-<h>32.0</h>
+<x>908.8</x>
+<y>25.607143</y>
+<w>40.96</w>
+<h>51.214287</h>
 <TreasureType>killme</TreasureType>
 </object>
 <object id="Door2">
-<x>710.0</x>
-<y>125.0</y>
-<w>50.0</w>
-<h>50.0</h>
+<x>908.8</x>
+<y>200.0558</y>
+<w>64.0</w>
+<h>80.02232</h>
 </object>
 </scene>

@@ -14,6 +14,7 @@ import com.badlogicgames.superjumper.OverlapTester;
 import com.badlogicgames.superjumper.Platform;
 import com.gag.gag1.func.GagGameDataLoad_Func;
 import com.gag.gag1.func.GagGameObject_Func;
+import com.gag.gag1.func.GagGameObject_Func.InputState;
 import com.gag.gag1.func.GagGameRender;
 import com.gag.gag1.func.GagGameSceneEditor_Func;
 import com.gag.gag1.func.GagGameTreasure_Func;
@@ -26,6 +27,7 @@ import com.gag.gag1.struct.GagGameObject.ObjectType;
 import com.gag.gag1.struct.GagGamePlatform;
 import com.gag.gag1.struct.GagGamePlayer;
 import com.gag.gag1.struct.GagGameTreasure;
+import com.gag.gag1.struct.GagGameTreasure.TreasureType;
 
 public class GagWorld {
 	
@@ -49,6 +51,8 @@ public class GagWorld {
 	};
 	
 	public GagGamePlayer m_Player;
+	public GagGameTreasure m_GoLeft;
+	public GagGameTreasure m_GoRight;
 	public List<GagGameObject> m_Objects;
 	public List<GagGameTreasure> m_Treasures;
 	public float m_g;
@@ -58,6 +62,8 @@ public class GagWorld {
 	public float m_FadeOutTime;
 	public Rectangle worldBound;
 	public boolean isGameOver;
+	
+	public GagGameUI m_UI;
 	
 	public GagGameEditor m_Editor;
 	
@@ -69,9 +75,10 @@ public class GagWorld {
 		GagGameWorld_Func.initWorld(this);
 		
 		worldBound = new Rectangle(0, 0, 800, 600);
+		m_UI = new GagGameUI();
 		m_Editor = new GagGameEditor();
 	}
-	
+
 	public void setWorldBound(float x, float y, float w, float h)
 	{
 		worldBound.x = x;
@@ -88,7 +95,10 @@ public class GagWorld {
 		ApplicationType appType = Gdx.app.getType();
 		if (appType == ApplicationType.Android || appType == ApplicationType.iOS)
 		{
-			GagGameObject_Func.updatePlayerPosByTouch(Gdx.input.isTouched(), Gdx.input.getX(), Gdx.input.getY(), Gdx.graphics.getWidth(), m_Player);
+			//GagGameObject_Func.updatePlayerPosByTouch(Gdx.input.isTouched(), Gdx.input.getX(), Gdx.input.getY(), Gdx.graphics.getWidth(), m_Player);
+			GagGameObject_Func.updatePlayerPosByInputState(InputState.InputState_None, m_Player);
+			GagGameObject_Func.updatePlayerPosByTouchTreasure( Gdx.input.isTouched(0), Gdx.input.getX(0), Gdx.input.getY(0), this );
+			GagGameObject_Func.updatePlayerPosByTouchTreasure( Gdx.input.isTouched(1), Gdx.input.getX(1), Gdx.input.getY(1), this );
 			
 			//GagGameWorld_Func.UpdateWorldGByTouch(Gdx.input.isTouched(), Gdx.input.getY(), Gdx.graphics.getHeight(), this);
 			//GagGameObject_Func.UpdatePlayerPosByAccelerometerY(Gdx.input.getAccelerometerY(), m_Player);

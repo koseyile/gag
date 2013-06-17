@@ -9,6 +9,7 @@ import com.gag.gag1.GagGameConfig;
 import com.gag.gag1.GagWorld;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGamePlayer;
+import com.gag.gag1.struct.GagGamePlayer.MoveState;
 
 public class GagGameObject_Func {
 	public enum InputState
@@ -56,6 +57,26 @@ public class GagGameObject_Func {
 			}
 		}else{
 			updatePlayerPosByInputState(InputState.InputState_None, player);
+		}
+	}
+	
+	public static void updatePlayerPosByTouchTreasure(boolean bTouched, float TouchX, float TouchY, GagWorld world)
+	{
+		TouchY = Gdx.graphics.getHeight() - TouchY;
+		boolean bTouchGoLeft = pointInObject(TouchX, TouchY, world.m_GoLeft);
+		boolean bTouchGoRight = pointInObject(TouchX, TouchY, world.m_GoRight);
+		
+		if( bTouched && ( bTouchGoLeft || bTouchGoRight ) )
+		{
+			if( bTouchGoRight )
+			{
+				updatePlayerPosByInputState(InputState.InputState_Right, world.m_Player);
+			}
+
+			if( bTouchGoLeft )
+			{
+				updatePlayerPosByInputState(InputState.InputState_Left, world.m_Player);
+			}	
 		}
 	}
 	

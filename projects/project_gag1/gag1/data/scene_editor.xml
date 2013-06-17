@@ -64,4 +64,104 @@
 		<TreasureType>moreTool</TreasureType>
 	</object>
  	 
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	 <object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+ 	 <object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>stopScene</TreasureType>
+	</object>
+ 	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>stopScene</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+	<object id="Treasure">
+		<x>100</x>
+		<y>16</y>
+		<w>32</w>
+		<h>32</h>
+		<TreasureType>moreTool</TreasureType>
+	</object>
+
 </scene>

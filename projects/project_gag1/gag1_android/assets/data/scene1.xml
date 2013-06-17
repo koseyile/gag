@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<scene h="448.0" w="800.0">
+<scene>
+<sceneInfo>
+<w>1024.0</w>
+<h>717.0</h>
+</sceneInfo>
 <object id="Player">
-<x>16.0</x>
-<y>100.0</y>
-<w>32.0</w>
-<h>32.0</h>
+<x>20.48</x>
+<y>160.04465</y>
+<w>40.96</w>
+<h>51.214287</h>
 </object>
 <object id="Door1">
-<x>20.0</x>
-<y>100.0</y>
-<w>50.0</w>
-<h>50.0</h>
+<x>25.599998</x>
+<y>160.04465</y>
+<w>64.0</w>
+<h>80.02232</h>
 </object>
 <object id="Platform">
-<x>224.0</x>
-<y>100.0</y>
-<w>64.0</w>
-<h>16.0</h>
+<x>286.72</x>
+<y>160.04465</y>
+<w>81.92</w>
+<h>25.607143</h>
 </object>
 <object id="Platform">
-<x>320.0</x>
-<y>200.0</y>
-<w>64.0</w>
-<h>16.0</h>
+<x>409.59998</x>
+<y>320.0893</y>
+<w>81.92</w>
+<h>25.607143</h>
 </object>
 <object id="Platform">
-<x>420.0</x>
-<y>250.0</y>
-<w>64.0</w>
-<h>16.0</h>
+<x>537.6</x>
+<y>400.1116</y>
+<w>81.92</w>
+<h>25.607143</h>
 </object>
 <object id="Platform">
-<x>520.0</x>
-<y>300.0</y>
-<w>64.0</w>
-<h>16.0</h>
+<x>665.6</x>
+<y>480.1339</y>
+<w>81.92</w>
+<h>25.607143</h>
 </object>
 <object id="Platform">
-<x>620.0</x>
-<y>350.0</y>
-<w>64.0</w>
-<h>16.0</h>
+<x>793.6</x>
+<y>560.15625</y>
+<w>81.92</w>
+<h>25.607143</h>
 </object>
 <object id="Platform">
-<x>720.0</x>
-<y>400.0</y>
-<w>64.0</w>
-<h>16.0</h>
+<x>921.6</x>
+<y>640.1786</y>
+<w>81.92</w>
+<h>25.607143</h>
 </object>
 <object id="Door2">
-<x>720.0</x>
-<y>420.0</y>
-<w>50.0</w>
-<h>50.0</h>
+<x>921.6</x>
+<y>672.1875</y>
+<w>64.0</w>
+<h>80.02232</h>
 </object>
 <object id="Treasure">
-<x>300.0</x>
-<y>16.0</y>
-<w>32.0</w>
-<h>32.0</h>
+<x>384.0</x>
+<y>25.607147</y>
+<w>40.96</w>
+<h>51.214287</h>
 <TreasureType>athwartWorld</TreasureType>
 </object>
 </scene>

@@ -219,6 +219,6 @@ public class GagGameSceneEditor_Func {
 	
 	public static void moreTool(GagWorld world)
 	{
-		GagGameWorld_Func.setWorldBound(world, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-(GagGameConfig.GameUIHeight)*3);
+		GagGameWorld_Func.setWorldBound(world, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-(GagGameConfig.GameBottomUIHeight)*3);
 	}
 }

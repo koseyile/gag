@@ -106,9 +106,11 @@ public class GagGameDataLoad_Func {
 				if( node.getNodeName().equals("x") )
 				{
 					gameObject.postion.x = Float.parseFloat(node.getTextContent())*scene_x_scale;
+					gameObject.postion.x += world.worldBound.x;
 				}else if( node.getNodeName().equals("y") )
 				{
 					gameObject.postion.y = Float.parseFloat(node.getTextContent())*scene_y_scale;
+					gameObject.postion.y += world.worldBound.y;
 				}else if( node.getNodeName().equals("w") )
 				{
 					gameObject.bounds.width = Float.parseFloat(node.getTextContent())*scene_x_scale;
@@ -216,11 +218,11 @@ public class GagGameDataLoad_Func {
 			element.setAttribute("id", id_object);
 			
 			Element x = doc.createElement("x");
-			x.setTextContent(""+object.postion.x);
+			x.setTextContent(""+(object.postion.x-world.worldBound.x));
 			element.appendChild(x);
 			
 			Element y = doc.createElement("y");
-			y.setTextContent(""+object.postion.y);
+			y.setTextContent(""+(object.postion.y-world.worldBound.y));
 			element.appendChild(y);
 			
 			Element w = doc.createElement("w");

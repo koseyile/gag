@@ -11,6 +11,8 @@ public class GagGameTreasure extends GagGameObject {
 		TreasureType_Umbrella,
 		TreasureType_KillMe,
 		TreasureType_Speed,
+		TreasureType_GoRight,
+		TreasureType_GoLeft,
 		
 		//scene_editor
 		TreasureType_EditorStart,
@@ -37,6 +39,7 @@ public class GagGameTreasure extends GagGameObject {
 	public float useTime;
 	public boolean needRelease;
 	public boolean enable;
+	public boolean isShow;
 	
 	public GagGameTreasure()
 	{
@@ -50,5 +53,6 @@ public class GagGameTreasure extends GagGameObject {
 		useTime = 0f;
 		needRelease = false;
 		enable = true;
+		isShow = true;
 	}
 }
