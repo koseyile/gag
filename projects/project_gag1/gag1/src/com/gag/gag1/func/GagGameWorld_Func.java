@@ -66,15 +66,18 @@ public class GagGameWorld_Func {
 	
 	public static void initWorldConfig(GagWorld world)
 	{
-		float f_w = GagGameConfig.World_W/GagGameConfig.World_Defult_W;
-		float f_h = GagGameConfig.World_H/GagGameConfig.World_Defult_H;
+		float f_w = world.worldBound.width/GagGameConfig.World_Defult_W;
+		float f_h = world.worldBound.height/GagGameConfig.World_Defult_H;
 		
-		world.m_g *= f_h;
+		GagGameConfig.World_g *= f_h;
+		GagGameConfig.UmbrellaScale_g *= f_h;
 		GagGameConfig.PlayerMoveLeftDistance *= f_w;
 		GagGameConfig.PlayerMoveRightDistance *= f_w;
 		GagGameConfig.DownSpeedDead *= f_h;
 		GagGameConfig.DisByDoorToPlayer *= (f_w*f_h);
 		GagGameConfig.DisByTreasureToPlayer *= (f_w*f_h);
+		GagGameConfig.CollisionAppendW *= f_w;
+		GagGameConfig.CollisionAppendH *= f_h;
 	}
 	
 	public static void setWorldBound(GagWorld world, float x, float y, float w, float h)
@@ -83,9 +86,6 @@ public class GagGameWorld_Func {
 		world.worldBound.y = y;
 		world.worldBound.width = w;
 		world.worldBound.height = h;
-		
-		GagGameConfig.World_W = w;
-		GagGameConfig.World_H = h;
 	}
 	
 	public static void loadScene(SceneID sceneId, GagWorld world)
@@ -129,6 +129,24 @@ public class GagGameWorld_Func {
 		world.m_GoRight.bounds.height = GagGameConfig.UI_treasures_h;
 		world.m_GoRight.isPickUp = true;
 		world.m_Objects.add(world.m_GoRight);
+		
+		world.m_NextPage = new GagGameTreasure();
+		world.m_NextPage.treasureType = TreasureType.TreasureType_NextPage;
+		world.m_NextPage.postion.x = Gdx.graphics.getWidth() - GagGameConfig.UI_goLeft_x - (GagGameConfig.UI_treasure_w+GagGameConfig.UI_treasures_spacing);
+		world.m_NextPage.postion.y = GagGameConfig.UI_goLeft_y;
+		world.m_NextPage.bounds.width = GagGameConfig.UI_treasure_w;
+		world.m_NextPage.bounds.height = GagGameConfig.UI_treasures_h;
+		world.m_NextPage.isPickUp = true;
+		world.m_Objects.add(world.m_NextPage);
+		
+		world.m_PrePage = new GagGameTreasure();
+		world.m_PrePage.treasureType = TreasureType.TreasureType_PrePage;
+		world.m_PrePage.postion.x = GagGameConfig.UI_goLeft_x+GagGameConfig.UI_treasure_w+GagGameConfig.UI_treasures_spacing;
+		world.m_PrePage.postion.y = GagGameConfig.UI_goLeft_y;
+		world.m_PrePage.bounds.width = GagGameConfig.UI_treasure_w;
+		world.m_PrePage.bounds.height = GagGameConfig.UI_treasures_h;
+		world.m_PrePage.isPickUp = true;
+		world.m_Objects.add(world.m_PrePage);
 	}
 
 	public static boolean updateByWorld(GagWorld world)
@@ -201,7 +219,7 @@ public class GagGameWorld_Func {
 		Vector2 endPos = new Vector2(obj.postion);
 		obj.postion.add(dir.mul(1.0f));
 		endPos.set(obj.postion);
-		GagGameObject retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(obj, world, startPos, endPos);
+		GagGameObject retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(obj, world, startPos, endPos, 0f, 0f, true, null);
 		if( retObj!=null )
 		{
 			int i = 0;
@@ -209,7 +227,7 @@ public class GagGameWorld_Func {
 		}
 	}
 	
-	public static GagGameObject updateObjectPosByWorldObjects( GagGameObject object_out, GagWorld world, Vector2 start, Vector2 end )
+	public static GagGameObject updateObjectPosByWorldObjects( GagGameObject object_out, GagWorld world, Vector2 start, Vector2 end, float append_w, float append_h, boolean updated, Vector2 pos_out )
 	{
 		//计算玩家的位移是否与世界里其它道具相碰撞
 		Vector2 outV = new Vector2();
@@ -246,8 +264,8 @@ public class GagGameWorld_Func {
 			}
 
 			bResult = GagGameObject_Func.getIntersectionByObject(outV, start, end, 
-																				  object_out.bounds.width, 
-																				  object_out.bounds.height, 
+																				  object_out.bounds.width+append_w, 
+																				  object_out.bounds.height+append_h, 
 																				  object);
 			
 			if( outV.dst(start)<end.dst(start) )
@@ -264,7 +282,16 @@ public class GagGameWorld_Func {
 			}
 		}
 		
-		object_out.postion.set(nearV);
+		if( updated )
+		{
+			object_out.postion.set(nearV);
+		}
+		
+		if( pos_out!=null )
+		{
+			pos_out.set(nearV);
+		}
+		
 		return ReturnObj;
 	}
 	

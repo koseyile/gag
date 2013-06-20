@@ -3,13 +3,37 @@ package com.gag.gag1;
 import com.badlogic.gdx.Input.Keys;
 
 public class GagGameConfig {
+	//need change when screen size have changed
+	///////////////////////////////////////////////////////////
+	public static int GameBottomUIHeight = 64; 
+	public static int GameTopUIHeight = 16; 
+	
+	public static float UI_treasures_x = 128f;
+	public static float UI_treasures_y = 32f;
+	public static float UI_treasures_h = 64f;
+	public static float UI_treasure_w = 64f;
+	public static float UI_treasures_spacing = 6f;
+	public static float UI_goLeft_x = 32f;
+	public static float UI_goLeft_y = 32f;
+	
 	public static float World_g = -1f;
-	public static float World_W = 800.0f;
-	public static float World_H = 448.0f;
+	public static float UmbrellaScale_g = 0.1f;
+	
+	public static float PlayerMoveLeftDistance = 2f;
+	public static float PlayerMoveRightDistance = 2f;
+	
+	public static float DownSpeedDead = 18f;
+	public static float DisByDoorToPlayer = 8f;
+	public static float DisByTreasureToPlayer = 8f;
+	public static float CollisionAppendW = 0f;
+	public static float CollisionAppendH = -18f;
+	///////////////////////////////////////////////////////////
 	public static float World_Graphic_Defult_W = 800.0f;
 	public static float World_Graphic_Defult_H = 480.0f;
+	
 	public static float World_Defult_W = 800.0f;
-	public static float World_Defult_H = 448.0f;
+	public static float World_Defult_H = 400.0f;
+	
 	public static float PlayerStartX = 16f;
 	public static float PlayerStartY = 16f;
 	public static float AccelerometerMaxX = 5f;
@@ -18,8 +42,6 @@ public class GagGameConfig {
 	public static final int PlayerGoLeftKey = Keys.LEFT;
 	public static final int PlayerGoUpKey = Keys.UP;
 	public static final int PlayerGoDownKey = Keys.DOWN;
-	public static float PlayerMoveLeftDistance = 2f;
-	public static float PlayerMoveRightDistance = 2f;
 	public static float PlatformWidth = 64f;
 	public static float PlatformHeight = 16f;
 	public static float BoxWidth = 64f;
@@ -38,19 +60,12 @@ public class GagGameConfig {
 		"data/scene4.xml",
 		"data/scene5.xml",
 	};
-	public static float DisByDoorToPlayer = 5f;
-	public static float DisByTreasureToPlayer = 5f;
 	public static float FadeInTime = 1f;
 	public static float FadeOutTime = 1f;
-	public static int GameTopUIHeight = 16; 
-	public static int GameBottomUIHeight = 32; 
-	public static float DownSpeedDead = 18f;
 	public static float DownSpeedDeadByHitPlayer = 9f;
-	public static float UmbrellaScale_g = 0.5f;
 	public static float UmbrellaUseTime = 5f;
 	public static float SpeedAddScale = 4.0f;
 	public static float SpeedAddUseTime = 5f;
-	
 	public static String Id_Player = "Player";
 	public static String Id_Platform = "Platform";
 	public static String Id_Door1 = "Door1";
@@ -65,11 +80,15 @@ public class GagGameConfig {
 		"umbrella",
 		"killme",
 		"speed",
+		
+		"notSaveStart",
+		
 		"goRight",
 		"goLeft",
+		"pageNext",
+		"pagePre",
 		
 		//scene_editor
-		"editorStart",
 		"newScene",
 		"saveScene",
 		"saveSceneAs",
@@ -86,11 +105,15 @@ public class GagGameConfig {
 		"umbrella",
 		"killme",
 		"speed",
+		
+		"notSaveStart",
+		
 		"goRight",
 		"goLeft",
+		"pageNext",
+		"pagePre",
 		
 		//scene_editor
-		"editorStart",
 		"create a new scene",
 		"save scene",
 		"save scene as another file",
@@ -101,13 +124,5 @@ public class GagGameConfig {
 	};
 	public static float topStringH = 24f;
 	public static boolean ShowFps = true;
-	
-	public static float UI_treasures_x = 32f;
-	public static float UI_treasures_y = 16f;
-	public static float UI_treasures_h = 32f;
-	public static float UI_treasure_w = 32f;
-	public static float UI_treasures_spacing = 6f;
-	
-	public static float UI_goLeft_x = 16f;
-	public static float UI_goLeft_y = 16f;
+	public static float touchedOnceTime = 0.5f;
 }

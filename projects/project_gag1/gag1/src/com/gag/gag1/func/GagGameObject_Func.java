@@ -60,7 +60,7 @@ public class GagGameObject_Func {
 		}
 	}
 	
-	public static void updatePlayerPosByTouchTreasure(boolean bTouched, float TouchX, float TouchY, GagWorld world)
+	public static void updatePlayerPosByTouchTreasureGo(boolean bTouched, float TouchX, float TouchY, GagWorld world)
 	{
 		TouchY = Gdx.graphics.getHeight() - TouchY;
 		boolean bTouchGoLeft = pointInObject(TouchX, TouchY, world.m_GoLeft);
@@ -76,6 +76,26 @@ public class GagGameObject_Func {
 			if( bTouchGoLeft )
 			{
 				updatePlayerPosByInputState(InputState.InputState_Left, world.m_Player);
+			}	
+		}
+	}
+	
+	public static void updatePlayerPosByTouchTreasurePage(boolean bTouched, float TouchX, float TouchY, GagWorld world)
+	{
+		TouchY = Gdx.graphics.getHeight() - TouchY;
+		boolean bTouchNextPage = pointInObject(TouchX, TouchY, world.m_NextPage);
+		boolean bTouchPrePage = pointInObject(TouchX, TouchY, world.m_PrePage);
+		
+		if( bTouched && ( bTouchNextPage || bTouchPrePage ) )
+		{
+			if( bTouchNextPage )
+			{
+				GagGameUI_Func.nextPageByTreasures(world);
+			}
+
+			if( bTouchPrePage )
+			{
+				GagGameUI_Func.prePageByTreasures(world);
 			}	
 		}
 	}
@@ -116,11 +136,11 @@ public class GagGameObject_Func {
 					updatePlayerPosByInputState(InputState.InputState_Left, player);
 				}
 				break;
-			default:
-				{
-					updatePlayerPosByInputState(InputState.InputState_None, player);
-				}
-				break;
+//			default:
+//				{
+//					updatePlayerPosByInputState(InputState.InputState_None, player);
+//				}
+//				break;
 		}
 	}
 	

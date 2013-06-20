@@ -76,7 +76,17 @@ public class GagGameTreasure_Func {
 				{
 					
 				}
-				break;					
+				break;
+			case TreasureType_NextPage:
+				{
+
+				}
+				break;
+			case TreasureType_PrePage:
+				{
+					
+				}
+				break;
 			case TreasureType_NewScene:
 				{
 					GagGameSceneEditor_Func.newScene(world);
@@ -252,5 +262,5 @@ public class GagGameTreasure_Func {
 			}
 		}
 	}
-	
+
 }

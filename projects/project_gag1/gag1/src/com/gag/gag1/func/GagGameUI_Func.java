@@ -24,7 +24,15 @@ public class GagGameUI_Func {
 		for(int i=0; i<world.m_Treasures.size(); ++i)
 		{
 			GagGameTreasure treasure = world.m_Treasures.get(i);
+			treasure.bounds.width = GagGameConfig.UI_treasure_w;
+			treasure.bounds.height = GagGameConfig.UI_treasures_h;
 			treasure.isShow = false;
+		}
+		
+		world.m_UI.pageNum = world.m_Treasures.size()/world.m_UI.treasureNumOfOnePage+1;
+		if( world.m_Treasures.size()%world.m_UI.treasureNumOfOnePage==0 )
+		{
+			world.m_UI.pageNum = world.m_Treasures.size()/world.m_UI.treasureNumOfOnePage;
 		}
 		
 		int pageIndex = world.m_UI.curPageIndex;
@@ -58,4 +66,23 @@ public class GagGameUI_Func {
 		}
 	}
 	
+	public static void nextPageByTreasures(GagWorld world)
+	{
+		world.m_UI.curPageIndex++;
+		if( world.m_UI.curPageIndex>=world.m_UI.pageNum )
+		{
+			world.m_UI.curPageIndex = 0;
+		}
+		updateAllTreasureByUI(world);
+	}
+	
+	public static void prePageByTreasures(GagWorld world)
+	{
+		world.m_UI.curPageIndex--;
+		if( world.m_UI.curPageIndex<0 )
+		{
+			world.m_UI.curPageIndex = world.m_UI.pageNum-1;
+		}
+		updateAllTreasureByUI(world);
+	}
 }

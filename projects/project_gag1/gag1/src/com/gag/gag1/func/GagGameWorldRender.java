@@ -146,11 +146,11 @@ public class GagGameWorldRender {
 	
 	public static void DrawPlatform(GagGamePlatform platform)
 	{
-		TextureRegion keyFrame = Assets.platform;
-		GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
-		
-//		Texture keyFrame = Assets.testTex;
+//		TextureRegion keyFrame = Assets.platform;
 //		GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
+		
+		Texture keyFrame = Assets.testTex;
+		GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
 	}
 	
 	public static void DrawDoor(GagGameDoor door)
@@ -206,16 +206,26 @@ public class GagGameWorldRender {
 						keyFrame = GagGameAssets.speedTex;
 					}
 					break;
+				case TreasureType_GoRight:
+					{
+						keyFrame = GagGameAssets.goRightTex;
+					}
+					break;					
 				case TreasureType_GoLeft:
 					{
 						keyFrame = GagGameAssets.goLeftTex;
 					}
 					break;					
-				case TreasureType_GoRight:
+				case TreasureType_NextPage:
 					{
-						keyFrame = GagGameAssets.goRightTex;
+						keyFrame = GagGameAssets.nextPageTex;
 					}
-					break;				
+					break;
+				case TreasureType_PrePage:
+					{
+						keyFrame = GagGameAssets.prePageTex;
+					}
+					break;					
 				case TreasureType_NewScene:
 					{
 						keyFrame = GagGameAssets.newSceneTex;

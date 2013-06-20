@@ -196,7 +196,7 @@ public class GagGameDataLoad_Func {
 				case ObjectType_Treasure:
 					{
 						GagGameTreasure treasure = (GagGameTreasure)object;
-						if( treasure.treasureType.ordinal()<TreasureType.TreasureType_EditorStart.ordinal() )
+						if( treasure.treasureType.ordinal()<TreasureType.TreasureType_NotSaveStart.ordinal() )
 						{
 							id_object = GagGameConfig.Id_Treasure;
 						}

@@ -11,11 +11,16 @@ public class GagGameTreasure extends GagGameObject {
 		TreasureType_Umbrella,
 		TreasureType_KillMe,
 		TreasureType_Speed,
+		
+		//NotSaveStart
+		TreasureType_NotSaveStart,
+		
 		TreasureType_GoRight,
 		TreasureType_GoLeft,
+		TreasureType_NextPage,
+		TreasureType_PrePage,
 		
 		//scene_editor
-		TreasureType_EditorStart,
 		TreasureType_NewScene,
 		TreasureType_SaveScene,
 		TreasureType_SaveSceneAs,

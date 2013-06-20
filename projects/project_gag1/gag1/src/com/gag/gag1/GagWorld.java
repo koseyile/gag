@@ -15,6 +15,7 @@ import com.badlogicgames.superjumper.Platform;
 import com.gag.gag1.func.GagGameDataLoad_Func;
 import com.gag.gag1.func.GagGameObject_Func;
 import com.gag.gag1.func.GagGameObject_Func.InputState;
+import com.gag.gag1.func.GagGameInput_Func;
 import com.gag.gag1.func.GagGameRender;
 import com.gag.gag1.func.GagGameSceneEditor_Func;
 import com.gag.gag1.func.GagGameTreasure_Func;
@@ -50,9 +51,12 @@ public class GagWorld {
 		WorldState_FadeOut,
 	};
 	
+	public GagGameInput m_Input;
 	public GagGamePlayer m_Player;
 	public GagGameTreasure m_GoLeft;
 	public GagGameTreasure m_GoRight;
+	public GagGameTreasure m_NextPage;
+	public GagGameTreasure m_PrePage;
 	public List<GagGameObject> m_Objects;
 	public List<GagGameTreasure> m_Treasures;
 	public float m_g;
@@ -69,6 +73,7 @@ public class GagWorld {
 	
 	public GagWorld()
 	{
+		m_Input = new GagGameInput();
 		m_Objects = new ArrayList<GagGameObject>();
 		m_Treasures = new ArrayList<GagGameTreasure>();
 
@@ -87,6 +92,26 @@ public class GagWorld {
 		worldBound.height = h;
 	}
 	
+	void updateUI(float delta)
+	{
+		ApplicationType appType = Gdx.app.getType();
+		if ( appType == ApplicationType.Android || appType == ApplicationType.iOS )
+		{
+			for(int i=0; i<m_Input.m_TouchInfos.size(); ++i)
+			{
+				GagGameObject_Func.updatePlayerPosByTouchTreasurePage( m_Input.m_TouchInfos.get(i).isTouched, Gdx.input.getX(i), Gdx.input.getY(i), this );
+			}
+		}
+		
+		if ( appType == ApplicationType.Desktop )
+		{
+			for(int i=0; i<m_Input.m_TouchInfos.size(); ++i)
+			{
+				GagGameObject_Func.updatePlayerPosByTouchTreasurePage( m_Input.m_TouchInfos.get(i).isTouched, Gdx.input.getX(i), Gdx.input.getY(i), this );
+			}
+		}
+	}
+	
 	void updatePlayer(float delta)
 	{
 		Vector2 startPos = new Vector2(m_Player.postion);
@@ -95,26 +120,16 @@ public class GagWorld {
 		ApplicationType appType = Gdx.app.getType();
 		if (appType == ApplicationType.Android || appType == ApplicationType.iOS)
 		{
-			//GagGameObject_Func.updatePlayerPosByTouch(Gdx.input.isTouched(), Gdx.input.getX(), Gdx.input.getY(), Gdx.graphics.getWidth(), m_Player);
 			GagGameObject_Func.updatePlayerPosByInputState(InputState.InputState_None, m_Player);
-			GagGameObject_Func.updatePlayerPosByTouchTreasure( Gdx.input.isTouched(0), Gdx.input.getX(0), Gdx.input.getY(0), this );
-			GagGameObject_Func.updatePlayerPosByTouchTreasure( Gdx.input.isTouched(1), Gdx.input.getX(1), Gdx.input.getY(1), this );
-			
-			//GagGameWorld_Func.UpdateWorldGByTouch(Gdx.input.isTouched(), Gdx.input.getY(), Gdx.graphics.getHeight(), this);
-			//GagGameObject_Func.UpdatePlayerPosByAccelerometerY(Gdx.input.getAccelerometerY(), m_Player);
-			
-//			float AX = Gdx.input.getAccelerometerX();
-//			if( AX>GagGameConfig.AccelerometerMaxX )
-//			{
-//				m_g=-Math.abs(m_g);
-//			}
-//			
-//			if( AX<-GagGameConfig.AccelerometerMaxX )
-//			{
-//				m_g=Math.abs(m_g);
-//			}
-			
-		}else{
+			GagGameObject_Func.updatePlayerPosByTouchTreasureGo( Gdx.input.isTouched(0), Gdx.input.getX(0), Gdx.input.getY(0), this );
+			GagGameObject_Func.updatePlayerPosByTouchTreasureGo( Gdx.input.isTouched(1), Gdx.input.getX(1), Gdx.input.getY(1), this );
+		}
+		
+		if ( appType == ApplicationType.Desktop )
+		{
+			GagGameObject_Func.updatePlayerPosByInputState(InputState.InputState_None, m_Player);
+			GagGameObject_Func.updatePlayerPosByTouchTreasureGo( Gdx.input.isTouched(0), Gdx.input.getX(0), Gdx.input.getY(0), this );
+
 			int key = Keys.ANY_KEY;
 			if (Gdx.input.isKeyPressed(GagGameConfig.PlayerGoRightKey))
 			{
@@ -127,27 +142,45 @@ public class GagWorld {
 			}
 			
 			GagGameObject_Func.updatePlayerPosByKeyboard(key, m_Player);
-			
-//			if (Gdx.input.isKeyPressed(GagGameConfig.PlayerGoDownKey))
-//			{
-//				m_g=-Math.abs(m_g);
-//			}
-//			
-//			if (Gdx.input.isKeyPressed(GagGameConfig.PlayerGoUpKey))
-//			{
-//				m_g=Math.abs(m_g);
-//			}
 		}
 		
 		//碰撞检测
 		endPos.set(m_Player.postion);
-		GagGameObject retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos);  
+		GagGameObject retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos, 0f, GagGameConfig.CollisionAppendH, true, null);  
 		if( retObj!=null )
 		{
 			Vector2 dir = new Vector2(endPos);
 			dir.sub(startPos);
 			dir.nor();
 			GagGameWorld_Func.pushObjectByPlayer(retObj, dir, this);
+		}else{
+			
+			//检测是否可直接跨越在上面
+			Vector2 outPos = new Vector2();
+			retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(m_Player, this, startPos, endPos, 0f, 0f, false, outPos);
+			if( retObj!=null )
+			{
+				if( m_g>0f )
+				{
+					if( m_Player.postion.y<retObj.postion.y )
+					{
+						m_Player.postion.y = retObj.postion.y-retObj.bounds.height/2-m_Player.bounds.height/2;
+					}else{
+						m_Player.postion.set(outPos);
+					}
+				}
+				
+				if( m_g<0f )
+				{
+					if( m_Player.postion.y>retObj.postion.y )
+					{
+						m_Player.postion.y = retObj.postion.y+retObj.bounds.height/2+m_Player.bounds.height/2;
+					}else{
+						m_Player.postion.set(outPos);
+					}
+				}
+				
+			}
 		}
 		
 		GagGameObject_Func.updatePlayerAnimation(m_Player, delta);
@@ -200,7 +233,7 @@ public class GagWorld {
 				endPos.set(object.postion);
 				
 				float speed1 = object.downSpeed;
-				GagGameObject retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(object, this, startPos, endPos);
+				GagGameObject retObj = GagGameWorld_Func.updateObjectPosByWorldObjects(object, this, startPos, endPos, 0f, 0f, true, null);
 				float speed2 = speed1;
 				if( retObj!=null )
 				{
@@ -242,6 +275,7 @@ public class GagWorld {
 	
 	void update(float delta)
 	{
+		GagGameInput_Func.update(m_Input, delta);
 		switch(m_WorldState)
 		{
 			case WorldState_Play:
@@ -251,6 +285,7 @@ public class GagWorld {
 						updateTreasure(delta);
 						updateObject(delta);
 						updatePlayer(delta);
+						updateUI(delta);
 					}else{
 						updateTreasure(delta);
 						if( m_Editor.isRun )
@@ -258,7 +293,9 @@ public class GagWorld {
 							updateObject(delta);
 							updatePlayer(delta);
 						}
+						updateUI(delta);
 					}
+					
 				}
 				break;
 			case WorldState_FadeIn:

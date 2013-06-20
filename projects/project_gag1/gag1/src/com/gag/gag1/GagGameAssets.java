@@ -12,6 +12,8 @@ public class GagGameAssets {
 	public static Texture boxTex;
 	public static Texture goRightTex;
 	public static Texture goLeftTex;
+	public static Texture nextPageTex;
+	public static Texture prePageTex;
 	
 	//scene editor
 	public static Texture newSceneTex;
@@ -37,6 +39,8 @@ public class GagGameAssets {
 		boxTex = loadTexture("data/box.png");
 		goRightTex = loadTexture("data/goRight.png");
 		goLeftTex = loadTexture("data/goLeft.png");
+		nextPageTex = loadTexture("data/nextPage.png");
+		prePageTex = loadTexture("data/prePage.png");
 		
 		//scene editor
 		newSceneTex = loadTexture("data/newScene.png");
