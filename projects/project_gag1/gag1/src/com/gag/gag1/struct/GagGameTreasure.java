@@ -40,6 +40,7 @@ public class GagGameTreasure extends GagGameObject {
 	
 	public TreasureType treasureType;
 	public boolean isPickUp;
+	public boolean isInWorld;
 	public TreasureState treasureState;
 	public float useTime;
 	public boolean needRelease;
@@ -54,6 +55,7 @@ public class GagGameTreasure extends GagGameObject {
 		objectType = ObjectType.ObjectType_Treasure;
 		treasureType = TreasureType.TreasureType_None;
 		isPickUp = false;
+		isInWorld = true;
 		treasureState = TreasureState.TreasureState_None;
 		useTime = 0f;
 		needRelease = false;

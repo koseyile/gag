@@ -62,6 +62,8 @@ public class GagGameWorld_Func {
 		GagGameConfig.UI_treasures_spacing*=f_w;
 		GagGameConfig.UI_goLeft_x*=f_w;
 		GagGameConfig.UI_goLeft_y*=f_h;
+		GagGameConfig.CameraWidth*=f_w;
+		GagGameConfig.CameraHeight*=f_h;
 	}
 	
 	public static void initWorldConfig(GagWorld world)
@@ -119,6 +121,7 @@ public class GagGameWorld_Func {
 		world.m_GoLeft.bounds.width = GagGameConfig.UI_treasure_w;
 		world.m_GoLeft.bounds.height = GagGameConfig.UI_treasures_h;
 		world.m_GoLeft.isPickUp = true;
+		world.m_GoLeft.isInWorld = false;
 		world.m_Objects.add(world.m_GoLeft);
 		
 		world.m_GoRight = new GagGameTreasure();
@@ -128,6 +131,7 @@ public class GagGameWorld_Func {
 		world.m_GoRight.bounds.width = GagGameConfig.UI_treasure_w;
 		world.m_GoRight.bounds.height = GagGameConfig.UI_treasures_h;
 		world.m_GoRight.isPickUp = true;
+		world.m_GoRight.isInWorld = false;
 		world.m_Objects.add(world.m_GoRight);
 		
 		world.m_NextPage = new GagGameTreasure();
@@ -137,6 +141,7 @@ public class GagGameWorld_Func {
 		world.m_NextPage.bounds.width = GagGameConfig.UI_treasure_w;
 		world.m_NextPage.bounds.height = GagGameConfig.UI_treasures_h;
 		world.m_NextPage.isPickUp = true;
+		world.m_NextPage.isInWorld = false;
 		world.m_Objects.add(world.m_NextPage);
 		
 		world.m_PrePage = new GagGameTreasure();
@@ -146,6 +151,7 @@ public class GagGameWorld_Func {
 		world.m_PrePage.bounds.width = GagGameConfig.UI_treasure_w;
 		world.m_PrePage.bounds.height = GagGameConfig.UI_treasures_h;
 		world.m_PrePage.isPickUp = true;
+		world.m_PrePage.isInWorld = false;
 		world.m_Objects.add(world.m_PrePage);
 	}
 

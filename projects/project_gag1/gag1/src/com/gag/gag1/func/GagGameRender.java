@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogicgames.superjumper.Animation;
 import com.badlogicgames.superjumper.Assets;
+import com.gag.gag1.GagGameConfig;
+import com.gag.gag1.GagGameScreen;
+import com.gag.gag1.GagWorld;
 
 public class GagGameRender {
 
@@ -31,9 +34,12 @@ public class GagGameRender {
 	public static void Init()
 	{
 		batcher = new SpriteBatch();
-		guiCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		guiCam.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
-		
+
+		float Camera_W = GagGameConfig.CameraWidth;
+		float Camera_H = GagGameConfig.CameraHeight;
+		guiCam = new OrthographicCamera(Camera_W, Camera_H);
+		guiCam.position.set(Camera_W / 2, Camera_H / 2, 0);
+
 		IsInitialized = true;
 	}
 	
@@ -44,12 +50,66 @@ public class GagGameRender {
 			Init();
 		}
 		
-		guiCam.update();
-		batcher.setProjectionMatrix(guiCam.combined);
+		GagWorld gagWorld = GagGameScreen.m_GagWorld;
+		
 		
 		batcher.begin();
 		batcher.enableBlending();
-		GagGameWorldRender.Draw();
+		
+		{
+			float viewW = Gdx.graphics.getWidth();
+			float viewH = Gdx.graphics.getHeight();
+//			float viewW = GagGameConfig.CameraWidth;
+//			float viewH = GagGameConfig.CameraHeight;
+			
+			guiCam.setToOrtho( false, viewW, viewH );
+			
+			float x = GagGameScreen.m_GagWorld.m_Player.postion.x;
+			float y = GagGameScreen.m_GagWorld.m_Player.postion.y;
+			
+			if( x<viewW/2 )
+			{
+				x = viewW/2;
+			}
+			
+			if( x>(gagWorld.worldBound.width-viewW/2) )
+			{
+				x = gagWorld.worldBound.width-viewW/2;
+			}
+			
+			if( y<viewH/2 )
+			{
+				float temp_h = GagGameConfig.GameBottomUIHeight*viewH/Gdx.graphics.getHeight();
+				y = viewH/2-temp_h;
+			}
+			
+			if( y>(gagWorld.worldBound.height-viewH/2) )
+			{
+				float temp_h = GagGameConfig.GameTopUIHeight*viewH/Gdx.graphics.getHeight();
+				y = (gagWorld.worldBound.height-viewH/2)+temp_h;
+			}
+			
+			//float x = viewW/2;
+			//float y = viewH/2+GagGameConfig.GameBottomUIHeight-temp_h;
+			//float y = viewH/2-temp_h;
+			
+			guiCam.position.set( x, y, 0f );
+			guiCam.update();
+			batcher.setProjectionMatrix(guiCam.combined);
+			
+			GagGameWorldRender.Draw();
+		}
+
+		{
+			guiCam.setToOrtho( false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
+			guiCam.position.set( Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0 );
+			
+			guiCam.update();
+			batcher.setProjectionMatrix(guiCam.combined);	
+			
+			GagGameWorldRender.DrawUI();
+		}
+
 		batcher.end();
 	}
 	

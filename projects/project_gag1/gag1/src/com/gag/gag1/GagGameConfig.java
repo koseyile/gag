@@ -15,6 +15,8 @@ public class GagGameConfig {
 	public static float UI_treasures_spacing = 6f;
 	public static float UI_goLeft_x = 32f;
 	public static float UI_goLeft_y = 32f;
+	public static float CameraWidth = 400f;
+	public static float CameraHeight = 200f;
 	
 	public static float World_g = -1f;
 	public static float UmbrellaScale_g = 0.1f;

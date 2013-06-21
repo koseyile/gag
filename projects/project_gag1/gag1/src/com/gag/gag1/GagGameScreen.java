@@ -29,9 +29,14 @@ public class GagGameScreen implements Screen {
 		
 		m_GagWorld = new GagWorld();
 		GagGameWorld_Func.initWorldConfigByGraphic();
-		GagGameWorld_Func.setWorldBound(m_GagWorld, 0, GagGameConfig.GameBottomUIHeight, 
-												  Gdx.graphics.getWidth(), 
-												  Gdx.graphics.getHeight()-GagGameConfig.GameBottomUIHeight-GagGameConfig.GameTopUIHeight);
+//		GagGameWorld_Func.setWorldBound(m_GagWorld, 0, GagGameConfig.GameBottomUIHeight, 
+//												  Gdx.graphics.getWidth(), 
+//												  Gdx.graphics.getHeight()-GagGameConfig.GameBottomUIHeight-GagGameConfig.GameTopUIHeight);
+		
+		GagGameWorld_Func.setWorldBound(m_GagWorld, 0, 0, 
+											     Gdx.graphics.getWidth(), 
+											     Gdx.graphics.getHeight());
+
 		GagGameWorld_Func.initWorldConfig(m_GagWorld);
 		GagGameUI_Func.initUI(m_GagWorld);
 		GagGameWorld_Func.loadScene(SceneID.SceneID_1, m_GagWorld);

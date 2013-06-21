@@ -55,7 +55,11 @@ public class GagGameWorldRender {
 					break;
 				case ObjectType_Treasure:
 					{
-						DrawTreasure((GagGameTreasure)object);
+						GagGameTreasure treasure = (GagGameTreasure)object;
+						if( treasure.isInWorld )
+						{
+							DrawTreasure(treasure);
+						}
 					}
 					break;
 				case ObjectType_Box:
@@ -69,6 +73,37 @@ public class GagGameWorldRender {
 		
 		DrawPlayer();
 	
+
+		
+	}
+	
+	public static void DrawUI()
+	{
+		GagWorld gagWorld = GagGameScreen.m_GagWorld;
+		if(gagWorld==null)
+		{
+			return;
+		}
+		
+		int len = gagWorld.m_Objects.size();
+		for (int i = 0; i < len; i++)
+		{
+			GagGameObject object = gagWorld.m_Objects.get(i);
+			
+			switch( object.objectType )
+			{
+				case ObjectType_Treasure:
+					{
+						GagGameTreasure treasure = (GagGameTreasure)object;
+						if( !treasure.isInWorld )
+						{
+							DrawTreasure(treasure);
+						}
+					}
+					break;
+			}
+		}
+		
 		switch( gagWorld.m_WorldState )
 		{
 			case WorldState_FadeIn:
@@ -86,7 +121,14 @@ public class GagGameWorldRender {
 				}
 				break;
 		}
-		
+
+		//Draw UI of top
+		{
+			GagGameRender.batcher.setColor(0, 0, 0, 1);
+			GagGameRender.batcher.draw(Assets.testTex, 0, GagGameRender.guiCam.viewportHeight-GagGameConfig.GameTopUIHeight, GagGameRender.guiCam.viewportWidth, GagGameConfig.GameTopUIHeight);
+			GagGameRender.batcher.setColor(1, 1, 1, 1);
+		}
+
 
 		if( GagGameConfig.ShowFps && gagWorld.m_Editor.isEnable )
 		{
@@ -97,7 +139,6 @@ public class GagGameWorldRender {
 		{
 			GagGameRender.DrawString(gagWorld.m_Editor.topString_x, gagWorld.m_Editor.topString_y, gagWorld.m_Editor.topString, 1.0f, 1.0f);
 		}
-		
 	}
 	
 	public static void DrawBackGround(GagWorld world)

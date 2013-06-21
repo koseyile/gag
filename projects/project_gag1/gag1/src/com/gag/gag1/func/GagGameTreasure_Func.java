@@ -16,6 +16,7 @@ public class GagGameTreasure_Func {
 			int len = world.m_Treasures.size();
 			world.m_Treasures.add(treasure);
 			treasure.isPickUp = true;
+			treasure.isInWorld = false;
 			
 			GagGameUI_Func.updateAllTreasureByUI(world);
 		}
@@ -59,6 +60,7 @@ public class GagGameTreasure_Func {
 					if( treasure.treasureState==TreasureState.TreasureState_None )
 					{
 						treasure.treasureState = TreasureState.TreasureState_Start;
+						treasure.isInWorld = true;
 					}
 				}
 				break;
