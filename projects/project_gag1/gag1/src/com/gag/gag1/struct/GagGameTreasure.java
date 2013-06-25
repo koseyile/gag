@@ -27,7 +27,6 @@ public class GagGameTreasure extends GagGameObject {
 		TreasureType_OpenScene,
 		TreasureType_RunScene,
 		TreasureType_StopScene,
-		TreasureType_MoreTool,
 	};
 	
 	public enum TreasureState

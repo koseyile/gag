@@ -119,12 +119,6 @@ public class GagGameTreasure_Func {
 					GagGameSceneEditor_Func.stopScene(world, world.m_Editor);
 				}
 				break;
-			case TreasureType_MoreTool:
-				{
-					GagGameSceneEditor_Func.moreTool(world);
-				}
-				break;
-
 		}
 	}
 	

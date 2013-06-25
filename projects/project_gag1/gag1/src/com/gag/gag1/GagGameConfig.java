@@ -98,7 +98,6 @@ public class GagGameConfig {
 		"openScene",
 		"runScene",
 		"stopScene",
-		"moreTool",
 	};
 	
 	public static String TreasureTopString[] = 
@@ -123,7 +122,6 @@ public class GagGameConfig {
 		"open a scene from file",
 		"run scene like game",
 		"stop scene",
-		"more tool",
 	};
 	public static float topStringH = 24f;
 	public static boolean ShowFps = true;

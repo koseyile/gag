@@ -302,11 +302,6 @@ public class GagGameWorldRender {
 						keyFrame = GagGameAssets.stopSceneTex;
 					}
 					break;
-				case TreasureType_MoreTool:
-					{
-						keyFrame = GagGameAssets.moreToolTex;
-					}
-					break;
 			}
 		}
 		

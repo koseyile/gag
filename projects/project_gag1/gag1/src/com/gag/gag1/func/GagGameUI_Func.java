@@ -30,7 +30,7 @@ public class GagGameUI_Func {
 		}
 		
 		world.m_UI.pageNum = world.m_Treasures.size()/world.m_UI.treasureNumOfOnePage+1;
-		if( world.m_Treasures.size()%world.m_UI.treasureNumOfOnePage==0 )
+		if( world.m_Treasures.size()%world.m_UI.treasureNumOfOnePage==0 && world.m_Treasures.size()>0 )
 		{
 			world.m_UI.pageNum = world.m_Treasures.size()/world.m_UI.treasureNumOfOnePage;
 		}
