@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <scene>
-<sceneInfo>
-<w>800.0</w>
-<h>400.0</h>
-</sceneInfo>
-<object id="Player">
-<x>16.0</x>
-<y>17.857147</y>
-<w>32.0</w>
-<h>32.0</h>
-</object>
-<object id="Door1">
-<x>19.999998</x>
-<y>17.857147</y>
-<w>50.0</w>
-<h>44.642857</h>
-</object>
+    <sceneInfo>
+        <w>800.0</w>
+        <h>480.0</h>
+    </sceneInfo>
+    <object id="Player">
+        <x>16.0</x>
+        <y>17.857147</y>
+        <w>32.0</w>
+        <h>32.0</h>
+    </object>
+    <object id="Door1">
+        <x>19.999998</x>
+        <y>17.857147</y>
+        <w>50.0</w>
+        <h>44.642857</h>
+    </object>
 </scene>

@@ -72,9 +72,6 @@ public class GagGameWorldRender {
 		}
 		
 		DrawPlayer();
-	
-
-		
 	}
 	
 	public static void DrawUI()
@@ -83,6 +80,13 @@ public class GagGameWorldRender {
 		if(gagWorld==null)
 		{
 			return;
+		}
+		
+		//Draw UI of bottom
+		{
+			GagGameRender.batcher.setColor(0.2f, 0.2f, 0.2f, 1f);
+			GagGameRender.batcher.draw(Assets.testTex, 0, 0, GagGameRender.guiCam.viewportWidth, GagGameConfig.GameBottomUIHeight);
+			GagGameRender.batcher.setColor(1, 1, 1, 1);
 		}
 		
 		int len = gagWorld.m_Objects.size();
@@ -130,7 +134,8 @@ public class GagGameWorldRender {
 		}
 
 
-		if( GagGameConfig.ShowFps && gagWorld.m_Editor.isEnable )
+		//if( GagGameConfig.ShowFps && gagWorld.m_Editor.isEnable )
+		if( GagGameConfig.ShowFps )
 		{
 			GagGameRender.DrawString("FPS:"+Gdx.graphics.getFramesPerSecond(), 0.5f, 0.5f, FontLayout_X.FontLayout_X_Right, FontLayout_Y.FontLayout_Y_Up);
 		}
@@ -187,11 +192,11 @@ public class GagGameWorldRender {
 	
 	public static void DrawPlatform(GagGamePlatform platform)
 	{
-//		TextureRegion keyFrame = Assets.platform;
-//		GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
-		
-		Texture keyFrame = Assets.testTex;
+		TextureRegion keyFrame = Assets.platform;
 		GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
+		
+//		Texture keyFrame = Assets.testTex;
+//		GagGameRender.DrawTexByCenter(keyFrame, platform.postion.x, platform.postion.y, platform.bounds.width, platform.bounds.height, false, false);
 	}
 	
 	public static void DrawDoor(GagGameDoor door)

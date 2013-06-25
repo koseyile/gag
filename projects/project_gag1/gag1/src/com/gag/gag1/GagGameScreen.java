@@ -37,7 +37,7 @@ public class GagGameScreen implements Screen {
 											     Gdx.graphics.getWidth(), 
 											     Gdx.graphics.getHeight());
 
-		GagGameWorld_Func.initWorldConfig(m_GagWorld);
+		//GagGameWorld_Func.initWorldConfig(m_GagWorld);
 		GagGameUI_Func.initUI(m_GagWorld);
 		GagGameWorld_Func.loadScene(SceneID.SceneID_1, m_GagWorld);
 	}

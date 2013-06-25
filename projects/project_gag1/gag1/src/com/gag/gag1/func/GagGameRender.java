@@ -57,10 +57,10 @@ public class GagGameRender {
 		batcher.enableBlending();
 		
 		{
-			float viewW = Gdx.graphics.getWidth();
-			float viewH = Gdx.graphics.getHeight();
-//			float viewW = GagGameConfig.CameraWidth;
-//			float viewH = GagGameConfig.CameraHeight;
+//			float viewW = Gdx.graphics.getWidth();
+//			float viewH = Gdx.graphics.getHeight();
+			float viewW = GagGameConfig.CameraWidth;
+			float viewH = GagGameConfig.CameraHeight;
 			
 			guiCam.setToOrtho( false, viewW, viewH );
 			

@@ -60,9 +60,16 @@ public class GagGameDataLoad_Func {
 			}
 		}
 		
-		float scene_x_scale = world.worldBound.width/scene_w;
-		float scene_y_scale = world.worldBound.height/scene_h;
+//		float scene_x_scale = world.worldBound.width/scene_w;
+//		float scene_y_scale = world.worldBound.height/scene_h;
+		world.worldBound.x = 0f;
+		world.worldBound.y = 0f;
+		world.worldBound.width = scene_w;
+		world.worldBound.height = scene_h;
 		
+		float scene_x_scale = 1f;
+		float scene_y_scale = 1f;
+
 		NodeList objectNodes = element.getElementsByTagName("object");
 		
 		for( int i=0; i<objectNodes.getLength(); i++ )
@@ -257,6 +264,7 @@ public class GagGameDataLoad_Func {
 		DOMSource source = new DOMSource(doc);
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 		PrintWriter pw = new PrintWriter(new FileOutputStream(file));
 		StreamResult result = new StreamResult(pw);
 		transformer.transform(source, result);

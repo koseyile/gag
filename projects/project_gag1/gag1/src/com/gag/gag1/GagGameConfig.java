@@ -17,7 +17,8 @@ public class GagGameConfig {
 	public static float UI_goLeft_y = 32f;
 	public static float CameraWidth = 400f;
 	public static float CameraHeight = 200f;
-	
+
+
 	public static float World_g = -1f;
 	public static float UmbrellaScale_g = 0.1f;
 	
@@ -56,7 +57,7 @@ public class GagGameConfig {
 	{
 //		"data/scene_editor.xml",
 		
-		"data/scene2.xml",
+		"data/scene1.xml",
 		"data/scene2.xml",
 		"data/scene3.xml",
 		"data/scene4.xml",
