@@ -15,8 +15,10 @@ public class GagGameConfig {
 	public static float UI_treasures_spacing = 6f;
 	public static float UI_goLeft_x = 32f;
 	public static float UI_goLeft_y = 32f;
-	public static float CameraWidth = 400f;
-	public static float CameraHeight = 200f;
+//	public static float CameraWidth = 400f;
+//	public static float CameraHeight = 200f;
+	public static float CameraWidth = 800f;
+	public static float CameraHeight = 480f;
 
 
 	public static float World_g = -1f;
@@ -126,4 +128,5 @@ public class GagGameConfig {
 	public static float topStringH = 24f;
 	public static boolean ShowFps = true;
 	public static float touchedOnceTime = 0.5f;
+	public static float cameraMoveScale = 2f;
 }

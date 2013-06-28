@@ -85,4 +85,18 @@ public class GagGameUI_Func {
 		}
 		updateAllTreasureByUI(world);
 	}
+	
+	public static boolean isInGameScreen(float x, float y)
+	{
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+		
+		if( x>0f && x<w && 
+			 y>GagGameConfig.GameTopUIHeight && y<(h-GagGameConfig.GameBottomUIHeight)
+		  )
+		{
+			return true;
+		}
+		return false;
+	}
 }

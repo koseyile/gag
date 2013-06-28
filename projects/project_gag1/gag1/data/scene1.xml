@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <scene>
     <sceneInfo>
-        <w>800.0</w>
+        <w>1800.0</w>
         <h>480.0</h>
     </sceneInfo>
     <object id="Player">

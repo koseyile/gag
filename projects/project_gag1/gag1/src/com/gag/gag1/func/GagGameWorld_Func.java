@@ -153,6 +153,8 @@ public class GagGameWorld_Func {
 		world.m_PrePage.isPickUp = true;
 		world.m_PrePage.isInWorld = false;
 		world.m_Objects.add(world.m_PrePage);
+		
+		GagGameCamera_Func.updateCamera(world);
 	}
 
 	public static boolean updateByWorld(GagWorld world)

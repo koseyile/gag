@@ -56,44 +56,26 @@ public class GagGameRender {
 		batcher.begin();
 		batcher.enableBlending();
 		
+//		{
+//			guiCam.setToOrtho( false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
+//			guiCam.position.set( Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0 );
+//			
+//			guiCam.update();
+//			batcher.setProjectionMatrix(guiCam.combined);	
+//			
+//			GagGameWorldRender.DrawBackGround(gagWorld);
+//		}
+
+		
 		{
 //			float viewW = Gdx.graphics.getWidth();
 //			float viewH = Gdx.graphics.getHeight();
-			float viewW = GagGameConfig.CameraWidth;
-			float viewH = GagGameConfig.CameraHeight;
+			float viewW = gagWorld.m_Camera.w;
+			float viewH = gagWorld.m_Camera.h;
 			
 			guiCam.setToOrtho( false, viewW, viewH );
 			
-			float x = GagGameScreen.m_GagWorld.m_Player.postion.x;
-			float y = GagGameScreen.m_GagWorld.m_Player.postion.y;
-			
-			if( x<viewW/2 )
-			{
-				x = viewW/2;
-			}
-			
-			if( x>(gagWorld.worldBound.width-viewW/2) )
-			{
-				x = gagWorld.worldBound.width-viewW/2;
-			}
-			
-			if( y<viewH/2 )
-			{
-				float temp_h = GagGameConfig.GameBottomUIHeight*viewH/Gdx.graphics.getHeight();
-				y = viewH/2-temp_h;
-			}
-			
-			if( y>(gagWorld.worldBound.height-viewH/2) )
-			{
-				float temp_h = GagGameConfig.GameTopUIHeight*viewH/Gdx.graphics.getHeight();
-				y = (gagWorld.worldBound.height-viewH/2)+temp_h;
-			}
-			
-			//float x = viewW/2;
-			//float y = viewH/2+GagGameConfig.GameBottomUIHeight-temp_h;
-			//float y = viewH/2-temp_h;
-			
-			guiCam.position.set( x, y, 0f );
+			guiCam.position.set( gagWorld.m_Camera.x, gagWorld.m_Camera.y, 0f );
 			guiCam.update();
 			batcher.setProjectionMatrix(guiCam.combined);
 			

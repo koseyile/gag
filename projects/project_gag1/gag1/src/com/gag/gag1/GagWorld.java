@@ -12,6 +12,7 @@ import com.badlogicgames.superjumper.Assets;
 import com.badlogicgames.superjumper.HelpScreen2;
 import com.badlogicgames.superjumper.OverlapTester;
 import com.badlogicgames.superjumper.Platform;
+import com.gag.gag1.func.GagGameCamera_Func;
 import com.gag.gag1.func.GagGameDataLoad_Func;
 import com.gag.gag1.func.GagGameObject_Func;
 import com.gag.gag1.func.GagGameObject_Func.InputState;
@@ -68,6 +69,7 @@ public class GagWorld {
 	public boolean isGameOver;
 	
 	public GagGameUI m_UI;
+	public GagGameCamera m_Camera;
 	
 	public GagGameEditor m_Editor;
 	
@@ -81,6 +83,7 @@ public class GagWorld {
 		
 		worldBound = new Rectangle(0, 0, 800, 600);
 		m_UI = new GagGameUI();
+		m_Camera = new GagGameCamera();
 		m_Editor = new GagGameEditor();
 	}
 
@@ -94,22 +97,12 @@ public class GagWorld {
 	
 	void updateUI(float delta)
 	{
-		ApplicationType appType = Gdx.app.getType();
-		if ( appType == ApplicationType.Android || appType == ApplicationType.iOS )
+		for(int i=0; i<m_Input.m_TouchInfos.size(); ++i)
 		{
-			for(int i=0; i<m_Input.m_TouchInfos.size(); ++i)
-			{
-				GagGameObject_Func.updatePlayerPosByTouchTreasurePage( m_Input.m_TouchInfos.get(i).isTouched, Gdx.input.getX(i), Gdx.input.getY(i), this );
-			}
+			GagGameObject_Func.updatePlayerPosByTouchTreasurePage( m_Input.m_TouchInfos.get(i).isTouched, Gdx.input.getX(i), Gdx.input.getY(i), this );
 		}
-		
-		if ( appType == ApplicationType.Desktop )
-		{
-			for(int i=0; i<m_Input.m_TouchInfos.size(); ++i)
-			{
-				GagGameObject_Func.updatePlayerPosByTouchTreasurePage( m_Input.m_TouchInfos.get(i).isTouched, Gdx.input.getX(i), Gdx.input.getY(i), this );
-			}
-		}
+
+		GagGameCamera_Func.updateCamera(this);
 	}
 	
 	void updatePlayer(float delta)
