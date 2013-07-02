@@ -4,10 +4,12 @@ import com.badlogicgames.superjumper.Animation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogicgames.superjumper.Assets;
 import com.gag.gag1.GagGame;
 import com.gag.gag1.GagGameAssets;
 import com.gag.gag1.GagGameConfig;
+import com.gag.gag1.GagGamePropertyUI;
 import com.gag.gag1.GagGameScreen;
 import com.gag.gag1.GagWorld;
 import com.gag.gag1.func.GagGameRender.FontLayout_X;
@@ -15,11 +17,57 @@ import com.gag.gag1.func.GagGameRender.FontLayout_Y;
 import com.gag.gag1.struct.GagGameBox;
 import com.gag.gag1.struct.GagGameDoor;
 import com.gag.gag1.struct.GagGameObject;
+import com.gag.gag1.struct.GagGameObject.ObjectType;
 import com.gag.gag1.struct.GagGamePlatform;
 import com.gag.gag1.struct.GagGamePlayer;
 import com.gag.gag1.struct.GagGameTreasure;
 
 public class GagGameWorldRender {
+	
+	public static void DrawObjectByType(ObjectType type, float x, float y, float w, float h)
+	{
+		TextureRegion keyFrame = null;
+		
+		switch(type)
+		{
+			case ObjectType_Ojbect:
+			{
+				
+			}
+			break;
+		case ObjectType_Plaform:
+			{
+				keyFrame = Assets.platform;
+			}
+			break;
+		case ObjectType_Door:
+			{
+				keyFrame = Assets.castle;
+			}
+			break;
+		case ObjectType_Treasure:
+			{
+				GagGameRender.DrawTexByCenter(GagGameAssets.treasureTex, x, y, w, h, false, false);
+			}
+			break;
+		case ObjectType_Box:
+			{
+				GagGameRender.DrawTexByCenter(GagGameAssets.boxTex, x, y, w, h, false, false);
+			}
+			break;
+		case ObjectType_Player:
+			{
+				keyFrame = Assets.bobFall.getKeyFrame(0f, Animation.ANIMATION_LOOPING);
+			}
+			break;
+		}
+		
+		if( keyFrame!=null )
+		{
+			GagGameRender.DrawTexByCenter(keyFrame, x, y, w, h, false, false);
+		}
+
+	}
 	
 	public static void Draw()
 	{
@@ -38,19 +86,9 @@ public class GagGameWorldRender {
 			
 			switch( object.objectType )
 			{
-				case ObjectType_Ojbect:
+				case ObjectType_Player:
 					{
 						
-					}
-					break;
-				case ObjectType_Plaform:
-					{
-						DrawPlatform((GagGamePlatform)object);
-					}
-					break;
-				case ObjectType_Door:
-					{
-						DrawDoor((GagGameDoor)object);
 					}
 					break;
 				case ObjectType_Treasure:
@@ -62,9 +100,14 @@ public class GagGameWorldRender {
 						}
 					}
 					break;
-				case ObjectType_Box:
+				default:
 					{
-						DrawBox((GagGameBox)object);
+						DrawObjectByType( object.objectType, 
+												object.postion.x,
+												object.postion.y,
+												object.bounds.width,
+												object.bounds.height
+											 );
 					}
 					break;
 			}
@@ -108,6 +151,40 @@ public class GagGameWorldRender {
 			}
 		}
 		
+		//Draw UI of top
+		{
+			GagGameRender.batcher.setColor(0, 0, 0, 1);
+			GagGameRender.batcher.draw(Assets.testTex, 0, GagGameRender.guiCam.viewportHeight-GagGameConfig.GameTopUIHeight, GagGameRender.guiCam.viewportWidth, GagGameConfig.GameTopUIHeight);
+			GagGameRender.batcher.setColor(1, 1, 1, 1);
+		}
+
+		//Draw UI of Property
+		{
+			DrawPropertyUI();
+		}
+
+		//if( GagGameConfig.ShowFps && gagWorld.m_Editor.isEnable )
+		if( GagGameConfig.ShowFps )
+		{
+			GagGameRender.DrawString("FPS:"+Gdx.graphics.getFramesPerSecond(), 0.5f, 0.5f, FontLayout_X.FontLayout_X_Right, FontLayout_Y.FontLayout_Y_Up);
+			GagGameRender.DrawString(0, Gdx.graphics.getHeight(), "Camera:x="+gagWorld.m_Camera.x+", y="+gagWorld.m_Camera.y, 0.5f, 0.5f);
+			GagGameRender.DrawString(0, Gdx.graphics.getHeight()-12f, "Player:x="+gagWorld.m_Player.postion.x+", y="+gagWorld.m_Player.postion.y, 0.5f, 0.5f);
+			
+			if( gagWorld.m_PropertyUI.choosePos!=null )
+			{
+				GagGameRender.DrawString(300, Gdx.graphics.getHeight(), "Choose:x="+gagWorld.m_PropertyUI.choosePos.x+", y="+gagWorld.m_PropertyUI.choosePos.y, 0.5f, 0.5f);
+			}
+			
+			Vector2 vCenter = GagGameScreen_Func.getCenterPosByScreen();
+			GagGameRender.DrawString(300, Gdx.graphics.getHeight()-12, "Center:x="+vCenter.x+", y="+vCenter.y, 0.5f, 0.5f);
+			GagGameRender.DrawString(300, Gdx.graphics.getHeight()-24, "Mouse:x="+Gdx.input.getX(0)+", y="+Gdx.input.getY(0), 0.5f, 0.5f);
+		}
+		
+		if( gagWorld.m_Editor.topString!=null )
+		{
+			GagGameRender.DrawString(gagWorld.m_Editor.topString_x, gagWorld.m_Editor.topString_y, gagWorld.m_Editor.topString, 1.0f, 1.0f);
+		}
+		
 		switch( gagWorld.m_WorldState )
 		{
 			case WorldState_FadeIn:
@@ -124,25 +201,6 @@ public class GagGameWorldRender {
 					GagGameRender.batcher.setColor(1, 1, 1, 1);
 				}
 				break;
-		}
-
-		//Draw UI of top
-		{
-			GagGameRender.batcher.setColor(0, 0, 0, 1);
-			GagGameRender.batcher.draw(Assets.testTex, 0, GagGameRender.guiCam.viewportHeight-GagGameConfig.GameTopUIHeight, GagGameRender.guiCam.viewportWidth, GagGameConfig.GameTopUIHeight);
-			GagGameRender.batcher.setColor(1, 1, 1, 1);
-		}
-
-
-		//if( GagGameConfig.ShowFps && gagWorld.m_Editor.isEnable )
-		if( GagGameConfig.ShowFps )
-		{
-			GagGameRender.DrawString("FPS:"+Gdx.graphics.getFramesPerSecond(), 0.5f, 0.5f, FontLayout_X.FontLayout_X_Right, FontLayout_Y.FontLayout_Y_Up);
-		}
-		
-		if( gagWorld.m_Editor.topString!=null )
-		{
-			GagGameRender.DrawString(gagWorld.m_Editor.topString_x, gagWorld.m_Editor.topString_y, gagWorld.m_Editor.topString, 1.0f, 1.0f);
 		}
 	}
 	
@@ -310,6 +368,45 @@ public class GagGameWorldRender {
 		if( treasure.enable==false )
 		{
 			GagGameRender.DrawTexByCenter(GagGameAssets.disableTex, treasure.postion.x, treasure.postion.y, treasure.bounds.width, treasure.bounds.height/8, false, false);
+		}
+	}
+	
+	public static void DrawPropertyUI()
+	{
+		GagWorld gagWorld = GagGameScreen.m_GagWorld;
+		GagGamePropertyUI propertyUI = gagWorld.m_PropertyUI;
+		
+		if( propertyUI.show )
+		{
+			//Draw Back
+			float w = propertyUI.w/3;
+			float h = propertyUI.h;
+			
+			float x = propertyUI.x-w;
+			float y = propertyUI.y;
+			
+			Texture keyFrame = Assets.testTex;
+			
+			GagGameRender.batcher.setColor(0.2f, 0.0f, 0.0f, 0.5f);
+			GagGameRender.DrawTexByCenter(keyFrame, x, y, w, h, false, false);
+			
+			x+=w;
+			GagGameRender.batcher.setColor(0.0f, 0.2f, 0.0f, 0.5f);
+			GagGameRender.DrawTexByCenter(keyFrame, x, y, w, h, false, false);
+			
+			x+=w;
+			GagGameRender.batcher.setColor(0.0f, 0.0f, 0.2f, 0.5f);
+			GagGameRender.DrawTexByCenter(keyFrame, x, y, w, h, false, false);
+			
+			GagGameRender.batcher.setColor(1, 1, 1, 1);
+			
+			if( propertyUI.chooseObject!=null )
+			{
+				DrawObjectByType( propertyUI.chooseObject.objectType, 
+					 					propertyUI.x, propertyUI.y, 
+					 					propertyUI.chooseObject.bounds.width, 
+					 					propertyUI.chooseObject.bounds.height );
+			}
 		}
 	}
 }

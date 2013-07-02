@@ -92,7 +92,7 @@ public class GagGameCamera_Func {
 					{
 						float x = Gdx.input.getX(i);
 						float y = Gdx.input.getY(i);
-						if( GagGameUI_Func.isInGameScreen(x, y) && world.m_Camera.isTouched==false )
+						if( GagGameScreen_Func.isInGameScreen(x, y) && world.m_Camera.isTouched==false )
 						{
 							world.m_Camera.touchStartX = x;
 							world.m_Camera.touchStartY = y;
@@ -106,7 +106,7 @@ public class GagGameCamera_Func {
 					{
 						float x = Gdx.input.getX(i);
 						float y = Gdx.input.getY(i);
-						if( GagGameUI_Func.isInGameScreen(x, y) &&
+						if( GagGameScreen_Func.isInGameScreen(x, y) &&
 							 world.m_Camera.isTouched==true &&
 							 world.m_Camera.touchID==i )
 						{

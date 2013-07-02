@@ -80,25 +80,7 @@ public class GagGameObject_Func {
 		}
 	}
 	
-	public static void updatePlayerPosByTouchTreasurePage(boolean bTouched, float TouchX, float TouchY, GagWorld world)
-	{
-		TouchY = Gdx.graphics.getHeight() - TouchY;
-		boolean bTouchNextPage = pointInObject(TouchX, TouchY, world.m_NextPage);
-		boolean bTouchPrePage = pointInObject(TouchX, TouchY, world.m_PrePage);
-		
-		if( bTouched && ( bTouchNextPage || bTouchPrePage ) )
-		{
-			if( bTouchNextPage )
-			{
-				GagGameUI_Func.nextPageByTreasures(world);
-			}
 
-			if( bTouchPrePage )
-			{
-				GagGameUI_Func.prePageByTreasures(world);
-			}	
-		}
-	}
 	
 	public static boolean isTouchOutSide(float TouchX, float TouchY)
 	{

@@ -62,8 +62,8 @@ public class GagGameWorld_Func {
 		GagGameConfig.UI_treasures_spacing*=f_w;
 		GagGameConfig.UI_goLeft_x*=f_w;
 		GagGameConfig.UI_goLeft_y*=f_h;
-		GagGameConfig.CameraWidth*=f_w;
-		GagGameConfig.CameraHeight*=f_h;
+		GagGameConfig.UI_Property_w*=f_w;
+		GagGameConfig.UI_Property_h*=f_h;
 	}
 	
 	public static void initWorldConfig(GagWorld world)
@@ -311,4 +311,28 @@ public class GagGameWorld_Func {
 		world.isGameOver = true;
 	}
 	
+	public static GagGameObject getGameObjectByScreenXY( GagWorld world, float x, float y )
+	{
+		//得到游戏区域中心点坐标		
+		Vector2 posInWorld = GagGameScreen_Func.convertWindowPosToWorldPos(new Vector2(x, y), world.m_Camera);
+
+		int len = world.m_Objects.size();
+		for (int i = 0; i < len; i++)
+		{
+			GagGameObject object = world.m_Objects.get(i);
+			if( object.objectType==ObjectType.ObjectType_Treasure )
+			{
+				if( ((GagGameTreasure)object).isPickUp )
+				{
+					continue;
+				}
+			}
+			
+			if( GagGameObject_Func.pointInObject(posInWorld.x, posInWorld.y, object) )
+			{
+				return object;
+			}
+		}
+		return null;
+	}
 }

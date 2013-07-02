@@ -2,7 +2,7 @@
 <scene>
     <sceneInfo>
         <w>1800.0</w>
-        <h>480.0</h>
+        <h>400.0</h>
     </sceneInfo>
     <object id="Player">
         <x>16.0</x>

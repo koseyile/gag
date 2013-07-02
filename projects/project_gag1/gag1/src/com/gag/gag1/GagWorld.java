@@ -17,8 +17,10 @@ import com.gag.gag1.func.GagGameDataLoad_Func;
 import com.gag.gag1.func.GagGameObject_Func;
 import com.gag.gag1.func.GagGameObject_Func.InputState;
 import com.gag.gag1.func.GagGameInput_Func;
+import com.gag.gag1.func.GagGamePropertyUI_Func;
 import com.gag.gag1.func.GagGameRender;
 import com.gag.gag1.func.GagGameSceneEditor_Func;
+import com.gag.gag1.func.GagGameTreasureUI_Func;
 import com.gag.gag1.func.GagGameTreasure_Func;
 import com.gag.gag1.func.GagGameWorld_Func;
 import com.gag.gag1.struct.GagGameDoor;
@@ -68,7 +70,8 @@ public class GagWorld {
 	public Rectangle worldBound;
 	public boolean isGameOver;
 	
-	public GagGameUI m_UI;
+	public GagGameTreasureUI m_UI;
+	public GagGamePropertyUI m_PropertyUI;
 	public GagGameCamera m_Camera;
 	
 	public GagGameEditor m_Editor;
@@ -82,7 +85,8 @@ public class GagWorld {
 		GagGameWorld_Func.initWorld(this);
 		
 		worldBound = new Rectangle(0, 0, 800, 600);
-		m_UI = new GagGameUI();
+		m_UI = new GagGameTreasureUI();
+		m_PropertyUI = new GagGamePropertyUI();
 		m_Camera = new GagGameCamera();
 		m_Editor = new GagGameEditor();
 	}
@@ -99,9 +103,9 @@ public class GagWorld {
 	{
 		for(int i=0; i<m_Input.m_TouchInfos.size(); ++i)
 		{
-			GagGameObject_Func.updatePlayerPosByTouchTreasurePage( m_Input.m_TouchInfos.get(i).isTouched, Gdx.input.getX(i), Gdx.input.getY(i), this );
+			GagGameTreasureUI_Func.updateByTouchTreasurePage( m_Input.m_TouchInfos.get(i).isTouched, Gdx.input.getX(i), Gdx.input.getY(i), this );
 		}
-
+		GagGamePropertyUI_Func.update(this);
 		GagGameCamera_Func.updateCamera(this);
 	}
 	
@@ -256,7 +260,7 @@ public class GagWorld {
 						if( Math.abs(speed2-speed1)>=GagGameConfig.DownSpeedDead )
 						{
 							GagGameWorld_Func.gameOver(this);
-						}		
+						}
 					}
 				}
 				

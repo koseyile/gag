@@ -14,7 +14,7 @@ import com.badlogicgames.superjumper.Animation;
 import com.badlogicgames.superjumper.Assets;
 import com.gag.gag1.GagWorld.SceneID;
 import com.gag.gag1.func.GagGameRender;
-import com.gag.gag1.func.GagGameUI_Func;
+import com.gag.gag1.func.GagGameTreasureUI_Func;
 import com.gag.gag1.func.GagGameWorld_Func;
 import com.gag.gag1.struct.GagGamePlayer;
 
@@ -27,8 +27,8 @@ public class GagGameScreen implements Screen {
 		
 		GagGameWorld_Func.checkWorld();
 		
-		m_GagWorld = new GagWorld();
 		GagGameWorld_Func.initWorldConfigByGraphic();
+		m_GagWorld = new GagWorld();
 //		GagGameWorld_Func.setWorldBound(m_GagWorld, 0, GagGameConfig.GameBottomUIHeight, 
 //												  Gdx.graphics.getWidth(), 
 //												  Gdx.graphics.getHeight()-GagGameConfig.GameBottomUIHeight-GagGameConfig.GameTopUIHeight);
@@ -38,7 +38,7 @@ public class GagGameScreen implements Screen {
 											     Gdx.graphics.getHeight());
 
 		//GagGameWorld_Func.initWorldConfig(m_GagWorld);
-		GagGameUI_Func.initUI(m_GagWorld);
+		GagGameTreasureUI_Func.initUI(m_GagWorld);
 		GagGameWorld_Func.loadScene(SceneID.SceneID_1, m_GagWorld);
 	}
 	

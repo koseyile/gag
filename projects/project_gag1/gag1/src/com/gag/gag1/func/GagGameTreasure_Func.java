@@ -18,7 +18,7 @@ public class GagGameTreasure_Func {
 			treasure.isPickUp = true;
 			treasure.isInWorld = false;
 			
-			GagGameUI_Func.updateAllTreasureByUI(world);
+			GagGameTreasureUI_Func.updateAllTreasureByUI(world);
 		}
 	}
 	
@@ -223,7 +223,7 @@ public class GagGameTreasure_Func {
 				{
 					world.m_Treasures.remove(i);
 					world.m_Objects.remove(treasure);
-					GagGameUI_Func.updateAllTreasureByUI(world);
+					GagGameTreasureUI_Func.updateAllTreasureByUI(world);
 					break;
 				}
 			}
