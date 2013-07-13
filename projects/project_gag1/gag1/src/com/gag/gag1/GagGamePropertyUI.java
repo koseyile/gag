@@ -12,19 +12,43 @@ public class GagGamePropertyUI {
 		PropertyType_treasure,
 	};
 	
+	public enum PropertyState
+	{
+		PropertyState_hide,
+		PropertyState_step1,
+		PropertyState_stpe2,
+		PropertyState_show,
+	};
+	
 	public float x;
 	public float y;
 	public float w;
 	public float h;
 	
-	public boolean show;
+	public PropertyState propertyState;
 	
-	public float touchStartX;
-	public float touchStartY;
+	public float touchDownX;
+	public float touchDownY;
+	public float touchUpX;
+	public float touchUpY;
+	
 	public int touchID;
 	
 	public GagGameObject chooseObject;
 	public Vector2 choosePos;
+	
+	public int curPropertyIndex;
+	public int curPropertyChooseIndex;
+	
+	public int nextIndexFrames;
+	public int preIndexFrames;
+	
+	public int addValueFrames;
+	public int subValueFrames;
+	
+	public float curAddValue;
+	public float curSubValue;
+	
 	public GagGamePropertyUI()
 	{
 		x = 0f;
@@ -32,13 +56,25 @@ public class GagGamePropertyUI {
 		w = GagGameConfig.UI_Property_w;
 		h = GagGameConfig.UI_Property_h;
 		
-		show = false;
+		propertyState = PropertyState.PropertyState_hide;
 
-		touchStartX = 0;
-		touchStartY = 0;
+		touchDownX = 0;
+		touchDownY = 0;
 		touchID = -1;
 		
 		chooseObject = null;
 		choosePos = null;
+		
+		curPropertyIndex = 0;
+		curPropertyChooseIndex = 0;
+		
+		nextIndexFrames = 0;
+		preIndexFrames = 0;
+		
+		addValueFrames = 0;
+		subValueFrames = 0;
+		
+		curAddValue = 0.0f;
+		curSubValue = 0.0f;
 	}
 }

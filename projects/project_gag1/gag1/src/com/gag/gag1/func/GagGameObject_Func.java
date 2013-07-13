@@ -1,11 +1,14 @@
 package com.gag.gag1.func;
 
+import java.text.DecimalFormat;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gag.gag1.GagGameConfig;
+import com.gag.gag1.GagGamePropertyValue;
 import com.gag.gag1.GagWorld;
 import com.gag.gag1.struct.GagGameObject;
 import com.gag.gag1.struct.GagGamePlayer;
@@ -306,6 +309,102 @@ public class GagGameObject_Func {
 		}
 		
 		return false;
+	}
+	
+	public static boolean setPropertyValueByIndex( GagGameObject object,  int Index, float value )
+	{
+		if( object==null )
+		{
+			return false;
+		}
+		
+		boolean result = true;
+		switch( Index )
+		{
+			case 0:
+				{
+					object.postion.x = value;
+				}
+				break;
+			case 1:
+				{
+					object.postion.y = value;
+				}
+				break;
+			case 2:
+				{
+					object.bounds.width = value;
+				}
+				break;
+			case 3:
+				{
+					object.bounds.height = value;
+				}
+				break;
+			default:
+				{
+					result = false;
+				}
+				break;
+		}
+		
+		return result;	
+	}
+	
+	public static GagGamePropertyValue getPropertyValueByIndex( GagGameObject object,  int Index )
+	{
+		GagGamePropertyValue result = new GagGamePropertyValue();
+		
+		if( object==null )
+		{
+			return result;
+		}
+		
+		switch( Index )
+		{
+			case 0:
+				{
+					result.name = "x";
+					result.value = object.postion.x;
+				}
+				break;
+			case 1:
+				{
+					result.name = "y";
+					result.value = object.postion.y;
+				}
+				break;
+			case 2:
+				{
+					result.name = "w";
+					result.value = object.bounds.width;
+				}
+				break;
+			case 3:
+				{
+					result.name = "h";
+					result.value = object.bounds.height;
+				}
+				break;
+		}
+		
+		return result;
+	}
+	
+	public static String getPropertyStringByIndex( GagGameObject object,  int Index )
+	{
+		GagGamePropertyValue propertyValue = getPropertyValueByIndex(object, Index);
+		
+		if( propertyValue.name==null )
+		{
+			return null;
+		}
+		
+		String result = null;
+		DecimalFormat df = new DecimalFormat("#.00");
+		result = propertyValue.name+"="+df.format(propertyValue.value);
+		
+		return result;
 	}
 	
 }

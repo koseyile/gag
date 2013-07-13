@@ -17,7 +17,7 @@ public class GagGameConfig {
 	public static float UI_goLeft_y = 32f;
 	public static float UI_Property_w = 360f;
 	public static float UI_Property_h = 120f;
-
+	public static float UI_Property_FontH = 1.2f;
 	
 	public static float CameraWidth = 800f;
 	public static float CameraHeight = 480f;
@@ -61,13 +61,13 @@ public class GagGameConfig {
 	public static float DoorHeight = 64f;
 	public static String SceneFileName[] = 
 	{
-//		"data/scene_editor.xml",
+		"data/scene_editor.xml",
 		
-		"data/scene1.xml",
-		"data/scene2.xml",
-		"data/scene3.xml",
-		"data/scene4.xml",
-		"data/scene5.xml",
+//		"data/scene1.xml",
+//		"data/scene2.xml",
+//		"data/scene3.xml",
+//		"data/scene4.xml",
+//		"data/scene5.xml",
 	};
 	public static float FadeInTime = 1f;
 	public static float FadeOutTime = 1f;
@@ -135,4 +135,13 @@ public class GagGameConfig {
 	public static float cameraMoveScale = 2f;
 	
 	public static float touchStep = 2.0f;
+	public static int propertyNum = 4;
+	public static final int propertyNextIndexKey = Keys.DOWN;
+	public static final int propertyPreIndexKey = Keys.UP;
+	public static final int propertyAddKey = Keys.F2;
+	public static final int propertySubKey = Keys.F1;
+	public static final int propertyPresskeyFrames = 10;
+	public static final float propertyValueChange = 0.1f;
+	public static final float propertyValueChangeMin = 1.0f;
+	public static final float propertyValueChangeMax = 50.0f;
 }

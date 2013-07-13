@@ -7,6 +7,7 @@ import com.gag.gag1.GagGameConfig;
 import com.gag.gag1.GagGameInput;
 import com.gag.gag1.GagGameInput.TouchInfo;
 import com.gag.gag1.GagGameInput.TouchState;
+import com.gag.gag1.GagGamePropertyUI.PropertyState;
 import com.gag.gag1.GagWorld;
 import com.gag.gag1.struct.GagGamePlayer;
 import com.gag.gag1.struct.GagGamePlayer.MoveState;
@@ -110,7 +111,10 @@ public class GagGameCamera_Func {
 							 world.m_Camera.isTouched==true &&
 							 world.m_Camera.touchID==i )
 						{
-							camera.curCameraState = CameraState.CameraState_TouchingAndMoving;
+							//if( world.m_PropertyUI.propertyState!=PropertyState.PropertyState_show )
+							{
+								camera.curCameraState = CameraState.CameraState_TouchingAndMoving;
+							}
 						}
 					}
 					break;

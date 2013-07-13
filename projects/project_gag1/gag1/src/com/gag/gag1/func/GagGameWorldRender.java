@@ -10,6 +10,7 @@ import com.gag.gag1.GagGame;
 import com.gag.gag1.GagGameAssets;
 import com.gag.gag1.GagGameConfig;
 import com.gag.gag1.GagGamePropertyUI;
+import com.gag.gag1.GagGamePropertyUI.PropertyState;
 import com.gag.gag1.GagGameScreen;
 import com.gag.gag1.GagWorld;
 import com.gag.gag1.func.GagGameRender.FontLayout_X;
@@ -376,7 +377,7 @@ public class GagGameWorldRender {
 		GagWorld gagWorld = GagGameScreen.m_GagWorld;
 		GagGamePropertyUI propertyUI = gagWorld.m_PropertyUI;
 		
-		if( propertyUI.show )
+		if( propertyUI.propertyState==PropertyState.PropertyState_show )
 		{
 			//Draw Back
 			float w = propertyUI.w/3;
@@ -406,7 +407,43 @@ public class GagGameWorldRender {
 					 					propertyUI.x, propertyUI.y, 
 					 					propertyUI.chooseObject.bounds.width, 
 					 					propertyUI.chooseObject.bounds.height );
+				
+				float w_left = w;
+				float h_left = h/GagGameConfig.propertyNum;
+				float x_left = propertyUI.x-w;
+				float y_left = propertyUI.y+h/2-h_left/2;
+				float x_left_font = propertyUI.x-w-w/2+w/8;
+				float y_left_font = propertyUI.y+h/2;
+
+				for( int i=0; true; ++i )
+				{
+					String propertyStr = GagGameObject_Func.getPropertyStringByIndex(propertyUI.chooseObject, propertyUI.curPropertyIndex+i);
+					
+					if( propertyStr==null )
+					{
+						break;
+					}
+					
+					if( propertyUI.curPropertyChooseIndex==( propertyUI.curPropertyIndex+i ) )
+					{
+						GagGameRender.batcher.setColor(0.0f, 0.0f, 1.0f, 1.0f);
+						GagGameRender.DrawTexByCenter(Assets.testTex, x_left, y_left-i*h_left, w_left, h_left, false, false);
+						GagGameRender.batcher.setColor(1, 1, 1, 1);
+						
+						GagGameRender.SetFontColor(1, 1, 1, 1);
+						GagGameRender.DrawString(x_left_font, y_left_font-i*h_left, propertyStr, 0.5f, GagGameConfig.UI_Property_FontH);
+						GagGameRender.SetFontColor(1, 1, 1, 1);
+					}else{
+						GagGameRender.SetFontColor(0, 0, 0, 1);
+						GagGameRender.DrawString(x_left_font, y_left_font-i*h_left, propertyStr, 0.5f, GagGameConfig.UI_Property_FontH);
+						GagGameRender.SetFontColor(1, 1, 1, 1);
+					}
+
+				}
+				
 			}
+			
+			
 		}
 	}
 }

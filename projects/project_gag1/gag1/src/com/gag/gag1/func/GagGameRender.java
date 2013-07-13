@@ -55,21 +55,8 @@ public class GagGameRender {
 		
 		batcher.begin();
 		batcher.enableBlending();
-		
-//		{
-//			guiCam.setToOrtho( false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
-//			guiCam.position.set( Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0 );
-//			
-//			guiCam.update();
-//			batcher.setProjectionMatrix(guiCam.combined);	
-//			
-//			GagGameWorldRender.DrawBackGround(gagWorld);
-//		}
 
-		
 		{
-//			float viewW = Gdx.graphics.getWidth();
-//			float viewH = Gdx.graphics.getHeight();
 			float viewW = gagWorld.m_Camera.w;
 			float viewH = gagWorld.m_Camera.h;
 			

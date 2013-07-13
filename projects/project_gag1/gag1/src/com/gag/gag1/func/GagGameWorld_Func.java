@@ -64,6 +64,7 @@ public class GagGameWorld_Func {
 		GagGameConfig.UI_goLeft_y*=f_h;
 		GagGameConfig.UI_Property_w*=f_w;
 		GagGameConfig.UI_Property_h*=f_h;
+		GagGameConfig.UI_Property_FontH*=f_h;
 	}
 	
 	public static void initWorldConfig(GagWorld world)

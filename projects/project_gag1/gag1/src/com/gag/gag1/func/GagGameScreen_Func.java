@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.gag.gag1.GagGameCamera;
 import com.gag.gag1.GagGameConfig;
+import com.gag.gag1.GagWorld;
 
 public class GagGameScreen_Func {
 	public static boolean isInGameScreen(float x, float y)
@@ -13,6 +14,24 @@ public class GagGameScreen_Func {
 		
 		if( x>0f && x<w && 
 			 y>GagGameConfig.GameTopUIHeight && y<(h-GagGameConfig.GameBottomUIHeight)
+		  )
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean isInPropertyScreen(float x, float y, GagWorld world)
+	{
+		float w = world.m_PropertyUI.w;
+		float h = world.m_PropertyUI.h;
+		
+		float x_start = world.m_PropertyUI.x-w/2;
+		float y_start = world.m_PropertyUI.y-h/2;
+		
+		
+		if( x>x_start && x<(x_start+w) && 
+			 y>y_start && y<(y_start+h)
 		  )
 		{
 			return true;
